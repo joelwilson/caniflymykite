@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Can I Fly My Kite?</title>
-        <link href="reset.css" rel="stylesheet" type="text/css" media="all">
         <link href="style.css" rel="stylesheet" type="text/css" media="all">
+        <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Arbutus+Slab' rel='stylesheet' type='text/css'>
     </head>
 <body>
     <!-- nav: sticks to top of screen as user scrolls -->
@@ -12,7 +13,6 @@
         <a href="#" id="logo">CanIFlyMyKite?</a>
         <a href="#" id="location">Turlock, CA</a>
         <ul id="links">
-            <li id="fb_like_btn"><a href="#">FBBTN</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">Kites</a></li>
@@ -25,11 +25,13 @@
     <!-- 1st section: Answer & Wind Speed -->
     <div class="section">
         <div class="cbox" id="yes_no_box">
-            <h1>YES</h1>
+            <h1>YES!</h1>
         </div>
         <div class="cbox" id="wind_box">
-            <h1>15 MPH</h1>
-            <h2>NW</h2>
+            <ul>
+                <li><h1>15 MPH</h1></li>
+                <li><h1>NW</h1></li>
+            </ul>
         </div>
     </div>
     <!-- 2nd section: Weather box & kites we like callout-->
@@ -43,11 +45,13 @@
             </ul>
             <ul class="weather_item" id="temperature">
                 <li><img src="." alt="Temperature"/></li>
-                <li><h2 class="weather_label">Current Temp</h2></li>
+                <li><h2 class="weather_label">Temperature</h2></li>
                 <li><h2 class="weather_value">84&#176;F</h2></li>
             </ul>
         </div>
-        <a class="cbox" id="kites_we_like" href="#"><h1>See kites we enjoy.</h1></a>
+        <div id="kites_we_like" class="cbox">
+            <a href="#"><h2>Check out the kites we enjoy!</h2></a>
+        </div>
     </div>
     <!-- 3rd section: weather graph -->
     <div class="section" id="">
