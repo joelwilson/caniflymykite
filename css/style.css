@@ -6,9 +6,11 @@ body {
     margin: auto;
     line-height: 2em;
     font-size: 100%;
-    color: #0F0D0F;
+    color: ##FCFCFC;
     width: 90%; 
     min-width: 500px;
+    background-color: 
+    background-image: url("../img/debut_light.png");
 }
 
 
@@ -121,7 +123,8 @@ nav ul, img {
 }
 
 .section{
-    margin-bottom: 2.6041666666666666666666666666667%;
+    /* margin-bottom: 2.6041666666666666666666666666667%; */
+    padding: 2.6041666666666666666666666666667% 0px;
     overflow: hidden;
     clear: both;
     border-top: 3px solid #333;
