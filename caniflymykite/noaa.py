@@ -9,7 +9,16 @@ import requests
 
 URL = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
 W_ELEMENTS = ['temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust']
-
+WEATHER_DESC = {
+    ('precipitation', 'liquid'):                    'rain',
+    ('precipitation', 'snow'):                      'snow',
+    ('wind-speed', 'gust'):                         'wind_gust',
+    ('wind-speed', 'sustained'):                    'wind_speed',
+    ('direction', 'wind'):                          'wind_dir',
+    ('cloud-amount', 'total'):                      'cloud_amount',
+    ('temperature', 'hourly'):                      'temperature',
+    ('probability-of-precipitation', '12 hour'):    'rain_prob'
+}
 
 
 def get_weather(zip, elems=W_ELEMENTS):
@@ -33,32 +42,31 @@ def query_noaa(zip, elems, url=URL):
     r = requests.get(URL, params=params)
     return r.text if r.ok else None
 
+    
 def parse_xml(xml):
     '''Parses the XML structure. Returns a dict of weather attributes
-    and values.
+    and times-series. Works with the results from a single point only.
     '''
-    results = {}
-    times = {}
-    weather = {}
+    r = {'times': {}, 'weather': {}}
     root = ET.fromstring(xml)
     # get lat & lon
-    results.update(i for p in root.findall('./data/location/point') 
-                     for i in p.items())
+    r.update(i for p in root.findall('./data/location/point') 
+             for i in p.items())
     # get times by layout-key
     for n in root.findall('./data/time-layout/'):
         if n.tag == 'layout-key':
             key = n.text
-            times[key] = []
-        if n.tag != 'layout-key':
-            times[key].append(n.text[0:19])
+            r['times'][key] = []
+        if n.tag == 'start-valid-time':
+            r['times'][key].append(n.text[0:19])
     # get weather parameters
     for p in root.findall('./data/parameters/*'):
-        key = (p.tag, p.get('type'))
-        weather[key] = defaultdict(list)
-        weather[key]['time-layout'].append(p.get('time-layout'))
+        key = WEATHER_DESC[(p.tag, p.get('type'))]
+        r['weather'][key] = defaultdict(list)
+        r['weather'][key]['time-layout'] = (p.get('time-layout'))
         for v in p.findall('./value'):
-            weather[key]['values'].append(v.text)
-    pprint(weather)
+            r['weather'][key]['values'].append(v.text)
+    return r
     
 
 def isvalid(xml):
