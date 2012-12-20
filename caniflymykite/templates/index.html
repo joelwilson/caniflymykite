@@ -1,0 +1,67 @@
+﻿<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Can I Fly My Kite?</title>
+        <link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet" type="text/css" media="all">
+        <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Arbutus+Slab' rel='stylesheet' type='text/css'>
+    </head>
+<body>
+    <!-- nav: sticks to top of screen as user scrolls -->
+    <nav>
+        <a href="#" id="logo">CanIFlyMyKite?</a>
+        <a href="#" id="location">{{ location }}</a>
+        <ul id="links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Kites</a></li>
+            <li><a href="#">Home</a></li>
+        </ul>
+    </nav>
+    <div class="section cbox" id="site_name_header">
+            <h1>Can I Fly My Kite?</h1>
+    </div>
+    <!-- 1st section: Answer & Wind Speed -->
+    <div class="section">
+        <div class="cbox" id="yes_no_box">
+            {% if wind_speed >= 8 %}
+            <h1>YES!</h1>
+            {% else %}
+            <h1>no.</h1>
+            {% endif %}
+        </div>
+        <div class="cbox" id="wind_box">
+            <ul>
+                <li><h1>{{ wind_speed }} MPH</h1></li>
+                <li><h1>{{ wind_dir }}</h1></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 2nd section: Weather box & kites we like callout-->
+    <div class="section">
+        <div class="cbox" id="weather_box">
+            <h1>Weather</h1>
+            <ul class="weather_item" id="rain_chance">
+                <li><img src="." alt="Rain Chance"/></li>
+                <li><h2 class="weather_label">Rain Chance</h2></li>
+                <li><h2 class="weather_value">{{ rain_chance }}%</h2></li>
+            </ul>
+            <ul class="weather_item" id="temperature">
+                <li><img src="." alt="Temperature"/></li>
+                <li><h2 class="weather_label">Temperature</h2></li>
+                <li><h2 class="weather_value">{{ current_temp }}&#176;F</h2></li>
+            </ul>
+        </div>
+        <div id="kites_we_like" class="cbox">
+            <a href="#"><h2>Check out the kites we enjoy!</h2></a>
+        </div>
+    </div>
+    <!-- 3rd section: weather graph -->
+    <div class="section" id="">
+        <div class="cbox graph_box">
+            <div id="wind_speed_graph">GRAPH!</div>
+        </div>
+    </div>
+</body>
+</html>

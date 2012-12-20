@@ -79,7 +79,7 @@ def isvalid(xml):
 
 def mph(knots, precision=2):
     '''Converts knots to MPH.'''
-    return round(knots * 1.15078, precision)
+    return round(int(knots) * 1.15078, precision)
 
 
 def test_suite():
