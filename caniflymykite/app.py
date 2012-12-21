@@ -11,11 +11,11 @@ app = Flask(__name__)
 def main(zipcode=95382):
     w = get_weather(zipcode)
     args = {
-        'wind_speed': mph(w['weather']['wind_speed']['values'][-1]),
-        'wind_dir': w['weather']['wind_dir']['values'][-1],
-        'rain_chance': w['weather']['rain_prob']['values'][-1],
+        'wind_speed': mph(w.val('wind_speed')),
+        'wind_dir': w.val('wind_dir'),
+        'rain_chance': w.val('rain_prob'),
         'location': zipcode,
-        'current_temp': w['weather']['temperature']['values'][-1]
+        'current_temp': w.val('temperature')
     }
     return render_template('index.html', **args)
 

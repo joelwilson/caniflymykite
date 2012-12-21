@@ -1,4 +1,5 @@
 import xml.etree.cElementTree as ET
+from datetime import datetime
 
 from collections import defaultdict
 from datetime import datetime
@@ -7,8 +8,8 @@ import requests
 
 
 URL = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
-W_ELEMENTS = ['temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust']
-WEATHER_DESC = {
+NOAA_ELEMENTS = ['temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust']
+XML_WEATHER_MAP = {
     ('precipitation', 'liquid'):                    'rain',
     ('precipitation', 'snow'):                      'snow',
     ('wind-speed', 'gust'):                         'wind_gust',
@@ -21,14 +22,38 @@ WEATHER_DESC = {
 }
 
 
-def get_weather(zip, elems=W_ELEMENTS):
+class Weather(object):
+    '''Container class for storing and retrieving weather data.
+    Input is the XML response text retrieved from an NOAA query. Weather 
+    elements are accessed by name using the val() function.
+    '''
+    def __init__(self, xml):
+        if isvalid(xml):
+            parsed = parse_xml(xml)
+        else:
+            return None
+        self.latlon = (parsed['latitude'], parsed['longitude'])
+        self.times = parsed['times']
+        self.weather = parsed['weather']
+    
+    def val(self, element, when=datetime.utcnow()):
+        '''Given a weather element type and optional datetime object,
+        returns the weather value closest to when.'''
+        times = self.times[self.weather[element]['time-layout']]
+        closest = min(times, key=lambda t: (when - t).total_seconds())
+        index = times.index(closest)
+        print element, self.weather[element]['values'][index], closest
+        return self.weather[element]['values'][index]
+
+
+def get_weather(zip, elems=NOAA_ELEMENTS):
     '''Returns weather data for a zip code as an instance of a weather
     data class.'''
     if not elems:
         elems = ['maxt', 'qpf', 'snow', 'pop12', 'sky', 
                 'wdir', 'wspd', 'wgust']
     xml = query_noaa(zip, elems)
-    return parse_xml(xml) if isvalid(xml) else None
+    return Weather(xml)
 
 
 def query_noaa(zip, elems, url=URL):
@@ -57,10 +82,11 @@ def parse_xml(xml):
             key = n.text
             r['times'][key] = []
         if n.tag == 'start-valid-time':
-            r['times'][key].append(n.text[0:19])
+            r['times'][key].append(datetime.strptime(n.text[0:19], 
+                '%Y-%m-%dT%H:%M:%S'))
     # weather parameters
     for p in root.findall('./data/parameters/*'):
-        key = WEATHER_DESC[(p.tag, p.get('type'))]
+        key = XML_WEATHER_MAP[(p.tag, p.get('type'))]
         r['weather'][key] = defaultdict(list)
         r['weather'][key]['time-layout'] = (p.get('time-layout'))
         for v in p.findall('./value'):
@@ -93,4 +119,4 @@ def test_suite():
     assert get_weather(90210)
     return 'tests pass!'
     
-print test_suite()
+#print test_suite()
