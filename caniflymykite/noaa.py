@@ -21,6 +21,9 @@ XML_WEATHER_MAP = {
     ('weather', None):                              'weather'
 }
 
+class WeatherError(Exception):
+    pass
+
 
 class Weather(object):
     '''Container class for storing and retrieving weather data.
@@ -28,10 +31,10 @@ class Weather(object):
     elements are accessed by name using the val() function.
     '''
     def __init__(self, xml):
-        if isvalid(xml):
-            parsed = parse_xml(xml)
+        if not isvalid(xml):
+            raise WeatherError, 'Invalid XML data: \n{0}'.format(xml)
         else:
-            return None
+            parsed = parse_xml(xml)
         self.latlon = (parsed['latitude'], parsed['longitude'])
         self.times = parsed['times']
         self.weather = parsed['weather']
@@ -42,8 +45,16 @@ class Weather(object):
         times = self.times[self.weather[element]['time-layout']]
         closest = min(times, key=lambda t: (when - t).total_seconds())
         index = times.index(closest)
-        print element, self.weather[element]['values'][index], closest
         return self.weather[element]['values'][index]
+        
+    def __repr__(self):
+        items = {
+            'name': self.__class__.__name__,
+            'latlon': self.latlon, 
+            'times': self.times.keys(),
+            'wx': self.weather.keys()
+        }
+        return "{name}({latlon}, {times}, {wx})".format(**items)
 
 
 def get_weather(zip, elems=NOAA_ELEMENTS):
