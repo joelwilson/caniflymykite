@@ -114,7 +114,6 @@ nav ul, img {
     margin-top: 90px;
     margin-bottom: 25px;
     margin-left: 1.302083333333333333333333333333%;
-    padding-left: 50px;
     line-height: 50px;
     font-size: 3.5em;
     
@@ -125,7 +124,6 @@ nav ul, img {
 }
 
 .section{
-    /* margin-bottom: 2.6041666666666666666666666666667%; */
     padding: 2.6041666666666666666666666666667% 0px;
     overflow: hidden;
     clear: both;
@@ -150,12 +148,26 @@ nav ul, img {
     height: 150px;
 }
 
-#wind_box h1{
-    margin: 30px 0 0 5%;
+#wind_box h1 {
+    margin: 50px 0 0 40px;
+}
+
+#wind_box h2 {
+    margin: 0.5em 0 0 65px;
+}
+
+#wind_box img {
+    float: left;
+    width: 32px;
+    height: 32px;
+    position: relative;
+    top: 15px;
+    margin-right: 30px;
 }
 
 #wind_box ul {
-    margin-left: 20%;
+    list-style: none;
+    display: inline;
 }
 
 #weather_box {
@@ -177,7 +189,14 @@ nav ul, img {
     padding: 0;
 }
 
-.weather_item img, h2 {
+.weather_item img {
+    float: left;
+    width: 32px;
+    height: 32px;
+    margin: 10px 0 10px 20px;
+}
+
+.weather_item h2 {
     float: left;
 }
 
@@ -185,7 +204,7 @@ nav ul, img {
     margin-left: 5.6687116564417177914110429447853%;
 }
 
-.weather_value {
+h2.weather_value {
     float: right;
     margin-left: 0px;
 }

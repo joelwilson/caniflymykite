@@ -33,8 +33,8 @@
         </div>
         <div class="cbox" id="wind_box">
             <ul>
-                <li><h1>{{ wind_speed }} MPH</h1></li>
-                <li><h1>{{ wind_dir }}</h1></li>
+                <li><img src="{{ url_for('static', filename='img/sock_2.jpg')}}" alt="Wind Speed"/><h1>{{ wind_speed }} MPH</h1></li>
+                <li><h2>{{ wind_dir }}</h2></li>
             </ul>
         </div>
     </div>
@@ -43,12 +43,12 @@
         <div class="cbox" id="weather_box">
             <h1>Weather</h1>
             <ul class="weather_item" id="rain_chance">
-                <li><img src="." alt="Rain Chance"/></li>
+                <li><img src="{{ url_for('static', filename='img/rain.jpg')}}" alt="Rain Chance"/></li>
                 <li><h2 class="weather_label">Rain Chance</h2></li>
                 <li><h2 class="weather_value">{{ rain_chance }}%</h2></li>
             </ul>
             <ul class="weather_item" id="temperature">
-                <li><img src="." alt="Temperature"/></li>
+                <li><img src="{{ url_for('static', filename='img/temp_r.jpg')}}" alt="Temperature"/></li>
                 <li><h2 class="weather_label">Temperature</h2></li>
                 <li><h2 class="weather_value">{{ current_temp }}&#176;F</h2></li>
             </ul>
