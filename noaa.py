@@ -7,8 +7,10 @@ from datetime import datetime
 import requests
 
 
+__all__ = ['Weather', 'get_weather', 'query_noaa', 'WeatherError',
+           'parse_xml', 'isvalid', 'mph', 'NOAA_ELEMS']
 URL = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
-NOAA_ELEMENTS = ['temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust']
+NOAA_ELEMS = ['temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust']
 XML_WEATHER_MAP = {
     ('precipitation', 'liquid'):                    'rain',
     ('precipitation', 'snow'):                      'snow',
@@ -17,9 +19,12 @@ XML_WEATHER_MAP = {
     ('direction', 'wind'):                          'wind_dir',
     ('cloud-amount', 'total'):                      'cloud_amount',
     ('temperature', 'hourly'):                      'temperature',
+    ('temperature', 'maximum'):                     'max_temp',
+    ('temperature', 'minimum'):                     'min_temp',
     ('probability-of-precipitation', '12 hour'):    'rain_prob',
     ('weather', None):                              'weather'
 }
+
 
 class WeatherError(Exception):
     pass
@@ -57,12 +62,9 @@ class Weather(object):
         return "{name}({latlon}, {times}, {wx})".format(**items)
 
 
-def get_weather(zip, elems=NOAA_ELEMENTS):
+def get_weather(zip, elems):
     '''Returns weather data for a zip code as an instance of a weather
     data class.'''
-    if not elems:
-        elems = ['maxt', 'qpf', 'snow', 'pop12', 'sky', 
-                'wdir', 'wspd', 'wgust']
     xml = query_noaa(zip, elems)
     return Weather(xml)
 
@@ -106,17 +108,19 @@ def parse_xml(xml):
     
 
 def isvalid(xml):
-    '''Returns True if the xml response contains no NOAA error message.'''
+    '''Returns True if the xml response is NOAA valid.'''
     errors = ['<h2>ERROR</h2>', '<errorMessage>', '<error>']
     for e in errors: 
         if e in xml:
             return False
+    if 'http://www.w3.org/' not in xml:
+        return False
     return True
     
 
 def mph(knots, precision=2):
     '''Converts knots to MPH.'''
-    return round(int(knots) * 1.15078, precision)
+    return round(knots * 1.15078, precision)
 
 
 def test_suite():
