@@ -8,7 +8,7 @@ import requests
 
 
 __all__ = ['Weather', 'get_weather', 'query_noaa', 'WeatherError',
-           'parse_xml', 'isvalid', 'mph', 'NOAA_ELEMS', 'heading']
+           'parse_xml', 'isvalid', 'tomph', 'NOAA_ELEMS', 'heading']
 URL = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
 NOAA_ELEMS = ['temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust']
 XML_WEATHER_MAP = {

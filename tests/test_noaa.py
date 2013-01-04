@@ -22,20 +22,20 @@ class TestNOAA():
         assert_equal(heading(315), 'NW')
         assert_equal(heading(360), 'N')
         
-    def test_mph(self):
-        assert_equal(mph(7), 8.06)
-        assert_equal(mph(14), 16.11)
-        assert_equal(mph(27), 31.07)
-        assert_equal(mph(3.81034), 4.38)
-        assert_equal(mph(1), 1.15)
-        assert_equal(mph(12.82, 4), 14.753)
-        assert_equal(mph(1, 4), 1.1508)
+    def test_tomph(self):
+        assert_equal(tomph(7), 8.06)
+        assert_equal(tomph(14), 16.11)
+        assert_equal(tomph(27), 31.07)
+        assert_equal(tomph(3.81034), 4.38)
+        assert_equal(tomph(1), 1.15)
+        assert_equal(tomph(12.82, 4), 14.753)
+        assert_equal(tomph(1, 4), 1.1508)
         
         
     @raises(TypeError)
     def test_mph_error(self):
-        mph('blah')
-        mph('15')
+        tomph('blah')
+        tomph('15')
         
         
     def test_isvalid_xml_strings(self):
