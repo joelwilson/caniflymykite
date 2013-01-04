@@ -1,8 +1,6 @@
 from nose.tools import *
-import requests
 
 from noaa import *
-import app
 
 
 class TestNOAA():
@@ -13,6 +11,17 @@ class TestNOAA():
     def tearDown(self):
         pass
 
+    def test_headings(self):
+        assert_equal(heading(0),   'N')
+        assert_equal(heading(45),  'NE')
+        assert_equal(heading(90),  'E')
+        assert_equal(heading(135), 'SE')
+        assert_equal(heading(180), 'S')
+        assert_equal(heading(225), 'SW')
+        assert_equal(heading(270), 'W')
+        assert_equal(heading(315), 'NW')
+        assert_equal(heading(360), 'N')
+        
     def test_mph(self):
         assert_equal(mph(7), 8.06)
         assert_equal(mph(14), 16.11)
@@ -59,7 +68,3 @@ class TestNOAA():
         assert_equals(w.latlon, ('37.54', '-120.85'))
         assert_is_instance(w.times, dict)
         assert_is_instance(w.weather, dict)
-    
-    
-class TestApp():
-    pass

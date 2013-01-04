@@ -8,7 +8,7 @@ import requests
 
 
 __all__ = ['Weather', 'get_weather', 'query_noaa', 'WeatherError',
-           'parse_xml', 'isvalid', 'mph', 'NOAA_ELEMS']
+           'parse_xml', 'isvalid', 'mph', 'NOAA_ELEMS', 'heading']
 URL = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
 NOAA_ELEMS = ['temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust']
 XML_WEATHER_MAP = {
@@ -48,7 +48,7 @@ class Weather(object):
         '''Given a weather element type and optional datetime object,
         returns the weather value closest to when.'''
         times = self.times[self.weather[element]['time-layout']]
-        closest = min(times, key=lambda t: (when - t).total_seconds())
+        closest = min(times, key=lambda t: abs((when - t)).total_seconds())
         index = times.index(closest)
         return self.weather[element]['values'][index]
         
@@ -62,7 +62,7 @@ class Weather(object):
         return "{name}({latlon}, {times}, {wx})".format(**items)
 
 
-def get_weather(zip, elems):
+def get_weather(zip, elems=NOAA_ELEMS):
     '''Returns weather data for a zip code as an instance of a weather
     data class.'''
     xml = query_noaa(zip, elems)
@@ -118,20 +118,16 @@ def isvalid(xml):
     return True
     
 
-def mph(knots, precision=2):
+def tomph(knots, precision=2):
     '''Converts knots to MPH.'''
-    return round(knots * 1.15078, precision)
+    return round(float(knots) * 1.15078, precision)
 
-
-def test_suite():
-    assert mph(7) == 8.06
-    assert mph(14) == 16.11
-    assert True == isvalid(query_noaa(90210, ['sky']))
-    assert True == isvalid(query_noaa(95382, ['sky', 'snow']))
-    assert False == isvalid(query_noaa(9021, ['sky']))
-    assert False == isvalid(query_noaa(902101, ['sky']))
-    assert not get_weather(911111)
-    assert get_weather(90210)
-    return 'tests pass!'
     
-#print test_suite()
+def heading(degrees):
+    '''Returns a string representation of an integer direction in degrees.
+    
+    Examples:
+        heading(360) => "N"
+        heading(45)  => "NE"
+    '''
+    pass

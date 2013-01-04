@@ -1,13 +1,13 @@
 import os
 from flask import Flask, render_template, abort
 
-from noaa import get_weather, mph, WeatherError
+from noaa import get_weather, tomph, WeatherError
 
 app = Flask(__name__)
 
 @app.route('/')
-@app.route('/zip/<int:zipcode>')
-@app.route('/<int:zipcode>')
+@app.route('/zip/<zipcode>')
+@app.route('/<zipcode>')
 def main(zipcode=95382):
     try:
         w = get_weather(zipcode)
@@ -15,7 +15,7 @@ def main(zipcode=95382):
     except WeatherError:
         abort(404)
     args = {
-        'wind_speed': mph(w.val('wind_speed')),
+        'wind_speed': tomph(w.val('wind_speed')),
         'wind_dir': w.val('wind_dir'),
         'rain_chance': w.val('rain_prob'),
         'location': zipcode,
@@ -26,5 +26,4 @@ def main(zipcode=95382):
 
     
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8080))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', debug=True)
