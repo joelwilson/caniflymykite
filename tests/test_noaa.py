@@ -8,9 +8,25 @@ class TestNOAA():
         with open('./tests/ndfdXMLclient.xml') as f:
             self.test_xml = f.read()
 
+            
     def tearDown(self):
         pass
 
+        
+    def test_between(self):
+        assert_true(between(23.4, 20, 40))
+        assert_true(between(1, 1, 10))
+        assert_true(between(10, 1, 10))
+        assert_true(between(230.928, 215, 500))
+        assert_true(between(17.5, 10, 20))
+        
+        assert_false(between(1, 2, 4))
+        assert_false(between(1.12, 1.2, 2))
+        assert_false(between(100, 1, 99))
+        assert_false(between(5.99999, 6, 10))
+        assert_false(between(31, 5, 30))
+        
+        
     def test_headings(self):
         assert_equal(heading(0),   'N')
         assert_equal(heading(45),  'NE')
@@ -21,6 +37,16 @@ class TestNOAA():
         assert_equal(heading(270), 'W')
         assert_equal(heading(315), 'NW')
         assert_equal(heading(360), 'N')
+        assert_equal(heading(325.7), 'NW')
+        assert_equal(heading(5), 'N')
+        assert_equal(heading('5'), 'N')
+        assert_equal(heading(359.3), 'N')
+        assert_equal(heading('359.3'), 'N')
+        assert_equal(heading(112.5), 'E')
+        assert_equal(heading('112.5'), 'E')
+        assert_equal(heading(110), 'E')
+        assert_equal(heading('110'), 'E')
+        
         
     def test_tomph(self):
         assert_equal(tomph(7), 8.06)
@@ -32,7 +58,7 @@ class TestNOAA():
         assert_equal(tomph(1, 4), 1.1508)
         
         
-    @raises(TypeError)
+    @raises(TypeError, ValueError)
     def test_mph_error(self):
         tomph('blah')
         tomph('15')

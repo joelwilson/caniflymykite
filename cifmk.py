@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, abort
 
-from noaa import get_weather, tomph, WeatherError
+from noaa import get_weather, tomph, heading, WeatherError
 
 app = Flask(__name__)
 
@@ -11,12 +11,11 @@ app = Flask(__name__)
 def main(zipcode=95382):
     try:
         w = get_weather(zipcode)
-        print w
     except WeatherError:
         abort(404)
     args = {
         'wind_speed': tomph(w.val('wind_speed')),
-        'wind_dir': w.val('wind_dir'),
+        'wind_dir': heading(w.val('wind_dir')),
         'rain_chance': w.val('rain_prob'),
         'location': zipcode,
         'current_temp': w.val('temperature')

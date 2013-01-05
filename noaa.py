@@ -7,7 +7,7 @@ from datetime import datetime
 import requests
 
 
-__all__ = ['Weather', 'get_weather', 'query_noaa', 'WeatherError',
+__all__ = ['Weather', 'get_weather', 'query_noaa', 'WeatherError', 'between',
            'parse_xml', 'isvalid', 'tomph', 'NOAA_ELEMS', 'heading']
 URL = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
 NOAA_ELEMS = ['temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust']
@@ -123,11 +123,32 @@ def tomph(knots, precision=2):
     return round(float(knots) * 1.15078, precision)
 
     
-def heading(degrees):
-    '''Returns a string representation of an integer direction in degrees.
+def heading(deg):
+    '''Returns a string representation of an numerical direction in degrees.
     
     Examples:
         heading(360) => "N"
-        heading(45)  => "NE"
+        heading('45')  => "NE"
     '''
-    pass
+    tick = 22.5
+    deg = float(deg)
+    head = {
+        'N1':  (0,     22.5),
+        'NE':  (22.6,  67.5),
+        'E':   (67.6,  112.5),
+        'SE':  (112.6, 157.5),
+        'S':   (157.6, 202.5),
+        'SW':  (202.6, 247.5),
+        'W':   (247.6, 292.5),
+        'NW':  (292.6, 337.5),
+        'N2':  (337.6, 360.0)
+    }
+    for key, val in head.iteritems():
+        if between(deg, *val):
+            return 'N' if key == 'N1' or key == 'N2' else key
+    return None
+    
+    
+def between(n, low, hi):
+    '''Returns True if n is between low and hi (inclusive), else False.'''
+    return True if n >= low and n <= hi else False
