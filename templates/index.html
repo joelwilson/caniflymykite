@@ -10,7 +10,7 @@
 <body>
     <!-- nav: sticks to top of screen as user scrolls -->
     <nav>
-        <a href="#" id="logo">CanIFlyMyKite?</a>
+        <a href="/" id="logo">CanIFlyMyKite?</a>
         <a href="#" id="location">{{ location }}</a>
         <ul id="links">
             <li><a href="#">About</a></li>
@@ -21,6 +21,10 @@
     </nav>
     <div class="section cbox" id="site_name_header">
             <h1>Can I Fly My Kite?</h1>
+            <form action="/get_weather" method="get">
+                <input type="text" id="location" name='location'/>
+                <button type="submit">GO</button>
+            </form>
     </div>
     <!-- 1st section: Answer & Wind Speed -->
     <div class="section">

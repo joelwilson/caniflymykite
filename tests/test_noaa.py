@@ -94,3 +94,13 @@ class TestNOAA():
         assert_equals(w.latlon, ('37.54', '-120.85'))
         assert_is_instance(w.times, dict)
         assert_is_instance(w.weather, dict)
+        
+        
+    def test_iszip(self):
+        assert_true(iszip, 90120)
+        assert_true(iszip, 12345)
+        assert_true(iszip, '90120')
+        
+        assert iszip('90120111') is False
+        assert iszip('what!') is False
+        assert iszip(102010201020) is False

@@ -8,7 +8,7 @@ import requests
 
 
 __all__ = ['Weather', 'get_weather', 'query_noaa', 'WeatherError', 'between',
-           'parse_xml', 'isvalid', 'tomph', 'NOAA_ELEMS', 'heading']
+           'parse_xml', 'isvalid', 'tomph', 'NOAA_ELEMS', 'heading', 'iszip']
 URL = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
 NOAA_ELEMS = ['temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust']
 XML_WEATHER_MAP = {
@@ -117,7 +117,16 @@ def isvalid(xml):
         return False
     return True
     
-
+    
+def iszip(zipcode):
+    '''Returns True is the provided zip code is valid.'''
+    xml = query_noaa(zipcode, ['sky'])
+    if isvalid(xml):
+        return True
+    else:
+        return False
+    
+    
 def tomph(knots, precision=2):
     '''Converts knots to MPH.'''
     return round(float(knots) * 1.15078, precision)

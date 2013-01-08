@@ -1,14 +1,19 @@
 import os
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, request, url_for, redirect, \
+    flash
 
-from noaa import get_weather, tomph, heading, WeatherError
+from noaa import get_weather, tomph, heading, WeatherError, iszip
 
 app = Flask(__name__)
 
+
 @app.route('/')
 @app.route('/zip/<zipcode>')
-@app.route('/<zipcode>')
-def main(zipcode=95382):
+def get_by_zip(zipcode=95382):
+    if not iszip(zipcode):
+        # ADD ERROR HANDLING
+        # http://flask.pocoo.org/docs/patterns/flashing/#message-flashing-pattern
+        zipcode=95382
     try:
         w = get_weather(zipcode)
     except WeatherError:
@@ -22,6 +27,11 @@ def main(zipcode=95382):
     }
     return render_template('index.html', **args)
 
+
+@app.route('/get_weather/', methods=['GET'])
+def weather_from_form():
+    return redirect(url_for('get_by_zip', 
+                            zipcode=request.args.get('location')))
 
     
 if __name__ == '__main__':

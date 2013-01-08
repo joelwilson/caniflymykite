@@ -25,6 +25,6 @@ class TestWebApp():
         urls = ['10005', '20555', '90210', '22202', '06390', '42223',
                 '07188', '12214']
         for u in urls:
-            rv = self.app.get(u)
+            rv = self.app.get('/zip/' + u)
             assert_equals(rv.status, '200 OK', msg=u)
             assert_in(u, rv.data, msg=u)
