@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+{% block title %}Error{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        h1#sad {
+            font-size: 8em;
+            margin-bottom: 50px;
+        }
+    </style>
+{% endblock %}
+{% block header %}
+    <h1 id="sad">:(</h1>
+{% endblock %}
+{% block content %}
+    <h1>{{ msg }}</h1>
+    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37561962-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+{% endblock %}

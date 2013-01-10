@@ -11,9 +11,8 @@ app = Flask(__name__)
 @app.route('/zip/<zipcode>')
 def get_by_zip(zipcode=95382):
     if not iszip(zipcode):
-        # ADD ERROR HANDLING
-        # http://flask.pocoo.org/docs/patterns/flashing/#message-flashing-pattern
-        zipcode=95382
+        print "not a valid zip! %s" % zipcode
+        return render_template('error.html', msg="Invalid zip code")
     try:
         w = get_weather(zipcode)
     except WeatherError:
@@ -36,4 +35,4 @@ def weather_from_form():
     
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)

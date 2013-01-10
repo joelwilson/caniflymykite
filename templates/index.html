@@ -1,14 +1,15 @@
 ﻿<!DOCTYPE HTML>
 <html>
     <head>
+        {% block head %}
         <meta charset="UTF-8">
-        <title>Can I Fly My Kite?</title>
+        <title>{% block title %}{% endblock %}- Can I Fly My Kite?</title>
         <link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet" type="text/css" media="all">
         <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Arbutus+Slab' rel='stylesheet' type='text/css'>
+        {% endblock %}
     </head>
 <body>
-    <!-- nav: sticks to top of screen as user scrolls -->
     <nav>
         <a href="/" id="logo">CanIFlyMyKite?</a>
         <a href="#" id="location">{{ location }}</a>
@@ -20,12 +21,15 @@
         </ul>
     </nav>
     <div class="section cbox" id="site_name_header">
+            {% block header %}
             <h1>Can I Fly My Kite?</h1>
             <form action="/get_weather" method="get">
-                <input type="text" id="location" name='location'/>
-                <button type="submit">GO</button>
+                <input type="text" value="enter zip code" id="location" name='location'/>
+                <button type="submit" id="submit">CIFMK?</button>
             </form>
+            {% endblock %}
     </div>
+    {% block content %}
     <!-- 1st section: Answer & Wind Speed -->
     <div class="section">
         <div class="cbox" id="yes_no_box">
@@ -61,11 +65,26 @@
             <a href="#"><h2>Check out the kites we enjoy!</h2></a>
         </div>
     </div>
-    <!-- 3rd section: weather graph -->
-    <div class="section" id="">
-        <div class="cbox graph_box">
-            <div id="wind_speed_graph">GRAPH!</div>
-        </div>
+    {% endblock %}
+    <div id="footer">
+        {% block footer %}
+        <h5>&copy; Copyright 2013 <a href="#">Joel Wilson</a></h5>
+        {% endblock %}
     </div>
 </body>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37561962-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
 </html>
