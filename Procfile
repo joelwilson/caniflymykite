@@ -1,1 +1,1 @@
-web: python cifmk.py
+web: gunicorn cifmk:app -w 3
