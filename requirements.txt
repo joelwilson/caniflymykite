@@ -2,6 +2,9 @@ Flask==0.9
 Jinja2==2.6
 Werkzeug==0.8.3
 distribute==0.6.27
-gunicorn==0.17.2
+logilab-astng==0.24.1
+logilab-common==0.58.3
 nose==1.2.1
+pep8==1.4
+pylint==0.26.0
 requests==1.0.4
