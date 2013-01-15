@@ -9,6 +9,7 @@ body {
     color: #1C1C1C;
     width: 90%; 
     min-width: 500px;
+    max-width: 960px;
     background-color: 
     background-image: url("./img/debut_light.png");
 }
@@ -46,8 +47,6 @@ h3 {
 nav {
     width: 100%;
     overflow: visible;
-    /* position: fixed;
-    top: 0; */
     background-color: #6E6E6E;
     height: 46px;
     line-height: 46px;
@@ -80,7 +79,6 @@ nav a#logo:hover, nav a#logo:active {
 
 nav #location {
     float: left;
-    color: #DCDCDC;
 }
 
 nav ul {
@@ -135,6 +133,8 @@ form #submit {
     border-radius: 2px;
     border: 1px solid #1C1C1C;
     font-size: 1.5em;
+    color: #FCFCFC;
+    background-color: #222;
 }
 
 .cbox {

@@ -7,11 +7,10 @@ app = Flask(__name__)
 
 
 @app.route('/')
-@app.route('/zip/<zipcode>')
+@app.route('/zip/<zipcode>/')
 def get_by_zip(zipcode=95382):
     '''Returns a page for a specific zip code, displaying wind speed, etc.'''
     if not iszip(zipcode):
-        print "not a valid zip! %s" % zipcode
         return render_template('error.html', msg="Invalid zip code")
     try:
         weather = get_weather(zipcode)
@@ -35,6 +34,23 @@ def weather_from_form():
     return redirect(url_for('get_by_zip',
                             zipcode=request.args.get('location')))
 
+
+@app.route('/about')
+def about():
+    '''Returns the rendered about page.'''
+    return render_template('index.html')
+
+
+@app.route('/kites')
+def kites():
+    '''Returns the rendered "Kites We Like" page.'''
+    return render_template('kites.html')
+
+    
+@app.route('/blog')
+def blog():
+    '''Returns the URL for the blog.'''
+    return redirect('')
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

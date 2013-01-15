@@ -44,15 +44,17 @@ class Weather(object):
         self.latlon = (parsed['latitude'], parsed['longitude'])
         self.times = parsed['times']
         self.weather = parsed['weather']
+        self.xml = xml
 
-    def val(self, element, when=datetime.utcnow()):
+    def val(self, element, when=datetime.now()):
         '''Given a weather element type and optional datetime object,
         returns the weather value closest to when.'''
         times = self.times[self.weather[element]['time-layout']]
         closest = min(times, key=lambda t: abs((when - t)).total_seconds())
         index = times.index(closest)
+        print zip(times, self.weather[element]['values']), '\n', closest, '\n', self.weather[element]['values'][index], '\n'
         return self.weather[element]['values'][index]
-
+        
     def __repr__(self):
         items = {
             'name': self.__class__.__name__,
