@@ -52,7 +52,7 @@ class Weather(object):
         times = self.times[self.weather[element]['time-layout']]
         closest = min(times, key=lambda t: abs((when - t)).total_seconds())
         index = times.index(closest)
-        print zip(times, self.weather[element]['values']), '\n', closest, '\n', self.weather[element]['values'][index], '\n'
+        #print zip(times, self.weather[element]['values']), '\n', closest, '\n', self.weather[element]['values'][index], '\n'
         return self.weather[element]['values'][index]
         
     def __repr__(self):

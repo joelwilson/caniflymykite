@@ -38,7 +38,7 @@ def weather_from_form():
 @app.route('/about')
 def about():
     '''Returns the rendered about page.'''
-    return render_template('index.html')
+    return render_template('about.html')
 
 
 @app.route('/kites')

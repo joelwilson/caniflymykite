@@ -14,10 +14,16 @@ body {
     background-image: url("./img/debut_light.png");
 }
 
-form {
+form, p {
     font-color: #1C1C1C;
-    font-family: 'Montserrat', verdana, sans-serif;
+    font-family: 'Arbutus Slab', georgia, serif;
 }
+
+a {
+    text-decoration: none;
+    color: #FCFCFC;
+}
+
     
 h1, h2, h3, h4, h5 {
     -webkit-margin-before: 0;
@@ -25,14 +31,13 @@ h1, h2, h3, h4, h5 {
     margin: 0px;
 }
 
-h2, h3, h4, h5 {
-    font-family: sans-serif;
+h1, h2, h3, h4, h5 {
+    font-family: 'Montserrat', verdana, sans-serif;
 }
 
 h1 {
     font-size: 2.5em; /* 36 px  / 16 px */
     margin: 10px 0 12px 10px;
-    font-family: 'Montserrat', verdana, sans-serif;
 }
 
 h2 {
@@ -44,6 +49,15 @@ h3 {
     font-size: 1.125em; /* 18 px / 16 px */
 }
 
+blockquote {
+    font-size: 1.25em; /* 20 px / 16 px */
+}
+
+em {
+    font-weight: bold;
+    font-style: normal;
+}
+
 nav {
     width: 100%;
     overflow: visible;
@@ -53,13 +67,11 @@ nav {
 }
 
 nav a {
-    text-decoration: none;
-    color: #FCFCFC;
     display: block;
 }
 
 nav a#logo {
-    font-family: 'Arbutus Slab', serif;
+    font-family: 'Arbutus Slab', georgia, serif;
     font-size: 1.125em;
     margin: 0 10px 0 0;
     padding: 0 10px;
@@ -252,4 +264,11 @@ h2.weather_value {
 #kites_we_like a {
     text-decoration: none;
     color: #FCFCFC;
+}
+
+#footer {
+    margin-top: 30px;
+    background-color: #6E6E6E;
+    border-top: 3px solid #333;
+    height: 3em;
 }
