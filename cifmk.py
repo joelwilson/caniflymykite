@@ -32,7 +32,7 @@ def weather_from_form():
     to the appropriate zip code page.
     '''
     return redirect(url_for('get_by_zip',
-                            zipcode=request.args.get('location')))
+                            zipcode=request.args.get('form_location')))
 
 
 @app.route('/about')
