@@ -94,7 +94,6 @@ nav #location {
 
 nav ul {
     float: right;
-    width: 50%;
 }
 
 nav li {
@@ -135,7 +134,7 @@ form {
     left: 1.302083333333333333333333333333%;
 }
 
-form #location {
+form #form_location {
     width: 30%;
     font-size: 1.5em;
 }
