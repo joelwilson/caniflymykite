@@ -1,5 +1,6 @@
 import os
-from flask import Flask, render_template, abort, request, url_for, redirect
+from flask import Flask, render_template, abort, request, url_for, redirect, \
+    send_from_directory
 
 from noaa import get_weather, tomph, heading, WeatherError, iszip
 
@@ -51,6 +52,13 @@ def kites():
 def blog():
     '''Returns the URL for the blog.'''
     return redirect('')
+
+
+@app.route('/sitemap.xml')
+@app.route('/robots.txt')
+def static_from_root():
+    '''Sends the file in the route from the static folder to the browser.'''
+    return send_from_directory(app.static_folder, request.path[1:])
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
