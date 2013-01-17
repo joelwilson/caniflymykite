@@ -10,7 +10,7 @@ body {
     width: 90%; 
     min-width: 500px;
     max-width: 960px;
-    background-image: url("./img/debut_light.png");
+    background-image: url("../../static/img/debut_light.png");
 }
 
 form, p {
