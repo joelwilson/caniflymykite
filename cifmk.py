@@ -56,6 +56,7 @@ def blog():
 
 @app.route('/sitemap.xml')
 @app.route('/robots.txt')
+@app.route('/favicon.ico')
 def static_from_root():
     '''Sends the file in the route from the static folder to the browser.'''
     return send_from_directory(app.static_folder, request.path[1:])
