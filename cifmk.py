@@ -20,7 +20,7 @@ def get_by_zip(zipcode=95382):
     args = {
         'wind_speed': tomph(weather.val('wind_speed')),
         'wind_dir': heading(weather.val('wind_dir')),
-        'rain_chance': weather.val('rain_prob'),
+        'rain_chance': int(weather.val('rain_prob')),
         'location': zipcode,
         'current_temp': weather.val('temperature')
     }

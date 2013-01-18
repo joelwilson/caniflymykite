@@ -8,6 +8,7 @@ body {
     font-size: 100%;
     color: #1C1C1C;
     width: 90%; 
+    font-family: 'Arbutus Slab', georgia, serif;
     min-width: 500px;
     max-width: 960px;
     background-image: url("../../static/img/debut_light.png");
@@ -164,7 +165,7 @@ form #submit {
     margin-right: 2.6041666666666666666666666666667%; /* equiv of 10px margin */
 }
 
-#yes_no_box h1 {
+#yes_no_box h2 {
     margin: 33px 0 0 10%;
     font-size: 6em;
     line-height: 100px; 
@@ -176,12 +177,13 @@ form #submit {
     height: 150px;
 }
 
-#wind_box h1 {
-    margin: 50px 0 0 40px;
+#wind_box h2{
+    margin: 40px 0 0 40px;
+    
 }
 
-#wind_box h2 {
-    margin: 0.5em 0 0 65px;
+#wind_box h3 {
+    margin: 0 0 0 62px;
 }
 
 #wind_box img {
@@ -195,6 +197,10 @@ form #submit {
 
 #wind_box ul {
     list-style: none;
+    padding: 0;
+    float: left;
+    width: 75%;
+    margin-left: 20%;
 }
 
 #wind_box il {
@@ -243,17 +249,18 @@ h2.weather_value {
 #kites_we_like {
     width: 23.597916666666666666666666666667%; /* 1/4 of 100%, allowing for 10px margin */
     max-width: 200px;
-    height: 225px;
+    height: 200px;
     padding-top: 30px;
 }
 
 #kites_we_like h2 {
-    height: 175px;
+    height: 150px;
     line-height: 1.25em;
     text-align: center;
-    margin: 10px 0px;
+    margin: 20px 10px;
     border: 1px solid #F22D1C;
     border-radius: 8px;
+    font-size: 1.5em;
     color: #e;
     background-color: #E34;
     padding: 25px 5px 0px 5px;
@@ -269,4 +276,8 @@ h2.weather_value {
     background-color: #6E6E6E;
     border-top: 3px solid #333;
     height: 3em;
+}
+
+#footer div {
+    margin: 0.5em 0 0 1em;
 }
