@@ -5,6 +5,7 @@ from flask import Flask, render_template, abort, request, url_for, redirect, \
 from noaa import get_weather, tomph, heading, WeatherError, iszip
 
 app = Flask(__name__)
+DEBUG = False
 
 
 @app.route('/')
@@ -18,11 +19,11 @@ def get_by_zip(zipcode=95382):
     except WeatherError:
         abort(404)
     args = {
-        'wind_speed': tomph(weather.val('wind_speed')),
-        'wind_dir': heading(weather.val('wind_dir')),
-        'rain_chance': int(weather.val('rain_prob')),
+        'wind_speed': tomph(weather.val('wind_speed', debug=DEBUG)),
+        'wind_dir': heading(weather.val('wind_dir', debug=DEBUG)),
+        'rain_chance': int(weather.val('rain_prob', debug=DEBUG)),
         'location': zipcode,
-        'current_temp': weather.val('temperature')
+        'current_temp': weather.val('temperature', debug=DEBUG)
     }
     return render_template('index.html', **args)
 
@@ -63,4 +64,4 @@ def static_from_root():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=DEBUG)

@@ -26,5 +26,5 @@ class TestWebApp():
                 '07188', '12214']
         for u in urls:
             rv = self.app.get('/zip/' + u)
-            assert_equals(rv.status, '200 OK', msg=u + rv.status)
+            assert_equals(rv.status, '301 MOVED PERMANENTLY', msg=u + rv.status)
             assert_in(u, rv.data, msg=u)
