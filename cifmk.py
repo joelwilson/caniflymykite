@@ -5,7 +5,7 @@ from flask import Flask, render_template, abort, request, url_for, redirect, \
 from noaa import get_weather, tomph, heading, WeatherError, iszip
 
 app = Flask(__name__)
-DEBUG = True
+DEBUG = False
 
 
 @app.route('/')
@@ -58,6 +58,11 @@ def kites():
 def blog():
     '''Returns the URL for the blog.'''
     return redirect('')
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 
 @app.route('/sitemap.xml')

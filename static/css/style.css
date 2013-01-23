@@ -126,9 +126,7 @@ nav ul, img {
     width: 9.25em;
     margin-top: 40px;
     margin-bottom: 25px;
-    /*margin-left: 1.302083333333333333333333333333%;*/
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 1.302083333333333333333333333333%;
     line-height: 50px;
     font-size: 3.5em;
 }
