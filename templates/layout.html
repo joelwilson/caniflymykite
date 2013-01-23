@@ -1,0 +1,60 @@
+﻿<!DOCTYPE HTML>
+<html lang='en'>
+    <head>
+        {% block head %}
+        <meta NAME="Description" CONTENT="Find out if the weather is suitable for flying your kite."/>
+        <meta name="google-site-verification" content="hy1ymJXerIWdU0_3VgSc4sQflQFoV5qI6f6r3ddc4B4" />
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>{% block title %}{% endblock %}Can I Fly My Kite?</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}"/>
+        <link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet" type="text/css" media="all"/>
+        <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Arbutus+Slab' rel='stylesheet' type='text/css'/>
+        {% endblock %}
+    </head>
+<body>
+    <nav>
+        <a href="/" id="logo">CanIFlyMyKite?</a>
+        <a href="#" id="location">{% block nav_location %}{% endblock %}</a>
+        <ul id="links">
+            <li><a href="/about">About</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/kites">Kites</a></li>
+            <li><a href="/">Home</a></li>
+        </ul>
+    </nav>
+    <div class="section cbox" id="site_name_header">
+        {% block top %}
+        {% endblock %}
+    </div>
+    <div id="content">
+        {% block content %}
+        <div>
+            <h1>BLAH!</h1>
+        </div>
+        {% endblock %}
+    </div>
+    <div id="footer">
+        {% block footer %}
+        <div>
+            &copy; Copyright 2013 <a href="mailto:joelwwilson@gmail.com">Joel Wilson</a> // <a href="http://twitter.com/joel_wilson">Twitter</a> // <a href="https://github.com/elbinray">Github</a>
+            </br>Icons by Chirps
+        </div>
+        {% endblock %}
+    </div>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-37561962-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</body>
+
+</html>

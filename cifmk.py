@@ -5,10 +5,15 @@ from flask import Flask, render_template, abort, request, url_for, redirect, \
 from noaa import get_weather, tomph, heading, WeatherError, iszip
 
 app = Flask(__name__)
-DEBUG = False
+DEBUG = True
 
 
 @app.route('/')
+@app.route('/index')
+def index():
+    '''Returns the page for the root/landing page.'''
+    return render_template('index.html')
+
 @app.route('/zip/<zipcode>/')
 def get_by_zip(zipcode=95382):
     '''Returns a page for a specific zip code, displaying wind speed, etc.'''
@@ -25,7 +30,7 @@ def get_by_zip(zipcode=95382):
         'location': zipcode,
         'current_temp': weather.val('temperature', debug=DEBUG)
     }
-    return render_template('index.html', **args)
+    return render_template('weather.html', **args)
 
 
 @app.route('/get_weather/', methods=['GET'])

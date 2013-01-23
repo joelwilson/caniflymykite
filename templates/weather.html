@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}{{ location }} - {% endblock %}
+{% block nav_location %}{{ location }}{% endblock %}
+{% block top %}
+    <h1>Can I Fly My Kite?</h1>
+{% endblock %}
+{% block content %}
+    <!-- 1st section: Answer & Wind Speed -->
+    <div class="section">
+        <div class="cbox" id="yes_no_box">
+            {% if wind_speed >= 8 and rain_chance < 15 %}
+            <h2>YES!</h2>
+            {% else %}
+            <h2>no.</h2>
+            {% endif %}
+        </div>
+        <div class="cbox" id="wind_box">
+            <ul>
+                <li><img src="{{ url_for('static', filename='img/sock_2.jpg')}}" alt="Wind Speed"/><h2>{{ wind_speed }} mph</h2></li>
+                <li><h3>{{ wind_dir }}</h3></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 2nd section: Weather box & kites we like callout-->
+    <div class="section">
+        <div class="cbox" id="weather_box">
+            <h1>Weather</h1>
+            <ul class="weather_item" id="rain_chance">
+                <li><img src="{{ url_for('static', filename='img/rain.jpg')}}" alt="Rain Chance"/></li>
+                <li><h2 class="weather_label">Rain Chance</h2></li>
+                <li><h2 class="weather_value">{{ rain_chance }}%</h2></li>
+            </ul>
+            <ul class="weather_item" id="temperature">
+                <li><img src="{{ url_for('static', filename='img/temp_r.jpg')}}" alt="Temperature"/></li>
+                <li><h2 class="weather_label">Temperature</h2></li>
+                <li><h2 class="weather_value">{{ current_temp }}&#176;F</h2></li>
+            </ul>
+        </div>
+        <div id="kites_we_like" class="cbox">
+            <a href="/kites"><h2>Check out the kites we enjoy!</h2></a>
+        </div>
+    </div>
+{% endblock %}

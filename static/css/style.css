@@ -123,9 +123,12 @@ nav ul, img {
 }
 
 #site_name_header  h1{
+    width: 9.25em;
     margin-top: 40px;
     margin-bottom: 25px;
-    margin-left: 1.302083333333333333333333333333%;
+    /*margin-left: 1.302083333333333333333333333333%;*/
+    margin-left: auto;
+    margin-right: auto;
     line-height: 50px;
     font-size: 3.5em;
 }
@@ -133,14 +136,20 @@ nav ul, img {
 form {
     position: relative;
     left: 1.302083333333333333333333333333%;
+    width: 80%;
+    margin: auto;
+    
 }
 
 form #form_location {
-    width: 30%;
+    width: 75%;
+    margin: 0 auto;
     font-size: 1.5em;
 }
 
 form #submit {
+    width: 21.99999%;
+    min-width: 4em;
     border-radius: 2px;
     border: 1px solid #1C1C1C;
     font-size: 1.5em;
@@ -276,6 +285,7 @@ h2.weather_value {
     background-color: #6E6E6E;
     border-top: 3px solid #333;
     height: 5em;
+    clear: both;
 }
 
 #footer div {
