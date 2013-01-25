@@ -2,10 +2,10 @@ import os
 from flask import Flask, render_template, abort, request, url_for, redirect, \
     send_from_directory
 
-from noaa import get_weather, tomph, heading, WeatherError, iszip
+from noaa import get_weather, tomph, heading, WeatherError, iszip, canfly
 
 app = Flask(__name__)
-DEBUG = False
+DEBUG = True
 
 
 @app.route('/')
@@ -30,6 +30,10 @@ def get_by_zip(zipcode=95382):
         'location': zipcode,
         'current_temp': weather.val('temperature', debug=DEBUG)
     }
+    print args
+    args['canfly'] = canfly(args['wind_speed'], 
+                            args['rain_chance'],
+                            args['current_temp'])
     return render_template('weather.html', **args)
 
 
@@ -71,6 +75,7 @@ def page_not_found(e):
 def static_from_root():
     '''Sends the file in the route from the static folder to the browser.'''
     return send_from_directory(app.static_folder, request.path[1:])
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

@@ -1,4 +1,5 @@
 import xml.etree.cElementTree as ET
+import random as rand
 from datetime import datetime
 
 from collections import defaultdict
@@ -8,7 +9,7 @@ import requests
 
 
 __all__ = ['Weather', 'get_weather', 'query_noaa', 'WeatherError', 'between',
-           'parse_xml', 'isvalid', 'tomph', 'NOAA_ELEMS', 'heading', 'iszip']
+           'parse_xml', 'isvalid', 'tomph', 'NOAA_ELEMS', 'heading', 'iszip', 'canfly']
 URL = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
 NOAA_ELEMS = ('temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust')
 XML_WEATHER_MAP = {
@@ -161,6 +162,38 @@ def heading(deg):
         if between(deg, *val):
             return 'N' if key == 'N1' or key == 'N2' else key
     return None
+
+
+def canfly(wind_speed, rain_chance, temperature):
+    '''Given the passed weather conditions, returns a 2-element tuple.
+
+    The first element is a short and concise string answer (ex. yes or no).
+    The second element is an optional longer, sometimes witty, string about
+    the current state of the weather.
+    
+    Example:
+        >> can_fly(15, 0, -15)
+        ('yes', '...but you might freeze.')'''
+    messages = {
+        'freezing': ['This is parka weather.', 'It is freezing!'],
+        'no_wind': ['Wind is dead out there.'],
+        'precip': ['The ground is probably wet.']
+    }
+
+    def pickmsg(key):
+        '''Returns a random choice from the dict key provided.'''
+        rand.choice(messages[key])
+
+    if wind_speed < 8:
+        return ('No', pickmsg('no_wind'))
+    else:
+        if rain_chance > 20:
+            return('No', pickmsg('precip'))
+        else:
+            if temperature <= 32:
+                return('No', pickmsg('freezing'))
+            else:
+                return('Yes', 'Why not?')
 
 
 def between(num, low, high):

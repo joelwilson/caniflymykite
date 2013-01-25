@@ -8,11 +8,8 @@
     <!-- 1st section: Answer & Wind Speed -->
     <div class="section">
         <div class="cbox" id="yes_no_box">
-            {% if wind_speed >= 8 and rain_chance < 15 %}
-            <h2>YES!</h2>
-            {% else %}
-            <h2>no.</h2>
-            {% endif %}
+            <h2>{{ canfly[0] }}</h2>
+            <h3>{{ canfly[1] }}</h3>
         </div>
         <div class="cbox" id="wind_box">
             <ul>

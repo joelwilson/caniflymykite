@@ -104,3 +104,8 @@ class TestNOAA():
         assert iszip('90120111') is False
         assert iszip('what!') is False
         assert iszip(102010201020) is False
+
+    def test_can_fly(self):
+        assert_equals(canfly(12, 0, 80)[0].upper(), 'YES')
+        assert_equals(canfly(12, 30, 65)[0].upper(), 'NO')
+        assert_equals(canfly(4, 0, 76)[0].upper(), 'NO')
