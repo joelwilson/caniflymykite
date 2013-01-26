@@ -176,15 +176,15 @@ def canfly(wind_speed, rain_chance, temperature):
         ('yes', '...but you might freeze.')'''
     messages = {
         'freezing': ['This is parka weather.', 'It is freezing!'],
-        'no_wind': ['Wind is dead out there.'],
-        'precip': ['The ground is probably wet.']
+        'no_wind': ['Wind is dead out there.', 'There is no wind.', 'Nothing is blowing.'],
+        'precip': ['The ground is probably wet.', 'It is raining or something.']
     }
 
     def pickmsg(key):
         '''Returns a random choice from the dict key provided.'''
-        rand.choice(messages[key])
+        return rand.choice(messages[key])
 
-    if wind_speed < 8:
+    if wind_speed < 5:
         return ('No', pickmsg('no_wind'))
     else:
         if rain_chance > 20:

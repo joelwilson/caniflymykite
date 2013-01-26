@@ -173,10 +173,16 @@ form #submit {
 }
 
 #yes_no_box h2 {
-    margin: 33px 0 0 10%;
+    margin: 10px 0 0 10%;
     font-size: 6em;
     line-height: 100px; 
     text-align: center;
+}
+
+#yes_no_box h3 {
+    margin: 0 0 0 10%;
+    text-align: center;
+    line-height: 1.5em;
 }
 
 #wind_box {

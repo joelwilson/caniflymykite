@@ -30,10 +30,10 @@ def get_by_zip(zipcode=95382):
         'location': zipcode,
         'current_temp': weather.val('temperature', debug=DEBUG)
     }
-    print args
     args['canfly'] = canfly(args['wind_speed'], 
                             args['rain_chance'],
                             args['current_temp'])
+    print args
     return render_template('weather.html', **args)
 
 
