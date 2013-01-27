@@ -22,19 +22,19 @@
     <div class="section">
         <div class="cbox" id="weather_box">
             <h1>Weather</h1>
-            <ul class="weather_item" id="rain_chance">
+            <ul class="weather_item">
                 <li><img src="{{ url_for('static', filename='img/rain.jpg')}}" alt="Rain Chance"/></li>
                 <li><h2 class="weather_label">Rain Chance</h2></li>
                 <li><h2 class="weather_value">{{ rain_chance }}%</h2></li>
             </ul>
-            <ul class="weather_item" id="temperature">
+            <ul class="weather_item">
                 <li><img src="{{ url_for('static', filename='img/temp_r.jpg')}}" alt="Temperature"/></li>
                 <li><h2 class="weather_label">Temperature</h2></li>
                 <li><h2 class="weather_value">{{ current_temp }}&#176;F</h2></li>
             </ul>
         </div>
-        <div id="kites_we_like" class="cbox">
-            <a href="/kites"><h2>Check out the kites we enjoy!</h2></a>
+        <div class="cbox kites_we_like">
+            <a href="/kites"><div class="text">Check out the kites we enjoy!</div></a>
         </div>
     </div>
 {% endblock %}

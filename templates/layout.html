@@ -16,27 +16,27 @@
     </head>
 <body>
     <nav>
-        <a href="/" id="logo">CanIFlyMyKite?</a>
-        <a href="#" id="location">{% block nav_location %}{% endblock %}</a>
-        <ul id="links">
+        <a href="/" class="logo">CanIFlyMyKite?</a>
+        <a href="#" class="location">{% block nav_location %}{% endblock %}</a>
+        <ul class="links">
             <li><a href="/about">About</a></li>
             <li><a href="/blog">Blog</a></li>
             <li><a href="/kites">Kites</a></li>
             <li><a href="/">Home</a></li>
         </ul>
     </nav>
-    <div class="section cbox" id="site_name_header">
+    <div class="section cbox site_name_header">
         {% block top %}
         {% endblock %}
     </div>
-    <div id="content">
+    <div class="content">
         {% block content %}
         <div>
             <h1>BLAH!</h1>
         </div>
         {% endblock %}
     </div>
-    <div id="footer">
+    <div class="footer">
         {% block footer %}
         <div>
             &copy; Copyright 2013 <a href="mailto:joelwwilson@gmail.com">Joel Wilson</a> // <a href="http://twitter.com/joel_wilson">Twitter</a> // <a href="https://github.com/elbinray">Github</a>

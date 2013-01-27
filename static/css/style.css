@@ -15,7 +15,7 @@ body {
 }
 
 form, p {
-    font-color: #1C1C1C;
+    color: #1C1C1C;
     font-family: 'Arbutus Slab', georgia, serif;
 }
 
@@ -24,29 +24,42 @@ a {
     color: #FCFCFC;
 }
 
-    
-h1, h2, h3, h4, h5 {
+h1 {
+    font-family: 'Montserrat', verdana, sans-serif;
+    font-size: 2.5em; /* 36 px  / 16 px */
     -webkit-margin-before: 0;
     -webkit-margin-after: 0;
-    margin: 0px;
-}
-
-h1, h2, h3, h4, h5 {
-    font-family: 'Montserrat', verdana, sans-serif;
-}
-
-h1 {
-    font-size: 2.5em; /* 36 px  / 16 px */
     margin: 10px 0 12px 10px;
 }
 
 h2 {
+    font-family: 'Montserrat', verdana, sans-serif;
     font-size: 2em; /* 28 px  / 16 px */
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
     margin: 10px 0 10px 10px;
 }
 
 h3 {
+    font-family: 'Montserrat', verdana, sans-serif;
     font-size: 1.125em; /* 18 px / 16 px */
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    margin: 0;
+}
+
+h4 {
+    font-family: 'Montserrat', verdana, sans-serif;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    margin: 0;
+}
+
+h5 {
+    font-family: 'Montserrat', verdana, sans-serif;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    margin: 0;
 }
 
 blockquote {
@@ -70,26 +83,23 @@ nav a {
     display: block;
 }
 
-nav a#logo {
+a.logo {
     font-family: 'Arbutus Slab', georgia, serif;
     font-size: 1.125em;
     margin: 0 10px 0 0;
     padding: 0 10px;
-}
-
-nav a#logo {
     float: left;
 }
 
-nav a#logo:visited, nav a#logo:link {
+a.logo:visited, a.logo:link {
     background-color: #222222
 }
 
-nav a#logo:hover, nav a#logo:active {
+a.logo:hover, a.logo:active {
     background-color: #333333;
 }
 
-nav #location {
+nav .location {
     float: left;
 }
 
@@ -109,7 +119,7 @@ nav ul li a{
     text-align: center;
 }
 
-nav #links a:hover{
+nav .links a:hover{
     border-color: #DDDDDD;
 }
 
@@ -118,11 +128,11 @@ nav ul, img {
     padding: 0;
 }
 
-#site_name_header {
+.site_name_header {
     width: 100%;
 }
 
-#site_name_header  h1{
+.site_name_header  h1{
     width: 9.25em;
     margin-top: 40px;
     margin-bottom: 25px;
@@ -139,13 +149,13 @@ form {
     
 }
 
-form #form_location {
+form .form_location {
     width: 75%;
     margin: 0 auto;
     font-size: 1.5em;
 }
 
-form #submit {
+form .submit {
     width: 21.99999%;
     min-width: 4em;
     border-radius: 2px;
@@ -259,32 +269,32 @@ h2.weather_value {
     margin-left: 0px;
 }
 
-#kites_we_like {
+.kites_we_like {
     width: 23.597916666666666666666666666667%; /* 1/4 of 100%, allowing for 10px margin */
     max-width: 200px;
     height: 200px;
     padding-top: 30px;
 }
 
-#kites_we_like h2 {
+.kites_we_like .text {
+    font-family: 'Montserrat', verdana, sans-serif;
+    text-align: center;
+    font-size: 1.5em;
     height: 150px;
     line-height: 1.25em;
-    text-align: center;
     margin: 20px 10px;
     border: 1px solid #F22D1C;
     border-radius: 8px;
-    font-size: 1.5em;
-    color: #e;
     background-color: #E34;
     padding: 25px 5px 0px 5px;
 }
 
-#kites_we_like a {
+.kites_we_like a {
     text-decoration: none;
     color: #FCFCFC;
 }
 
-#footer {
+.footer {
     margin-top: 30px;
     background-color: #6E6E6E;
     border-top: 3px solid #333;
@@ -292,6 +302,6 @@ h2.weather_value {
     clear: both;
 }
 
-#footer div {
+.footer div {
     margin: 0.5em 0 0 1em;
 }
