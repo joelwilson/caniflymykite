@@ -10,7 +10,7 @@ body {
     width: 90%; 
     font-family: 'Arbutus Slab', georgia, serif;
     min-width: 500px;
-    max-width: 960px;
+    max-width: 768px;
     background-image: url("../../static/img/debut_light.png");
 }
 
@@ -26,7 +26,7 @@ a {
 
 h1 {
     font-family: 'Montserrat', verdana, sans-serif;
-    font-size: 2.5em; /* 36 px  / 16 px */
+    font-size: 3em; /* 48 px  / 16 px */
     -webkit-margin-before: 0;
     -webkit-margin-after: 0;
     margin: 10px 0 12px 10px;
@@ -42,14 +42,15 @@ h2 {
 
 h3 {
     font-family: 'Montserrat', verdana, sans-serif;
-    font-size: 1.125em; /* 18 px / 16 px */
+    font-size: 1.375em; /* 22 px / 16 px */
     -webkit-margin-before: 0;
     -webkit-margin-after: 0;
-    margin: 0;
+    margin: 10px 0 10px 10px;
 }
 
 h4 {
     font-family: 'Montserrat', verdana, sans-serif;
+    font-size: 1.125em; /* 18px / 16px */
     -webkit-margin-before: 0;
     -webkit-margin-after: 0;
     margin: 0;
@@ -57,6 +58,7 @@ h4 {
 
 h5 {
     font-family: 'Montserrat', verdana, sans-serif;
+    font-size: 1em; /* 16px / 16px */
     -webkit-margin-before: 0;
     -webkit-margin-after: 0;
     margin: 0;
@@ -132,8 +134,8 @@ nav ul, img {
     width: 100%;
 }
 
-.site_name_header  h1{
-    width: 9.25em;
+.page_title {
+    width: 100%;
     margin-top: 40px;
     margin-bottom: 25px;
     margin-left: 1.302083333333333333333333333333%;
@@ -170,46 +172,46 @@ form .submit {
 }
 
 .section{
-    padding: 2.6041666666666666666666666666667% 0px;
+    padding: 2.6041666666666666666666666666667% 0;
     overflow: hidden;
     clear: both;
     border-top: 3px solid #333;
 }
 
-#yes_no_box {
+.yes_no_box {
     width: 48.697916666666666666666666666667%; /* half, allowing for 10px margin */
     height: 150px;
     margin-right: 2.6041666666666666666666666666667%; /* equiv of 10px margin */
 }
 
-#yes_no_box h2 {
+.yes_no_txt {
     margin: 10px 0 0 10%;
     font-size: 6em;
     line-height: 100px; 
     text-align: center;
 }
 
-#yes_no_box h3 {
+.yes_no_msg {
     margin: 0 0 0 10%;
     text-align: center;
     line-height: 1.5em;
 }
 
-#wind_box {
+.wind_box {
     width: 48.597916666666666666666666666667%; /* half, allowing for 10px margin */
     height: 150px;
 }
 
-#wind_box h2{
+.wind_speed {
     margin: 40px 0 0 40px;
     
 }
 
-#wind_box h3 {
+.wind_direction {
     margin: 0 0 0 62px;
 }
 
-#wind_box img {
+.wind_box img {
     float: left;
     width: 32px;
     height: 32px;
@@ -218,7 +220,7 @@ form .submit {
     margin-right: 30px;
 }
 
-#wind_box ul {
+.wind_box ul {
     list-style: none;
     padding: 0;
     float: left;
@@ -226,23 +228,23 @@ form .submit {
     margin-left: 20%;
 }
 
-#wind_box il {
+.wind_box il {
     display: inline
 }
 
-#weather_box {
+.weather_box {
     width: 73.697916666666666666666666666667%; /* 3/4 of 100%, allowing for 10px margin */
     height: 225px;
     margin-right: 1.302083333333333333333333333333%;
     padding-top: 30px;
 }
 
-#weather_box li {
+.weather_box li {
     display: inline;
     list-style: none;
 }
 
-#weather_box ul {
+.weather_box ul {
     float: left;
     margin: 12px 0 10px 4.1782729805%;
     width: 90%;
@@ -256,42 +258,49 @@ form .submit {
     margin: 10px 0 10px 20px;
 }
 
-.weather_item h2 {
+.weather_item {
     float: left;
 }
 
 .weather_label {
     margin-left: 5.6687116564417177914110429447853%;
+    float: left;
+    
 }
 
-h2.weather_value {
+.weather_value {
     float: right;
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .kites_we_like {
-    width: 23.597916666666666666666666666667%; /* 1/4 of 100%, allowing for 10px margin */
-    max-width: 200px;
+    width: 25%;
     height: 200px;
     padding-top: 30px;
 }
 
-.kites_we_like .text {
+.kite_button {
     font-family: 'Montserrat', verdana, sans-serif;
     text-align: center;
     font-size: 1.5em;
-    height: 150px;
+    width: 75%;
+    max-width: 139px;
+    min-width: 100px;
+    height: 139px;
     line-height: 1.25em;
-    margin: 20px 10px;
-    border: 1px solid #F22D1C;
+    margin: 20px auto;
+    padding: 10px 10px;
+    border: 1px solid #1C1C1C;
     border-radius: 8px;
-    background-color: #E34;
-    padding: 25px 5px 0px 5px;
-}
-
-.kites_we_like a {
+    background: #E22C33;
+    background: -moz-linear-gradient(top,  #E22C33 0%, #AF1D15 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E22C33), color-stop(100%,#AF1D15)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #E22C33 0%,#AF1D15 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #E22C33 0%,#AF1D15 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #E22C33 0%,#AF1D15 100%); /* IE10+ */
     text-decoration: none;
     color: #FCFCFC;
+    display: block;
 }
 
 .footer {
@@ -302,6 +311,7 @@ h2.weather_value {
     clear: both;
 }
 
-.footer div {
+.footer_text {
     margin: 0.5em 0 0 1em;
+    display: block;
 }
