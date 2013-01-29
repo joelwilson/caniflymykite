@@ -5,7 +5,7 @@ from flask import Flask, render_template, abort, request, url_for, redirect, \
 from noaa import get_weather, tomph, heading, WeatherError, iszip, canfly
 
 app = Flask(__name__)
-DEBUG = True
+DEBUG = False
 
 
 @app.route('/')
@@ -33,7 +33,6 @@ def get_by_zip(zipcode=95382):
     args['canfly'] = canfly(args['wind_speed'], 
                             args['rain_chance'],
                             args['current_temp'])
-    print args
     return render_template('weather.html', **args)
 
 
@@ -42,8 +41,14 @@ def weather_from_form():
     '''Extracts the user provided zip code from the form data and redirects
     to the appropriate zip code page.
     '''
-    return redirect(url_for('get_by_zip',
-                            zipcode=request.args.get('form_location')))
+    param = request.args.get('form_location'))
+    try:
+        int(param)
+        return redirect(url_for('get_by_zip',
+                                zipcode=param,
+                        code=301)
+    except ValueError:
+        abort(404)
 
 
 @app.route('/about')
@@ -61,7 +66,7 @@ def kites():
 @app.route('/blog')
 def blog():
     '''Returns the URL for the blog.'''
-    return redirect('')
+    return redirect('', code=301)
 
 
 @app.errorhandler(404)
