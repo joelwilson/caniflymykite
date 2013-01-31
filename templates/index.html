@@ -17,4 +17,17 @@
     </form>
 {% endblock %}
 {% block content %}
+    <div class="section">
+        <h2>Featured Places</h2>
+        {% for place in featured_places %}
+        <div class="col_1_3rd">
+            <ul>
+            <li><h3>{{ place['name'] }}</h3></li>
+            <li class="yesno">{{ place['canfly'][0] }}</li>
+            <li class="windspeed">{{ place['wind_speed'] }}mph</li>
+            <li class="temperature">{{ place['temperature'] }}&#8457;</li>
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}

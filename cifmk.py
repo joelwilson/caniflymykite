@@ -5,14 +5,22 @@ from flask import Flask, render_template, abort, request, url_for, redirect, \
 from noaa import get_weather, tomph, heading, WeatherError, iszip, canfly
 
 app = Flask(__name__)
-DEBUG = False
+DEBUG = True
 
 
 @app.route('/')
-@app.route('/index')
 def index():
-    '''Returns the page for the root/landing page.'''
-    return render_template('index.html')
+    '''Returns the page for the index/landing page.'''
+    featured_places = [{'name': 'San Francisco', 'zip': 94103},
+                       {'name': 'Santa Monica', 'zip': 90401},
+                       {'name': 'Seattle', 'zip': 98101}]
+    for place in featured_places:
+        w = get_weather(place['zip'])
+        place['wind_speed'] = (w.val('wind_speed'))
+        place['temperature'] = (w.val('temperature'))
+        place['canfly'] = canfly(w)
+    print featured_places
+    return render_template('index.html', featured_places=featured_places)
 
 @app.route('/zip/<zipcode>/')
 def get_by_zip(zipcode=95382):
@@ -28,11 +36,9 @@ def get_by_zip(zipcode=95382):
         'wind_dir': heading(weather.val('wind_dir', debug=DEBUG)),
         'rain_chance': int(weather.val('rain_prob', debug=DEBUG)),
         'location': zipcode,
-        'current_temp': weather.val('temperature', debug=DEBUG)
+        'current_temp': weather.val('temperature', debug=DEBUG),
+        'canfly': canfly(weather)
     }
-    args['canfly'] = canfly(args['wind_speed'], 
-                            args['rain_chance'],
-                            args['current_temp'])
     return render_template('weather.html', **args)
 
 
@@ -41,11 +47,11 @@ def weather_from_form():
     '''Extracts the user provided zip code from the form data and redirects
     to the appropriate zip code page.
     '''
-    param = request.args.get('form_location'))
+    param = request.args.get('form_location')
     try:
         int(param)
         return redirect(url_for('get_by_zip',
-                                zipcode=param,
+                                zipcode=param),
                         code=301)
     except ValueError:
         abort(404)

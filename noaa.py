@@ -1,9 +1,7 @@
 import xml.etree.cElementTree as ET
 import random as rand
 from datetime import datetime
-
 from collections import defaultdict
-from datetime import datetime
 
 import requests
 
@@ -164,16 +162,13 @@ def heading(deg):
     return None
 
 
-def canfly(wind_speed, rain_chance, temperature):
-    '''Given the passed weather conditions, returns a 2-element tuple.
+def canfly(weather):
+    '''Given the passed weather object, returns a 2-element tuple.
 
     The first element is a short and concise string answer (ex. yes or no).
     The second element is an optional longer, sometimes witty, string about
-    the current state of the weather.
-    
-    Example:
-        >> can_fly(15, 0, -15)
-        ('yes', '...but you might freeze.')'''
+    the current state of the weather.'''
+
     messages = {
         'freezing': ['This is parka weather.', 'It is freezing!'],
         'no_wind': ['Wind is dead out there.', 'There is no wind.', 'Nothing is blowing.'],
@@ -184,13 +179,13 @@ def canfly(wind_speed, rain_chance, temperature):
         '''Returns a random choice from the dict key provided.'''
         return rand.choice(messages[key])
 
-    if wind_speed < 5:
+    if tomph(weather.val('wind_speed')) < 5:
         return ('No', pickmsg('no_wind'))
     else:
-        if rain_chance > 20:
+        if weather.val('rain_prob') > 20:
             return('No', pickmsg('precip'))
         else:
-            if temperature <= 32:
+            if weather.val('temperature') <= 32:
                 return('No', pickmsg('freezing'))
             else:
                 return('Yes', 'Why not?')

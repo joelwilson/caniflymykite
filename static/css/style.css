@@ -23,44 +23,41 @@ a {
     color: #FCFCFC;
 }
 
-h1 {
+h1, h2, h3, h4, h5 {
     font-family: 'Montserrat', verdana, sans-serif;
-    font-size: 3em; /* 48 px  / 16 px */
     -webkit-margin-before: 0;
     -webkit-margin-after: 0;
+    
+}
+
+h1 {
+    font-size: 3em; /* 48 px  / 16 px */
     margin: 10px 0 12px 10px;
 }
 
 h2 {
-    font-family: 'Montserrat', verdana, sans-serif;
     font-size: 2em; /* 28 px  / 16 px */
-    -webkit-margin-before: 0;
-    -webkit-margin-after: 0;
     margin: 10px 0 10px 10px;
 }
 
 h3 {
-    font-family: 'Montserrat', verdana, sans-serif;
     font-size: 1.375em; /* 22 px / 16 px */
-    -webkit-margin-before: 0;
-    -webkit-margin-after: 0;
     margin: 10px 0 10px 10px;
 }
 
 h4 {
-    font-family: 'Montserrat', verdana, sans-serif;
     font-size: 1.125em; /* 18px / 16px */
-    -webkit-margin-before: 0;
-    -webkit-margin-after: 0;
     margin: 0;
 }
 
 h5 {
-    font-family: 'Montserrat', verdana, sans-serif;
     font-size: 1em; /* 16px / 16px */
-    -webkit-margin-before: 0;
-    -webkit-margin-after: 0;
     margin: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
 }
 
 blockquote {
@@ -220,15 +217,9 @@ form .submit {
 }
 
 .wind_box ul {
-    list-style: none;
-    padding: 0;
     float: left;
     width: 75%;
     margin-left: 20%;
-}
-
-.wind_box il {
-    display: inline
 }
 
 .weather_box {
@@ -240,7 +231,6 @@ form .submit {
 
 .weather_box li {
     display: inline;
-    list-style: none;
 }
 
 .weather_box ul {
@@ -300,6 +290,12 @@ form .submit {
     text-decoration: none;
     color: #FCFCFC;
     display: block;
+}
+
+.col_1_3rd {
+    width: 30%;
+    margin: 0 1.6666666%;
+    float: left;
 }
 
 .footer {
