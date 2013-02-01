@@ -14,10 +14,6 @@ body {
     background-image: url("../../static/img/debut_light.png");
 }
 
-form, p {
-    color: #1C1C1C;
-}
-
 a {
     text-decoration: none;
     color: #FCFCFC;
@@ -32,17 +28,17 @@ h1, h2, h3, h4, h5 {
 
 h1 {
     font-size: 3em; /* 48 px  / 16 px */
-    margin: 10px 0 12px 10px;
+    margin: 10px 0 15px 0px;
 }
 
 h2 {
     font-size: 2em; /* 28 px  / 16 px */
-    margin: 10px 0 10px 10px;
+    margin: 10px 0 15px 0px;
 }
 
 h3 {
     font-size: 1.375em; /* 22 px / 16 px */
-    margin: 10px 0 10px 10px;
+    margin: 10px 0 10px 0px;
 }
 
 h4 {
@@ -61,7 +57,10 @@ ul {
 }
 
 blockquote {
-    font-size: 1.25em; /* 20 px / 16 px */
+    font-size: 1.125em; /* 20 px / 16 px */
+    border-left: 5px solid #333;
+    margin-left: 0;
+    padding-left: 1em;
 }
 
 em {
@@ -134,17 +133,18 @@ nav ul, img {
     width: 100%;
     margin-top: 40px;
     margin-bottom: 25px;
-    margin-left: 1.302083333333333333333333333333%;
     line-height: 50px;
     font-size: 3.5em;
 }
 
+.centered {
+    text-align: center;
+}
+
 form {
     position: relative;
-    left: 1.302083333333333333333333333333%;
     width: 80%;
     margin: auto;
-    
 }
 
 form .form_location {
@@ -169,7 +169,7 @@ form .submit {
 
 .section{
     padding: 2.6041666666666666666666666666667% 0;
-    overflow: hidden;
+    overflow: hidden; 
     clear: both;
     border-top: 3px solid #333;
 }
@@ -220,13 +220,6 @@ form .submit {
     float: left;
     width: 75%;
     margin-left: 20%;
-}
-
-.weather_box {
-    width: 73.697916666666666666666666666667%; /* 3/4 of 100%, allowing for 10px margin */
-    height: 225px;
-    margin-right: 1.302083333333333333333333333333%;
-    padding-top: 30px;
 }
 
 .weather_box li {
@@ -296,6 +289,30 @@ form .submit {
     width: 30%;
     margin: 0 1.6666666%;
     float: left;
+}
+
+.col_2_3rd {
+    width: 60%;
+    margin: 0 3.3333333%;
+}
+
+.box_pad {
+    padding: 0 10%;
+}
+
+.featured {
+    text-align: center;
+    margin-top: 10px;
+    border-top: 2px solid #DDDDDD;
+    border-bottom: 2px solid #DDDDDD;
+}
+
+.featured span {
+    font-size: 1.25em;
+}
+
+.featured a {
+    color: #1C1C1C;
 }
 
 .footer {
