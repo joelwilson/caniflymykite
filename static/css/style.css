@@ -143,19 +143,19 @@ nav ul, img {
 
 form {
     position: relative;
-    width: 80%;
+    width: 500px;
     margin: auto;
 }
 
 form .form_location {
-    width: 75%;
+    width: 380px;
     margin: 0 auto;
     font-size: 1.5em;
 }
 
 form .submit {
-    width: 21.99999%;
-    min-width: 4em;
+    width: 110px;
+    min-width: 4.5em;
     border-radius: 2px;
     border: 1px solid #1C1C1C;
     font-size: 1.5em;
@@ -301,6 +301,7 @@ form .submit {
 }
 
 .featured {
+    height: 100%;
     text-align: center;
     margin-top: 10px;
     border-top: 2px solid #DDDDDD;

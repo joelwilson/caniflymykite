@@ -74,6 +74,11 @@ def blog():
     return redirect('', code=301)
 
 
+@app.route('/newsletter')
+def newsletter():
+    return render_template('newsletter.html')
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
