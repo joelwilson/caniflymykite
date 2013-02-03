@@ -52,7 +52,10 @@ class Weather(object):
         closest = min(times, key=lambda t: abs((when - t)).total_seconds())
         index = times.index(closest)
         if debug:
-            print zip(times, self.weather[element]['values']), '\n', closest, '\n', self.weather[element]['values'][index], '\n'
+            print 'Element: ', element, '\n', \
+                   zip(times, self.weather[element]['values']), '\n', \
+                   closest, '\n', \
+                   self.weather[element]['values'][index], '\n'
         return self.weather[element]['values'][index]
         
     def __repr__(self):
@@ -171,8 +174,8 @@ def canfly(weather):
 
     messages = {
         'freezing': ['This is parka weather.', 'It is freezing!'],
-        'no_wind': ['Wind is dead out there.', 'There is no wind.', 'Nothing is blowing.'],
-        'precip': ['The ground is probably wet.', 'It is raining or something.']
+        'nowind': ['Not much wind.', 'Hardly a whisper.'],
+        'precip': ['Rain today!', 'It might be wet!']
     }
 
     def pickmsg(key):
@@ -180,9 +183,9 @@ def canfly(weather):
         return rand.choice(messages[key])
 
     if tomph(weather.val('wind_speed')) < 5:
-        return ('No', pickmsg('no_wind'))
+        return ('No', pickmsg('nowind'))
     else:
-        if weather.val('rain_prob') > 20:
+        if int(weather.val('rain_prob')) > int(20):
             return('No', pickmsg('precip'))
         else:
             if weather.val('temperature') <= 32:

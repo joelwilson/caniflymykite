@@ -8,11 +8,11 @@
 {% block content %}
     <!-- 1st section: Answer & Wind Speed -->
     <div class="section">
-        <div class="cbox yes_no_box">
+        <div class="yes_no_box">
             <h2 class="yes_no_txt">{{ canfly[0] }}</h2>
             <h3 class="yes_no_msg">{{ canfly[1] }}</h3>
         </div>
-        <div class="cbox wind_box">
+        <div class="wind_box">
             <ul>
                 <li><img src="{{ url_for('static', filename='img/sock_2.jpg')}}" alt="Wind Speed"/>
                     <h2 class="wind_speed">{{ wind_speed }} mph</h2></li>
@@ -22,7 +22,7 @@
     </div>
     <!-- 2nd section: Weather box & kites we like callout-->
     <div class="section">
-        <div class="cbox col_2_3rd weather_box">
+        <div class="col_2_3rd weather_box">
             <h2>Weather</h2>
             <ul class="weather_item">
                 <li><img src="{{ url_for('static', filename='img/rain.jpg')}}" alt="Rain Chance"/></li>
@@ -35,7 +35,7 @@
                 <li><h3 class="weather_value">{{ current_temp }}&#176;F</h3></li>
             </ul>
         </div>
-        <div class="cbox col_1_3rd">
+        <div class="col_1_3rd">
             <a href="/kites" class="kite_button">Check out the kites we enjoy!</a>
         </div>
     </div>

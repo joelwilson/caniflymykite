@@ -5,7 +5,7 @@ from flask import Flask, render_template, abort, request, url_for, redirect, \
 from noaa import get_weather, tomph, heading, WeatherError, iszip, canfly
 
 app = Flask(__name__)
-DEBUG = False
+DEBUG = True
 
 
 @app.route('/')
@@ -16,7 +16,7 @@ def index():
                        {'name': 'Seattle', 'zip': 98101}]
     for place in featured_places:
         w = get_weather(place['zip'])
-        place['wind_speed'] = (w.val('wind_speed'))
+        place['wind_speed'] = tomph((w.val('wind_speed')))
         place['temperature'] = (w.val('temperature'))
         place['canfly'] = canfly(w)
     return render_template('index.html', featured_places=featured_places)

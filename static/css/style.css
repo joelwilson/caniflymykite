@@ -68,6 +68,13 @@ em {
     font-style: normal;
 }
 
+.section{
+    padding: 2.6041666666666666666666666666667% 0;
+    overflow: hidden; 
+    clear: both;
+    border-top: 3px solid #333;
+}
+
 nav {
     width: 100%;
     overflow: visible;
@@ -125,13 +132,20 @@ nav ul, img {
     padding: 0;
 }
 
+.social_buttons {
+    float: right;
+}
+
 .site_name_header {
     width: 100%;
+    border-top: 0;
+    padding-top: 0;
+    top: -30px;
 }
 
 .page_title {
     width: 100%;
-    margin-top: 40px;
+    margin-top: 20px;
     margin-bottom: 25px;
     line-height: 50px;
     font-size: 3.5em;
@@ -163,21 +177,11 @@ form .submit {
     background-color: #222;
 }
 
-.cbox {
-    float: left;
-}
-
-.section{
-    padding: 2.6041666666666666666666666666667% 0;
-    overflow: hidden; 
-    clear: both;
-    border-top: 3px solid #333;
-}
-
 .yes_no_box {
     width: 48.697916666666666666666666666667%; /* half, allowing for 10px margin */
     height: 150px;
     margin-right: 2.6041666666666666666666666666667%; /* equiv of 10px margin */
+    float: left;
 }
 
 .yes_no_txt {
@@ -196,6 +200,7 @@ form .submit {
 .wind_box {
     width: 48.597916666666666666666666666667%; /* half, allowing for 10px margin */
     height: 150px;
+    float: left;
 }
 
 .wind_speed {
@@ -294,6 +299,7 @@ form .submit {
 .col_2_3rd {
     width: 60%;
     margin: 0 3.3333333%;
+    float: left;
 }
 
 .box_pad {

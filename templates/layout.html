@@ -15,6 +15,17 @@
         {% endblock %}
     </head>
 <body>
+    
+    <!-- Facebook javascript -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
     <nav>
         <a href="/" class="logo">CanIFlyMyKite?</a>
         <a href="#" class="location">{% block nav_location %}{% endblock %}</a>
@@ -25,7 +36,10 @@
             <li><a href="/">Home</a></li>
         </ul>
     </nav>
-    <div class="section cbox site_name_header">
+        <div class="social_buttons">
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+        </div>
+    <div class="section site_name_header">
         {% block top %}
         {% endblock %}
     </div>
@@ -44,6 +58,7 @@
         </span>
         {% endblock %}
     </div>
+    <!-- google analytics -->
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-37561962-1']);
