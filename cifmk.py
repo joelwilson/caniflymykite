@@ -5,7 +5,7 @@ from flask import Flask, render_template, abort, request, url_for, redirect, \
 from noaa import get_weather, tomph, heading, WeatherError, iszip, canfly
 
 app = Flask(__name__)
-DEBUG = True
+DEBUG = False
 
 
 @app.route('/')

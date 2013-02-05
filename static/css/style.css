@@ -6,7 +6,7 @@ body {
     margin: auto;
     line-height: 2em;
     font-size: 100%;
-    color: #1C1C1C;
+    color: #101010;
     width: 90%; 
     font-family: 'Arbutus Slab', georgia, serif;
     min-width: 500px;
@@ -163,18 +163,28 @@ form {
 
 form .form_location {
     width: 380px;
+    height: 28px;
     margin: 0 auto;
+    padding: 4px 6px 5px 6px;
+    border-radius: 3px;
     font-size: 1.5em;
 }
 
 form .submit {
-    width: 110px;
-    min-width: 4.5em;
-    border-radius: 2px;
-    border: 1px solid #1C1C1C;
+    width: 98px;
+    height: 39px;
+    padding: 0 3px;
+    border-radius: 3px;
+    border: 0;
     font-size: 1.5em;
     color: #FCFCFC;
     background-color: #222;
+}
+
+.tip_text {
+    font-size: 1em;
+    width: 500px;
+    margin: 0 auto;
 }
 
 .yes_no_box {
@@ -277,7 +287,7 @@ form .submit {
     line-height: 1.25em;
     margin: 20px auto;
     padding: 10px 10px;
-    border: 1px solid #1C1C1C;
+    border: 1px solid #101010;
     border-radius: 8px;
     background: #E22C33;
     background: -moz-linear-gradient(top,  #E22C33 0%, #AF1D15 100%); /* FF3.6+ */
@@ -319,7 +329,7 @@ form .submit {
 }
 
 .featured a {
-    color: #1C1C1C;
+    color: #101010;
 }
 
 .footer {
@@ -333,4 +343,5 @@ form .submit {
 .footer_text {
     margin: 0.5em 0 0 1em;
     display: block;
+    font-size: 1em;
 }

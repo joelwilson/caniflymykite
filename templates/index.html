@@ -2,6 +2,7 @@
 {% block title %}{% endblock %}
 {% block head %}
     {{ super() }}
+    <meta property="fb:admins" content="139600845" />
     <style type="text/css">
         #site_name_header h1 {
             margin-left: auto;
@@ -13,8 +14,9 @@
     <h1 class="page_title centered">Can I Fly My Kite?</h1>
     <form action="/get_weather" method="get">
         <input type="text" placeholder="enter zip code" class="form_location" name='form_location' maxlength=5 autofocus/>
-        <button type="submit" class="submit">CIFMK?</button>
+        <button type="submit" class="submit">CIFMK</button>
     </form>
+    <div class="tip_text">Enter your zip code above to get started</div>
 {% endblock %}
 {% block content %}
     <div class="section">
