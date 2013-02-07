@@ -1,12 +1,13 @@
 import xml.etree.cElementTree as ET
 import random as rand
+import math
 from datetime import datetime
 from collections import defaultdict
 
 import requests
 
 
-__all__ = ['Weather', 'get_weather', 'query_noaa', 'WeatherError', 'between',
+__all__ = ['Weather', 'get_weather', 'query_noaa', 'WeatherError',
            'parse_xml', 'isvalid', 'tomph', 'NOAA_ELEMS', 'heading', 'iszip', 'canfly']
 URL = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
 NOAA_ELEMS = ('temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust')
@@ -160,7 +161,7 @@ def heading(deg):
         'N2':  (337.6, 360.0)
     }
     for key, val in head.iteritems():
-        if between(deg, *val):
+        if _between(deg, *val):
             return 'N' if key == 'N1' or key == 'N2' else key
     return None
 
@@ -193,7 +194,40 @@ def canfly(weather):
             else:
                 return('Yes', 'Why not?')
 
+def _download_station_list(url=
+        'http://w1.weather.gov/xml/current_obs/index.xml'):
+    return requests.get(url).text
 
-def between(num, low, high):
+def parse_station_list(xmltxt):
+    root = ET.fromstring(xmltxt)
+    for station in root.iter('station'):
+        print station.findtext('station_id')
+        print station.findtext('state')
+        print station.findtext('station_name')
+    
+
+def _between(num, low, high):
     '''Returns True if num between low & high (inclusive), else False.'''
     return True if num >= low and num <= high else False
+
+
+def _closest_point(start, points):
+    '''Returns the point of the form (lat, lon) in a list of points which
+    is closest to the starting point.'''
+    return min(points, key=lambda p: _distance(start, p))
+
+
+def _distance(start, end):
+    '''Returns the distance (kilometers) between two points on the Earth.
+    
+    Uses the Spherical Law of Cosines to calculate distance.'''
+
+    R = 6371        # Earth's radius
+    start = (math.radians(start[0]), math.radians(start[1]))
+    end = (math.radians(end[0]), math.radians(end[1]))
+    d = (math.acos(math.sin(start[0]) * math.sin(end[0]) +
+         math.cos(start[0]) * math.cos(end[0]) *
+         math.cos(end[1] - start[1])) * R)
+    return (round(d, 2) if len(str(d).split('.')[0]) <= 2 else
+            round(d, 1) if len(str(d).split('.')[0]) == 3 else
+            round(d))
