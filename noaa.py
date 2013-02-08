@@ -7,7 +7,7 @@ from collections import defaultdict
 import requests
 
 
-__all__ = ['Weather', 'get_weather', 'query_noaa', 'WeatherError',
+__all__ = ['Weather', 'get_weather', 'query_noaa', 'WeatherError', 'current_conditions',
            'parse_xml', 'isvalid', 'tomph', 'NOAA_ELEMS', 'heading', 'iszip', 'canfly']
 URL = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
 NOAA_ELEMS = ('temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust')
@@ -40,11 +40,11 @@ class Weather(object):
         if not isvalid(xml):
             raise WeatherError('Invalid XML data: \n{0}'.format(xml))
         else:
-            parsed = parse_xml(xml)
+            parsed = parse_forecast_xml(xml)
         self.latlon = (parsed['latitude'], parsed['longitude'])
         self.times = parsed['times']
         self.weather = parsed['weather']
-        self.xml = xml
+        self.current_conditions = 
 
     def val(self, element, when=datetime.now(), debug=False):
         '''Given a weather element type and optional datetime object,
@@ -66,7 +66,58 @@ class Weather(object):
             'times': self.times.keys(),
             'wx': self.weather.keys()
         }
-        return "{name}({latlon}, {times}, {wx})".format(**items)
+        return '{name}({latlon}, {times}, {wx})'.format(**items)
+
+
+class StationList(object):
+    def __init__(self, station_list=None):
+        if station_list is None:
+            self.stations = get_station_list()
+        else:
+            self.stations = station_list
+        
+    def update_list(self):
+        self.stations = get_station_list()
+        
+    def __repr__(self):
+        return '{0}({1})'.format(self.__class__.__name__, self.stations)
+
+    def __str__(self):
+        return self.stations
+
+def get_station_list(url='http://w1.weather.gov/xml/current_obs/index.xml'):
+    return _parse_station_list(requests.get(url).text)
+
+
+def _parse_station_list(xmltxt):
+    root = ET.fromstring(xmltxt.encode('utf_8'))
+    list_ = []
+    for station in root.iter('station'):
+        list_.append(
+            (station.findtext('station_id'),
+             station.findtext('station_name'),
+             (float(station.findtext('latitude')),
+              float(station.findtext('longitude'))),
+             station.findtext('xml_url')))
+    return list_
+
+    
+def get_current_conditions(latlon):
+    pass
+
+def current_conditions(stationid):
+    '''Returns a dict of current weather conditions for a given stationid.'''
+    r = requests.get('http://weather.gov/xml/current_obs/{0}.xml'
+                        .format(stationid))
+    if r.status_code != 200:
+        return None
+    else:
+        root = ET.fromstring(r.text)
+        return {'location': root.findtext('location'),
+                'temperature': root.findtext('temp_f'),
+                'humidity': root.findtext('relative_humidity'),
+                'wind_dir': root.findtext('wind_degrees'),
+                'wind_speed': root.findtext('wind_kt')}
 
 
 def get_weather(zipcode, elems=NOAA_ELEMS):
@@ -88,7 +139,7 @@ def query_noaa(zipcode, elems, url=URL):
     return r.text if r.ok else None
 
 
-def parse_xml(xml):
+def parse_forecast_xml(xml):
     '''Parses the XML structure. Returns dict of weather, time series,
     latitude, and longitude values and attributes. Works with the results
     from a single point only.
@@ -193,18 +244,6 @@ def canfly(weather):
                 return('No', pickmsg('freezing'))
             else:
                 return('Yes', 'Why not?')
-
-def _download_station_list(url=
-        'http://w1.weather.gov/xml/current_obs/index.xml'):
-    return requests.get(url).text
-
-def parse_station_list(xmltxt):
-    root = ET.fromstring(xmltxt)
-    for station in root.iter('station'):
-        print station.findtext('station_id')
-        print station.findtext('state')
-        print station.findtext('station_name')
-    
 
 def _between(num, low, high):
     '''Returns True if num between low & high (inclusive), else False.'''

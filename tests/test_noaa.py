@@ -115,3 +115,16 @@ class TestNOAA():
         assert_equals(canfly(12, 0, 80)[0].upper(), 'YES')
         assert_equals(canfly(12, 30, 65)[0].upper(), 'NO')
         assert_equals(canfly(4, 0, 76)[0].upper(), 'NO')
+
+    def test_current_conditions(self):
+        assert_is_not_none(current_conditions('KP60'))
+        assert_is_not_none(current_conditions('TAPA'))
+        assert_is_not_none(current_conditions('TPLM2'))
+        assert_is_not_none(current_conditions('KBHB'))        
+        assert_is_not_none(current_conditions('KP60')['wind_speed'])
+        assert_is_not_none(current_conditions('TAPA')['wind_speed'])
+        assert_is_not_none(current_conditions('TPLM2')['wind_speed'])
+        assert_is_not_none(current_conditions('KBHB')['wind_speed'])
+        
+    def test_current_conditions(self):
+        pass
