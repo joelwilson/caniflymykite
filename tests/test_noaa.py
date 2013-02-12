@@ -75,8 +75,8 @@ class TestNOAA():
         assert_false(isvalid(query_noaa('Santa Monica', ['sky', 'pop12'])))
 
     def test_parse_xml(self):
-        assert_is_instance(parse_xml(self.test_xml), dict)
-        assert len(parse_xml(query_noaa(90210, NOAA_ELEMS))) > 1
+        assert_is_instance(parse_forecast_xml(self.test_xml), dict)
+        assert len(parse_forecast_xml(query_noaa(90210, NOAA_ELEMS))) > 1
 
     def test_get_weather(self):
         assert_raises(WeatherError, get_weather, 1985, NOAA_ELEMS)
@@ -126,5 +126,7 @@ class TestNOAA():
         assert_is_not_none(current_conditions('TPLM2')['wind_speed'])
         assert_is_not_none(current_conditions('KBHB')['wind_speed'])
         
-    def test_current_conditions(self):
-        pass
+        
+        
+class TestStationList():
+    pass
