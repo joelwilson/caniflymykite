@@ -7,7 +7,7 @@ from noaa import get_weather, tomph, heading, WeatherError, iszip, canfly, \
 
 app = Flask(__name__)
 DEBUG = False
-STATIONLIST = StationList()
+#STATIONLIST = StationList()
 
 
 @app.route('/')
@@ -35,17 +35,16 @@ def get_by_zip(zipcode=95382):
     except WeatherError:
         abort(404)
     args = {
-        'wind_dir': heading(weather.val('wind_dir', debug=DEBUG)),
         'rain_chance': int(weather.val('rain_prob', debug=DEBUG)),
         'zipcode': zipcode}
-    current_conditions = STATIONLIST.conditions(weather.latlon)
+    current_conditions = None #STATIONLIST.conditions(weather.latlon)
     if current_conditions is not None:
         args['wind_speed'] = tomph(current_conditions['wind_speed'])
         args['wind_dir'] = heading(current_conditions['wind_dir'])
         args['temperature'] = current_conditions['temperature']
     else:
         args['wind_speed'] = tomph(weather.val('wind_speed', debug=DEBUG))
-        args['wind_dir'] = tomph(weather.val('wind_dir', debug=DEBUG))
+        args['wind_dir'] = heading(weather.val('wind_dir', debug=DEBUG))
         args['temperature'] = tomph(weather.val('temperature', debug=DEBUG))
     args['canfly'] = canfly(args['wind_speed'],
                             args['rain_chance'],
