@@ -20,7 +20,9 @@ def index():
         w = get_weather(place['zip'])
         place['wind_speed'] = tomph((w.val('wind_speed')))
         place['temperature'] = (w.val('temperature'))
-        place['canfly'] = canfly(w)
+        place['canfly'] = canfly(tomph((w.val('wind_speed'))),
+                                 int(w.val('rain_prob')),
+                                 w.val('temperature'))
     return render_template('index.html', featured_places=featured_places)
 
 @app.route('/zip/<zipcode>/')
@@ -35,8 +37,7 @@ def get_by_zip(zipcode=95382):
     args = {
         'wind_dir': heading(weather.val('wind_dir', debug=DEBUG)),
         'rain_chance': int(weather.val('rain_prob', debug=DEBUG)),
-        'zipcode': zipcode,
-        'canfly': canfly(weather)}
+        'zipcode': zipcode}
     current_conditions = STATIONLIST.conditions(weather.latlon)
     if current_conditions is not None:
         args['wind_speed'] = tomph(current_conditions['wind_speed'])
@@ -46,6 +47,9 @@ def get_by_zip(zipcode=95382):
         args['wind_speed'] = tomph(weather.val('wind_speed', debug=DEBUG))
         args['wind_dir'] = tomph(weather.val('wind_dir', debug=DEBUG))
         args['temperature'] = tomph(weather.val('temperature', debug=DEBUG))
+    args['canfly'] = canfly(args['wind_speed'],
+                            args['rain_chance'],
+                            args['temperature'])
     return render_template('weather.html', **args)
 
 
