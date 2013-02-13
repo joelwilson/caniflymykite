@@ -45,7 +45,7 @@ def get_by_zip(zipcode=95382):
     else:
         args['wind_speed'] = tomph(weather.val('wind_speed', debug=DEBUG))
         args['wind_dir'] = heading(weather.val('wind_dir', debug=DEBUG))
-        args['temperature'] = tomph(weather.val('temperature', debug=DEBUG))
+        args['temperature'] = weather.val('temperature', debug=DEBUG)
     args['canfly'] = canfly(args['wind_speed'],
                             args['rain_chance'],
                             args['temperature'])
