@@ -83,7 +83,7 @@ class TestNOAA():
         assert_is_instance(get_weather(11005, NOAA_ELEMS), Weather)
         
         w = get_weather(95382, ['sky', 'wdir', 'wsp'])
-        assert_equals(w.latlon, ('37.54', '-120.85'))
+        assert_equals(w.latlon, (37.54, -120.85))
         assert_is_instance(w.times, dict)
         assert_is_instance(w.weather, dict)
         

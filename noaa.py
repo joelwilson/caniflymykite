@@ -43,7 +43,8 @@ class Weather(object):
             raise WeatherError('Invalid XML data: \n{0}'.format(xml))
         else:
             parsed = parse_forecast_xml(xml)
-        self.latlon = (parsed['latitude'], parsed['longitude'])
+        self.latlon = (float(parsed['latitude']), 
+                       float(parsed['longitude']))
         self.times = parsed['times']
         self.weather = parsed['weather']
 
@@ -86,12 +87,12 @@ class StationList(object):
         self.stations = self._parse_station_list(requests.get(self.url).text)
 
     def conditions(self, location):
-        '''Given a station ID string or lat, lon tuple, returns the current
+        '''Given a station ID string or (lat, lon) tuple, returns the current
         weather conditions.'''
         if isinstance(location, tuple):
             closest = min(self.stations, 
                           key=lambda p: _distance(location, p[2]))
-            return closest, current_conditions(closest[0])
+            return current_conditions(closest[0])
         elif isinstance(location, basestring):
             return current_conditions(location)
 
@@ -229,7 +230,7 @@ def heading(deg):
     return None
 
 
-def canfly(weather):
+def canfly(wind_speed, rain_prob, temperature):
     '''Given the passed weather object, returns a 2-element tuple.
 
     The first element is a short and concise string answer (ex. yes or no).
@@ -246,13 +247,13 @@ def canfly(weather):
         '''Returns a random choice from the dict key provided.'''
         return rand.choice(messages[key])
 
-    if tomph(weather.val('wind_speed')) < 5:
+    if tomph(wind_speed) < 5:
         return ('No', pickmsg('nowind'))
     else:
-        if int(weather.val('rain_prob')) > int(20):
+        if int(rain_prob) > int(20):
             return('No', pickmsg('precip'))
         else:
-            if weather.val('temperature') <= 32:
+            if temperature <= 32:
                 return('No', pickmsg('freezing'))
             else:
                 return('Yes', 'Why not?')
