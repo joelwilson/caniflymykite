@@ -4,6 +4,8 @@ from flask import Flask, render_template, abort, request, url_for, redirect, \
 
 from noaa import get_weather, tomph, heading, WeatherError, iszip, canfly, \
     StationList
+import geonames as gn
+
 
 app = Flask(__name__)
 DEBUG = False
