@@ -7,10 +7,10 @@ from collections import defaultdict
 import requests
 
 
-__all__ = ['Weather', 'get_weather', 'query_noaa', 'WeatherError', 
+__all__ = ['Weather', 'query_noaa', 'WeatherError', 
            'current_conditions', 'parse_forecast_xml', 'isvalid', 
            'tomph', 'NOAA_ELEMS', 'heading', 'iszip', 'canfly',
-           'StationList']
+           'StationList', 'get_forecast']
 URL = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
 NOAA_ELEMS = ('temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust')
 XML_WEATHER_MAP = {
@@ -28,21 +28,21 @@ XML_WEATHER_MAP = {
 }
 
 
-class WeatherError(Exception):
-    '''Basic exception class for exceptions in the Weather class.'''
+class ForecastError(Exception):
+    '''Basic exception class for exceptions in the Forecast class.'''
     pass
 
 
-class Weather(object):
+class Forecast(object):
     '''Container class for storing and retrieving weather data.
     Input is the XML response text retrieved from an NOAA query. Weather
     elements are accessed by name using the val() function.
     '''
-    def __init__(self, xml):
-        if not isvalid(xml):
-            raise WeatherError('Invalid XML data: \n{0}'.format(xml))
+    def __init__(self, noaa_xml):
+        if not isvalid(noaa_xml):
+            raise ForecastError('Invalid XML data: \n{0}'.format(noaa_xml))
         else:
-            parsed = parse_forecast_xml(xml)
+            parsed = parse_forecast_xml(noaa_xml)
         self.latlon = (float(parsed['latitude']), 
                        float(parsed['longitude']))
         self.times = parsed['times']
@@ -60,7 +60,7 @@ class Weather(object):
                    closest, '\n', \
                    self.weather[element]['values'][index], '\n'
         return self.weather[element]['values'][index]
-        
+
     def __repr__(self):
         items = {
             'name': self.__class__.__name__,
@@ -133,11 +133,11 @@ def current_conditions(stationid):
                 'wind_speed': root.findtext('wind_kt')}
 
 
-def get_weather(zipcode, elems=NOAA_ELEMS):
-    '''Returns weather data for a zip code as an instance of a weather
-    data class.'''
+def get_forecast(zipcode, elems=NOAA_ELEMS):
+    '''Returns forecast weather data for a zip code as an instance of a
+    forecast data class.'''
     xml = query_noaa(zipcode, elems)
-    return Weather(xml)
+    return Forecast(xml)
 
 
 def query_noaa(zipcode, elems, url=URL):
@@ -200,9 +200,14 @@ def iszip(zipcode):
         return False
 
 
-def tomph(knots, precision=2):
+def tomph(knots, precision=1):
     '''Converts knots to MPH.'''
     return round(float(knots) * 1.15078, precision)
+
+
+def ctof(temp):
+    '''Converts Celsius to Fahrenheit.'''
+    return float(temp) * 1.8 + 32
 
 
 def heading(deg):

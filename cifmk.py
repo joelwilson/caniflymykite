@@ -2,14 +2,13 @@ import os
 from flask import Flask, render_template, abort, request, url_for, redirect, \
     send_from_directory
 
-from noaa import get_weather, tomph, heading, WeatherError, iszip, canfly, \
-    StationList
+from noaa import get_forecast, tomph, heading, ForecastError, iszip, canfly, \
+    ctof
 import geonames as gn
 
 
 app = Flask(__name__)
 DEBUG = False if os.environ['CIFMK_DEBUG'] == 'False' else True
-#STATIONLIST = StationList()
 
 
 @app.route('/')
@@ -19,35 +18,39 @@ def index():
                        {'name': 'Santa Monica', 'zip': 90401},
                        {'name': 'Seattle', 'zip': 98101}]
     for place in featured_places:
-        w = get_weather(place['zip'])
-        place['wind_speed'] = tomph((w.val('wind_speed')))
-        place['temperature'] = (w.val('temperature'))
-        place['canfly'] = canfly(tomph((w.val('wind_speed'))),
-                                 int(w.val('rain_prob')),
-                                 w.val('temperature'))
+        fc = get_forecast(place['zip'])
+        cw = gn.weather(fc.latlon[0], fc.latlon[1])
+        place['wind_speed'] = tomph(cw['windSpeed'])
+        place['temperature'] = ctof(cw['temperature'])
+        place['canfly'] = canfly(cw['windSpeed'],
+                                 int(fc.val('rain_prob')),
+                                 cw['temperature'])
     return render_template('index.html', featured_places=featured_places)
 
 @app.route('/zip/<zipcode>/')
 def get_by_zip(zipcode=95382):
-    '''Returns a page for a specific zip code, displaying wind speed, etc.'''
+    '''Returns a page for a specific zip code, displaying weather info.'''
     if not iszip(zipcode):
         return render_template('error.html', msg="Invalid zip code")
     try:
-        weather = get_weather(zipcode)
-    except WeatherError:
+        fc = get_forecast(zipcode)
+        cw = gn.weather(fc.latlon[0], fc.latlon[1])
+    except ForecastError:
         abort(404)
     args = {
-        'rain_chance': int(weather.val('rain_prob', debug=DEBUG)),
+        'rain_chance': int(fc.val('rain_prob', debug=DEBUG)),
         'zipcode': zipcode}
-    current_conditions = None #STATIONLIST.conditions(weather.latlon)
-    if current_conditions is not None:
-        args['wind_speed'] = tomph(current_conditions['wind_speed'])
-        args['wind_dir'] = heading(current_conditions['wind_dir'])
-        args['temperature'] = current_conditions['temperature']
+    if cw is not None:
+        args['wind_speed'] = tomph(cw['windSpeed'])
+        try:
+            args['wind_dir'] = heading(cw['windDirection'])
+        except KeyError:
+            args['wind_dir'] = heading(fc.val('wind_dir', debug=DEBUG))
+        args['temperature'] = ctof(cw['temperature'])
     else:
-        args['wind_speed'] = tomph(weather.val('wind_speed', debug=DEBUG))
-        args['wind_dir'] = heading(weather.val('wind_dir', debug=DEBUG))
-        args['temperature'] = weather.val('temperature', debug=DEBUG)
+        args['wind_speed'] = tomph(fc.val('wind_speed', debug=DEBUG))
+        args['wind_dir'] = heading(fc.val('wind_dir', debug=DEBUG))
+        args['temperature'] = fc.val('temperature', debug=DEBUG)
     args['canfly'] = canfly(args['wind_speed'],
                             args['rain_chance'],
                             args['temperature'])
