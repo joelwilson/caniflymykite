@@ -1,10 +1,10 @@
 import json
+import os
 
 import requests
 
 
-with open('./config/config.json') as _file:
-    USERNAME = json.loads(_file.read())['geonames_user']
+USERNAME = os.environ['GEONAMES_USER']
 BASE_URL = 'http://api.geonames.org'
 
 
@@ -18,7 +18,7 @@ def search(term, num_results=25, user=USERNAME):
                              'username': user,
                              'country': 'US',
                              'featureClass': 'P'})
-    return json.loads(r.text) if r.ok else None
+    return json.loads(r.text)['geonames'] if r.ok else None
 
 
 def weather(lat, lon, user=USERNAME):
@@ -30,4 +30,4 @@ def weather(lat, lon, user=USERNAME):
                      params={'lat': lat,
                              'lng': lon,
                              'username': user})
-    return json.loads(r.text) if r.ok else None
+    return json.loads(r.text)['weatherObservation'] if r.ok else None

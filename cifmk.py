@@ -8,7 +8,7 @@ import geonames as gn
 
 
 app = Flask(__name__)
-DEBUG = False
+DEBUG = False if os.environ['CIFMK_DEBUG'] == 'False' else True
 #STATIONLIST = StationList()
 
 
