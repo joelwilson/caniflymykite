@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block title %}{{ location }} - {% endblock %}
+{% block page_description %}"Weather information for {{ location }}. Instantly find out if you can fly your kite right now in {{ location }}"{% endblock %}
+{% block nav_location %}{{ location }}{% endblock %}
+{% block top %}
+    <h1 class="page_title">Can I Fly My Kite?</h1>
+{% endblock %}
+{% block content %}
+    <!-- 1st section: Answer & Wind Speed -->
+    <div class="section">
+        <div class="yes_no_box">
+            <h2 class="yes_no_txt">{{ canfly[0] }}</h2>
+            <h3 class="yes_no_msg">{{ canfly[1] }}</h3>
+        </div>
+        <div class="wind_box">
+            <ul>
+                <li><img src="{{ url_for('static', filename='img/sock_2.jpg')}}" alt="Wind Speed"/>
+                    <h2 class="wind_speed">{{ wind_speed }} mph</h2></li>
+                <li><h3 class="wind_direction">{{ wind_dir }}</h3></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 2nd section: Weather box & kites we like callout-->
+    <div class="section">
+        <div class="col_2_3rd weather_box">
+            <h2>Weather</h2>
+            <ul class="weather_item">
+                <li><img src="{{ url_for('static', filename='img/rain.jpg')}}" alt="Rain Chance"/></li>
+                <li><h3 class="weather_label">Rain Chance</h3></li>
+                <li><h3 class="weather_value">{{ rain_chance }}%</h3></li>
+            </ul>
+            <ul class="weather_item">
+                <li><img src="{{ url_for('static', filename='img/temp_r.jpg')}}" alt="Temperature"/></li>
+                <li><h3 class="weather_label">Temperature</h3></li>
+                <li><h3 class="weather_value">{{ temperature }}&#176;F</h3></li>
+            </ul>
+        </div>
+        <div class="col_1_3rd">
+            <a href="/kites" class="kite_button">Check out the kites we enjoy!</a>
+        </div>
+    </div>
+{% endblock %}
