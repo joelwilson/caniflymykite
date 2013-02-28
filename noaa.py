@@ -134,15 +134,15 @@ def current_conditions(stationid):
 
 
 def get_forecast(zipcode, elems=NOAA_ELEMS):
-    '''Returns forecast weather data for a zip code as an instance of a
-    forecast data class.'''
+    '''Returns forecast weather data for a lat, lon as an instance of a
+    forecast class.'''
     xml = query_noaa(zipcode, elems)
     return Forecast(xml)
 
 
 def query_noaa(zipcode, elems, url=URL):
-    '''Returns the XML text returned by a query to NOAA with the passed
-    zipcode and list or tuple of weather elements, elems.'''
+    '''Returns the XML returned by a query to NOAA with the passed
+    zipcode and list or tuple of weather elements.'''
     params = {
         'zipCodeList': zipcode,
         'product': 'time-series'

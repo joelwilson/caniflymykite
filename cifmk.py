@@ -27,6 +27,7 @@ def index():
                                  cw['temperature'])
     return render_template('index.html', featured_places=featured_places)
 
+
 @app.route('/zip/<zipcode>/')
 def get_by_zip(zipcode=95382):
     '''Returns a page for a specific zip code, displaying weather info.'''
@@ -55,6 +56,12 @@ def get_by_zip(zipcode=95382):
                             args['rain_chance'],
                             args['temperature'])
     return render_template('weather.html', **args)
+
+
+@app.route('/canfly', methods=['GET'])
+def can_fly():
+    lat = request.args.get('lat').strip()
+    lon = request.args.get('lon').strip()
 
 
 @app.route('/get_weather/', methods=['GET'])
