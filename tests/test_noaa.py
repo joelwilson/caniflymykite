@@ -125,8 +125,3 @@ class TestNOAA():
         assert_is_not_none(current_conditions('TAPA')['wind_speed'])
         assert_is_not_none(current_conditions('TPLM2')['wind_speed'])
         assert_is_not_none(current_conditions('KBHB')['wind_speed'])
-        
-        
-        
-class TestStationList():
-    pass

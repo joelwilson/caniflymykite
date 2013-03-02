@@ -23,7 +23,7 @@
         <h2>Featured Places</h2>
         {% for place in featured_places %}
         <div class="col_1_3rd featured">
-            <a href="/zip/{{ place['zip'] }}">
+            <a href="/location?lat={{ place['lat'] }}&lon={{ place['lon'] }}">
             <ul class="box_pad">
                 <li><h3>{{ place['name'] }}</h3></li>
                 <li><span>{{ place['canfly'][0] }}</span></li>

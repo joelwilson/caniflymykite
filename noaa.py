@@ -1,10 +1,11 @@
 import xml.etree.cElementTree as ET
 import random as rand
-import math
 from datetime import datetime
 from collections import defaultdict
 
 import requests
+
+import utils
 
 
 __all__ = ['Weather', 'query_noaa', 'WeatherError', 
@@ -28,9 +29,14 @@ XML_WEATHER_MAP = {
 }
 
 
-class ForecastError(Exception):
+class WeatherError(Exception):
     '''Basic exception class for exceptions in the Forecast class.'''
     pass
+    
+
+class Weather(object):
+    def __init__(self, lat, lon):
+        self.current = current_conditions()
 
 
 class Forecast(object):
@@ -40,7 +46,7 @@ class Forecast(object):
     '''
     def __init__(self, noaa_xml):
         if not isvalid(noaa_xml):
-            raise ForecastError('Invalid XML data: \n{0}'.format(noaa_xml))
+            raise WeatherError('Invalid XML data: \n{0}'.format(noaa_xml))
         else:
             parsed = parse_forecast_xml(noaa_xml)
         self.latlon = (float(parsed['latitude']), 
@@ -48,7 +54,7 @@ class Forecast(object):
         self.times = parsed['times']
         self.weather = parsed['weather']
 
-    def val(self, element, when=datetime.now(), debug=False):
+    def get(self, element, when=datetime.now(), debug=False):
         '''Given a weather element type and optional datetime object,
         returns the weather value closest to when.'''
         times = self.times[self.weather[element]['time-layout']]
@@ -91,7 +97,7 @@ class StationList(object):
         weather conditions.'''
         if isinstance(location, tuple):
             closest = min(self.stations, 
-                          key=lambda p: _distance(location, p[2]))
+                          key=lambda p: utils.distance(location, p[2]))
             return current_conditions(closest[0])
         elif isinstance(location, basestring):
             return current_conditions(location)
@@ -133,18 +139,18 @@ def current_conditions(stationid):
                 'wind_speed': root.findtext('wind_kt')}
 
 
-def get_forecast(zipcode, elems=NOAA_ELEMS):
-    '''Returns forecast weather data for a lat, lon as an instance of a
-    forecast class.'''
-    xml = query_noaa(zipcode, elems)
+def forecast(lat, lon, elems=NOAA_ELEMS):
+    '''Return a Forecast object containing weather forecast for the given
+    latitude and longitude.'''
+    xml = query_noaa(lat, lon, elems)
     return Forecast(xml)
 
-
-def query_noaa(zipcode, elems, url=URL):
+def query_noaa(lat, lon, elems, url=URL):
     '''Returns the XML returned by a query to NOAA with the passed
-    zipcode and list or tuple of weather elements.'''
+    lat, lon and list or tuple of weather elements.'''
     params = {
-        'zipCodeList': zipcode,
+        'lat': lat,
+        'lon': lon,
         'product': 'time-series'
     }
     params.update((elem, elem) for elem in elems)
@@ -200,41 +206,6 @@ def iszip(zipcode):
         return False
 
 
-def tomph(knots, precision=1):
-    '''Converts knots to MPH.'''
-    return round(float(knots) * 1.15078, precision)
-
-
-def ctof(temp):
-    '''Converts Celsius to Fahrenheit.'''
-    return float(temp) * 1.8 + 32
-
-
-def heading(deg):
-    '''Returns a string representation of an numerical direction in degrees.
-
-    Examples:
-        heading(360) => "N"
-        heading('45')  => "NE"
-    '''
-    deg = float(deg)
-    head = {
-        'N1':  (0,     22.5),
-        'NE':  (22.6,  67.5),
-        'E':   (67.6,  112.5),
-        'SE':  (112.6, 157.5),
-        'S':   (157.6, 202.5),
-        'SW':  (202.6, 247.5),
-        'W':   (247.6, 292.5),
-        'NW':  (292.6, 337.5),
-        'N2':  (337.6, 360.0)
-    }
-    for key, val in head.iteritems():
-        if _between(deg, *val):
-            return 'N' if key == 'N1' or key == 'N2' else key
-    return None
-
-
 def canfly(wind_speed, rain_prob, temperature):
     '''Given the passed weather object, returns a 2-element tuple.
 
@@ -252,7 +223,7 @@ def canfly(wind_speed, rain_prob, temperature):
         '''Returns a random choice from the dict key provided.'''
         return rand.choice(messages[key])
 
-    if tomph(wind_speed) < 5:
+    if utils.tomph(wind_speed) < 5:
         return ('No', pickmsg('nowind'))
     else:
         if int(rain_prob) > int(20):
@@ -262,29 +233,3 @@ def canfly(wind_speed, rain_prob, temperature):
                 return('No', pickmsg('freezing'))
             else:
                 return('Yes', 'Why not?')
-
-
-def _between(num, low, high):
-    '''Returns True if num between low & high (inclusive), else False.'''
-    return True if num >= low and num <= high else False
-
-
-def _closest_point(start, points):
-    '''Returns the point of the form (lat, lon) in a list of points which
-    is closest to the starting point.'''
-    return min(points, key=lambda p: _distance(start, p))
-
-
-def _distance(start, end):
-    '''Returns the distance (kilometers) between two points on the Earth.
-    
-    Uses the Spherical Law of Cosines to calculate distance.'''
-    R = 6371        # Earth's radius
-    start = (math.radians(start[0]), math.radians(start[1]))
-    end = (math.radians(end[0]), math.radians(end[1]))
-    d = (math.acos(math.sin(start[0]) * math.sin(end[0]) +
-         math.cos(start[0]) * math.cos(end[0]) *
-         math.cos(end[1] - start[1])) * R)
-    return (round(d, 2) if len(str(d).split('.')[0]) <= 2 else
-            round(d, 1) if len(str(d).split('.')[0]) == 3 else
-            round(d))

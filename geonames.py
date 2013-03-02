@@ -22,7 +22,7 @@ def search(term, num_results=25, user=USERNAME):
 
 
 def weather(lat, lon, user=USERNAME):
-    '''Returns a dict current weather conditions of the station
+    '''Returns a dict of current weather conditions of the station
     closest to lat, lon.
     
     Docs: http://www.geonames.org/export/JSON-webservices.html#findNearByWeatherJSON'''
@@ -30,4 +30,10 @@ def weather(lat, lon, user=USERNAME):
                      params={'lat': lat,
                              'lng': lon,
                              'username': user})
-    return json.loads(r.text)['weatherObservation'] if r.ok else None
+    jsontext = json.loads(r.text)
+    if r.ok:
+        try:
+            return jsontext['weatherObservation']
+        except KeyError:
+            return None
+    return None
