@@ -15,9 +15,9 @@ DEBUG = False if os.environ['CIFMK_DEBUG'] == 'False' else True
 @app.route('/')
 def index():
     '''Returns the page for the index/landing page.'''
-    featured_places = [{'name': 'San Francisco', 'lat': 37.45, 'lon': -122.25},
-                       {'name': 'Santa Monica', 'lat': 34.1, 'lon': -118.29},
-                       {'name': 'Seattle', 'lat': 47.36, 'lon': -122.19}]
+    featured_places = ['San Francisco', 'lat': 37.77, 'lon': -122.419},
+                       {'name': 'Santa Monica', 'lat': 34.01, 'lon': -118.49},
+                       {'name': 'Seattle', 'lat': 47.606, 'lon': -122.33}]
     for place in featured_places:
         fc = noaa.forecast(place['lat'], place['lon'])
         cw = gn.weather(place['lat'], place['lon'])
@@ -63,11 +63,12 @@ def get_by_zip(zipcode=95382):
 def location():
     if not request.args:
         abort(404)
+    if request.args['lat'] and request.args['lon']:
+        place['weather'] = Weather(request.args['lat'], request.args['lon'])
     if request.args['q']:
         place = gn.search(request.args['q'].strip())[0]
         place['weather'] = Weather(place['lat'], place['lng'])
     return render_template('test.html', place=place)
-
 
 @app.route('/get_weather/', methods=['GET'])
 def weather_from_form():

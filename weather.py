@@ -10,8 +10,8 @@ class WeatherError(Exception):
 
 class Weather(object):
     def __init__(self, lat, lon):
-        self.forecast = noaa.forecast(lat, lon)
-        self.current = gn.weather(lat, lon)
+        self.forecast = forecast(lat, lon)
+        self.current = currentweather(lat, lon)
         self.elements = {
             'lat': float(lat),
             'lon': float(lon),
@@ -34,6 +34,14 @@ class Weather(object):
             self.elements['stationlat'] = self.current['lat']
             self.elements['stationlon'] = self.current['lng']
             self.elements['stationname'] = self.current['stationName']
+            self.elements['stationid'] = self.current['ICAO']
             
     def __getitem__(self, key):
         return self.elements[key]
+
+
+def forecast(lat, lon):
+    return noaa.forecast(lat, lon)
+
+def currentweather(lat, lon):
+    return gn.weather(lat, lon)

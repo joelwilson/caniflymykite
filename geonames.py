@@ -8,7 +8,7 @@ USERNAME = os.environ['GEONAMES_USER']
 BASE_URL = 'http://api.geonames.org'
 
 
-def search(term, num_results=25, user=USERNAME):
+def search(term, user=USERNAME):
     '''Returns a dict of results for a search to geonames.
     
     Docs: http://www.geonames.org/export/geonames-search.html
