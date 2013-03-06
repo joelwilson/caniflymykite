@@ -30,4 +30,6 @@ class TestGeonames():
     def test_weather(self):
         assert_equal(gn.weather(37.5, -120)['ICAO'], 'KMAE')
         assert_equal(gn.weather(34, -118.4)['ICAO'], 'KSMO')
+        assert_equal(gn.weather(38.5567, -121.4978)['ICAO'], 'KSAC')
+        assert_equal(gn.weather(46.2710, -119.295)['ICAO'], 'KPSC')
         

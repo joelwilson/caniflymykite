@@ -8,10 +8,8 @@ import requests
 import utils
 
 
-__all__ = ['Weather', 'query_noaa', 'WeatherError', 
-           'current_conditions', 'parse_forecast_xml', 'isvalid', 
-           'tomph', 'NOAA_ELEMS', 'heading', 'iszip', 'canfly',
-           'StationList', 'get_forecast']
+__all__ = ['query_noaa', 'ForecastError', 'parse_forecast_xml',
+           'isvalid', 'NOAA_ELEMS', 'iszip', 'canfly', 'forecast', 'Forecast']
 URL = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
 NOAA_ELEMS = ('temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust')
 XML_WEATHER_MAP = {
@@ -29,14 +27,9 @@ XML_WEATHER_MAP = {
 }
 
 
-class WeatherError(Exception):
+class ForecastError(Exception):
     '''Basic exception class for exceptions in the Forecast class.'''
     pass
-    
-
-class Weather(object):
-    def __init__(self, lat, lon):
-        self.current = current_conditions()
 
 
 class Forecast(object):
@@ -77,73 +70,12 @@ class Forecast(object):
         return '{name}({latlon}, {times}, {wx})'.format(**items)
 
 
-class StationList(object):
-    '''Class for storing, refreshing, and retrieving a list of weather
-    stations provided by weather.gov.'''
-    def __init__(self, station_list=None,
-                 url='http://w1.weather.gov/xml/current_obs/index.xml'):
-        self.url = url
-        if station_list is None:
-            self.refresh()
-        else:
-            self.stations = station_list
-
-    def refresh(self):
-        '''Fetches and parses the current station list from weather.gov.'''
-        self.stations = self._parse_station_list(requests.get(self.url).text)
-
-    def conditions(self, location):
-        '''Given a station ID string or (lat, lon) tuple, returns the current
-        weather conditions.'''
-        if isinstance(location, tuple):
-            closest = min(self.stations, 
-                          key=lambda p: utils.distance(location, p[2]))
-            return current_conditions(closest[0])
-        elif isinstance(location, basestring):
-            return current_conditions(location)
-
-    def _parse_station_list(self, xmltxt):
-        '''Given the xml text from the weather.gov station list, returns
-        a list of tuples containing the information for each station.'''
-        root = ET.fromstring(xmltxt.encode('utf_8'))
-        list_ = []
-        for station in root.iter('station'):
-            list_.append(
-                (station.findtext('station_id'),
-                 station.findtext('station_name'),
-                 (float(station.findtext('latitude')),
-                  float(station.findtext('longitude'))),
-                 station.findtext('xml_url')))
-        return list_
-
-    def __repr__(self):
-        return '{0}({1})'.format(self.__class__.__name__, self.stations[0:5])
-
-    def __str__(self):
-        return self.stations
-
-
-def current_conditions(stationid):
-    '''Returns a dict of current weather conditions for a given 
-    stationid.'''
-    r = requests.get('http://weather.gov/xml/current_obs/{0}.xml'.format(
-                     stationid))
-    if r.status_code != 200:
-        return None
-    else:
-        root = ET.fromstring(r.text)
-        return {'location': root.findtext('location'),
-                'temperature': root.findtext('temp_f'),
-                'humidity': root.findtext('relative_humidity'),
-                'wind_dir': root.findtext('wind_degrees'),
-                'wind_speed': root.findtext('wind_kt')}
-
-
 def forecast(lat, lon, elems=NOAA_ELEMS):
     '''Return a Forecast object containing weather forecast for the given
     latitude and longitude.'''
     xml = query_noaa(lat, lon, elems)
     return Forecast(xml)
+
 
 def query_noaa(lat, lon, elems, url=URL):
     '''Returns the XML returned by a query to NOAA with the passed
@@ -195,15 +127,6 @@ def isvalid(xml):
     if 'http://www.w3.org/' not in xml:
         return False
     return True
-
-
-def iszip(zipcode):
-    '''Returns True is the provided zip code is valid.'''
-    xml = query_noaa(zipcode, ['sky'])
-    if isvalid(xml):
-        return True
-    else:
-        return False
 
 
 def canfly(wind_speed, rain_prob, temperature):

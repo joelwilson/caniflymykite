@@ -15,7 +15,7 @@ DEBUG = False if os.environ['CIFMK_DEBUG'] == 'False' else True
 @app.route('/')
 def index():
     '''Returns the page for the index/landing page.'''
-    featured_places = ['San Francisco', 'lat': 37.77, 'lon': -122.419},
+    featured_places = [{'name': 'San Francisco', 'lat': 37.77, 'lon': -122.419},
                        {'name': 'Santa Monica', 'lat': 34.01, 'lon': -118.49},
                        {'name': 'Seattle', 'lat': 47.606, 'lon': -122.33}]
     for place in featured_places:

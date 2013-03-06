@@ -35,7 +35,7 @@ class Weather(object):
             self.elements['stationlon'] = self.current['lng']
             self.elements['stationname'] = self.current['stationName']
             self.elements['stationid'] = self.current['ICAO']
-            
+
     def __getitem__(self, key):
         return self.elements[key]
 
