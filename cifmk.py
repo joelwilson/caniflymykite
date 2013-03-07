@@ -64,11 +64,14 @@ def location():
     if not request.args:
         abort(404)
     if request.args['lat'] and request.args['lon']:
-        place['weather'] = Weather(request.args['lat'], request.args['lon'])
+        weather = Weather(request.args['lat'], request.args['lon'])
     if request.args['q']:
         place = gn.search(request.args['q'].strip())[0]
-        place['weather'] = Weather(place['lat'], place['lng'])
-    return render_template('test.html', place=place)
+        weather = Weather(place['lat'], place['lng'])
+    if weather is not None:
+        return render_template('weather.html', weather=weather)
+    else:
+        abort(404)
 
 @app.route('/get_weather/', methods=['GET'])
 def weather_from_form():

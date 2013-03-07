@@ -9,6 +9,7 @@ class WeatherError(Exception):
 
 
 class Weather(object):
+    '''Object containing weather information for a lat, lon point.'''
     def __init__(self, lat, lon):
         self.forecast = forecast(lat, lon)
         self.current = currentweather(lat, lon)
@@ -41,7 +42,10 @@ class Weather(object):
 
 
 def forecast(lat, lon):
+    '''Helper function for retrieving forecast data from the NOAA.'''
     return noaa.forecast(lat, lon)
 
 def currentweather(lat, lon):
+    '''Helper function for retrieving current weather data from a
+    weather station nearest to the given lat, lon point.'''
     return gn.weather(lat, lon)
