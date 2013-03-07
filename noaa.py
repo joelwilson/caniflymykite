@@ -130,7 +130,7 @@ def isvalid(xml):
 
 
 def canfly(wind_speed, rain_prob, temperature):
-    '''Given the passed weather object, returns a 2-element tuple.
+    '''Given the passed elements, returns a 2-element tuple.
 
     The first element is a short and concise string answer (ex. yes or no).
     The second element is an optional longer, sometimes witty, string about

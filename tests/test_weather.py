@@ -11,3 +11,4 @@ class TestWeather():
         assert_is_not_none(weather['wind_speed'])
         assert_is_not_none(weather['temperature'])
         assert_is_not_none(weather['wind_speed'])  
+        assert_is_not_none(weather['canfly'])  

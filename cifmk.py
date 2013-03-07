@@ -29,62 +29,18 @@ def index():
     return render_template('index.html', featured_places=featured_places)
 
 
-@app.route('/zip/<zipcode>/')
-def get_by_zip(zipcode=95382):
-    '''Returns a page for a specific zip code, displaying weather info.'''
-    if not noaa.iszip(zipcode):
-        return render_template('error.html', msg="Invalid zip code")
-    try:
-        fc = noaa.get_forecast(zipcode)
-        cw = gn.weather(fc.latlon[0], fc.latlon[1])
-    except noaa.WeatherError:
-        abort(404)
-    args = {
-        'rain_chance': int(fc.get('rain_prob', debug=DEBUG)),
-        'zipcode': zipcode}
-    if cw is not None:
-        args['wind_speed'] = utils.tomph(cw['windSpeed'])
-        try:
-            args['wind_dir'] = utils.heading(cw['windDirection'])
-        except KeyError:
-            args['wind_dir'] = utils.heading(fc.get('wind_dir', debug=DEBUG))
-        args['temperature'] = utils.ctof(cw['temperature'])
-    else:
-        args['wind_speed'] = utils.tomph(fc.get('wind_speed', debug=DEBUG))
-        args['wind_dir'] = utils.heading(fc.get('wind_dir', debug=DEBUG))
-        args['temperature'] = fc.get('temperature', debug=DEBUG)
-    args['canfly'] = noaa.canfly(args['wind_speed'],
-                                 args['rain_chance'],
-                                 args['temperature'])
-    return render_template('weather.html', **args)
-
-
 @app.route('/location', methods=['GET'])
 def location():
     if not request.args:
         abort(404)
-    if request.args['lat'] and request.args['lon']:
+    if request.args.get('lat') and request.args.get('lon'):
         weather = Weather(request.args['lat'], request.args['lon'])
     if request.args['q']:
         place = gn.search(request.args['q'].strip())[0]
         weather = Weather(place['lat'], place['lng'])
     if weather is not None:
-        return render_template('weather.html', weather=weather)
+        return render_template('weather.html', **weather.elements)
     else:
-        abort(404)
-
-@app.route('/get_weather/', methods=['GET'])
-def weather_from_form():
-    '''Extracts the user provided zip code from the form data and redirects
-    to the appropriate zip code page.
-    '''
-    param = request.args.get('form_location')
-    try:
-        int(param)
-        return redirect(url_for('get_by_zip',
-                                zipcode=param),
-                        code=301)
-    except ValueError:
         abort(404)
 
 

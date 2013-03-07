@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
-{% block title %}{{ location }} - {% endblock %}
-{% block page_description %}"Weather information for {{ location }}. Instantly find out if you can fly your kite right now in {{ location }}"{% endblock %}
-{% block nav_location %}{{ location }}{% endblock %}
+{% block title %}{{ city_name }} - {% endblock %}
+{% block page_description %}"Weather information for {{ city_name }}, {{ state }}. Instantly find out if you can fly your kite right now in {{ city_name }}"{% endblock %}
+{% block nav_location %}{{ city_name }}, {% endblock %}
 {% block top %}
     <h1 class="page_title">Can I Fly My Kite?</h1>
 {% endblock %}
@@ -27,7 +27,7 @@
             <ul class="weather_item">
                 <li><img src="{{ url_for('static', filename='img/rain.jpg')}}" alt="Rain Chance"/></li>
                 <li><h3 class="weather_label">Rain Chance</h3></li>
-                <li><h3 class="weather_value">{{ rain_chance }}%</h3></li>
+                <li><h3 class="weather_value">{{ rain_prob }}%</h3></li>
             </ul>
             <ul class="weather_item">
                 <li><img src="{{ url_for('static', filename='img/temp_r.jpg')}}" alt="Temperature"/></li>

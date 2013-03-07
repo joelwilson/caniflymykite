@@ -13,13 +13,16 @@ class Weather(object):
     def __init__(self, lat, lon):
         self.forecast = forecast(lat, lon)
         self.current = currentweather(lat, lon)
+        self.place = gn.nearestplace(lat, lon)
         self.elements = {
             'lat': float(lat),
             'lon': float(lon),
             'wind_speed': tomph(self.forecast.get('wind_speed')),
             'wind_dir': heading(self.forecast.get('wind_dir')),
             'rain_prob': self.forecast.get('rain_prob'),
-            'temperature': self.forecast.get('temperature')
+            'temperature': self.forecast.get('temperature'),
+            'city_name': self.place['name'],
+            'state': self.place['adminCode1']
         }
         if self.current is not None:
             self.elements['wind_speed'] = tomph(
@@ -36,9 +39,17 @@ class Weather(object):
             self.elements['stationlon'] = self.current['lng']
             self.elements['stationname'] = self.current['stationName']
             self.elements['stationid'] = self.current['ICAO']
+        self.elements['canfly'] = noaa.canfly(
+            self.elements['wind_speed'],
+            self.elements['rain_prob'],
+            self.elements['temperature']
+        )
 
     def __getitem__(self, key):
         return self.elements[key]
+
+    def __str__(self):
+        return str(self.elements)
 
 
 def forecast(lat, lon):
