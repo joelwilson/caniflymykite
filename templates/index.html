@@ -12,18 +12,18 @@
 {% endblock %}
 {% block top %}
     <h1 class="page_title centered">Can I Fly My Kite?</h1>
-    <form action="/get_weather" method="get">
-        <input type="text" placeholder="enter zip code" class="form_location" name='form_location' maxlength=5 autofocus/>
+    <form action="/weather" method="get">
+        <input type="text" placeholder="city, state or zip code" class="form_location" name='location' maxlength=64 autofocus/>
         <button type="submit" class="submit">CIFMK</button>
     </form>
-    <div class="tip_text">Enter your zip code above to get started</div>
+    <div class="tip_text">Enter your location above to get started</div>
 {% endblock %}
 {% block content %}
     <div class="section">
         <h2>Featured Places</h2>
         {% for place in featured_places %}
         <div class="col_1_3rd featured">
-            <a href="/location?lat={{ place['lat'] }}&lon={{ place['lon'] }}">
+            <a href="/weather?lat={{ place['lat'] }}&lon={{ place['lon'] }}">
             <ul class="box_pad">
                 <li><h3>{{ place['name'] }}</h3></li>
                 <li><span>{{ place['canfly'][0] }}</span></li>

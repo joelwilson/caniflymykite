@@ -9,7 +9,7 @@ from weather import Weather
 
 
 app = Flask(__name__)
-DEBUG = False if os.environ['CIFMK_DEBUG'] == 'False' else True
+DEBUG = False if os.environ['CIFMK_DEBUG'].upper() == 'FALSE' else True
 
 
 @app.route('/')
@@ -19,24 +19,21 @@ def index():
                        {'name': 'Santa Monica', 'lat': 34.01, 'lon': -118.49},
                        {'name': 'Seattle', 'lat': 47.606, 'lon': -122.33}]
     for place in featured_places:
-        fc = noaa.forecast(place['lat'], place['lon'])
-        cw = gn.weather(place['lat'], place['lon'])
-        place['wind_speed'] = utils.tomph(cw['windSpeed'])
-        place['temperature'] = utils.ctof(cw['temperature'])
-        place['canfly'] = noaa.canfly(cw['windSpeed'],
-                                      int(fc.get('rain_prob')),
-                                      cw['temperature'])
+        weather = Weather(place['lat'], place['lon'])
+        place['wind_speed'] = weather['wind_speed']
+        place['temperature'] = weather['temperature']
+        place['canfly'] = weather['canfly']
     return render_template('index.html', featured_places=featured_places)
 
 
-@app.route('/location', methods=['GET'])
-def location():
+@app.route('/weather', methods=['GET'])
+def weather():
     if not request.args:
         abort(404)
-    if request.args.get('lat') and request.args.get('lon'):
+    if request.args.__contains__('lat') and request.args.__contains__('lon'):
         weather = Weather(request.args['lat'], request.args['lon'])
-    if request.args['q']:
-        place = gn.search(request.args['q'].strip())[0]
+    elif request.args['location']:
+        place = gn.search(request.args['location'].strip())[0]
         weather = Weather(place['lat'], place['lng'])
     if weather is not None:
         return render_template('weather.html', **weather.elements)
