@@ -145,10 +145,16 @@ nav ul, img {
 
 .page_title {
     width: 100%;
-    margin-top: 20px;
-    margin-bottom: 25px;
-    line-height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 1.25em;
     font-size: 3.5em;
+}
+
+.sub_header {
+    margin-bottom: 0;
+    color: #2E2E2E;
+    font-style: italic;
 }
 
 .centered {

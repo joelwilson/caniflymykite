@@ -1,9 +1,10 @@
 {% extends "layout.html" %}
 {% block title %}{{ city_name }}, {{ state }} - {% endblock %}
 {% block page_description %}"Weather information for {{ city_name }}, {{ state }}. Instantly find out if you can fly your kite right now!"{% endblock %}
-{% block nav_location %}{{ city_name }}, {{ state }}{% endblock %}
+{% block nav_location %}{% endblock %}
 {% block top %}
     <h1 class="page_title">Can I Fly My Kite?</h1>
+    <h2 class="sub_header">{{ city_name }}, {{ state }}</h2>
 {% endblock %}
 {% block content %}
     <!-- 1st section: Answer & Wind Speed -->
