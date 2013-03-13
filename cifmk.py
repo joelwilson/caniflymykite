@@ -38,6 +38,8 @@ def weather():
         except IndexError: # no search results
             abort(404)
         weather = Weather(place['lat'], place['lng'])
+    else:
+        weather = None
     if weather is not None:
         return render_template('weather.html', **weather.elements)
     else:
