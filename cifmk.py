@@ -33,7 +33,10 @@ def weather():
     if request.args.__contains__('lat') and request.args.__contains__('lon'):
         weather = Weather(request.args['lat'], request.args['lon'])
     elif request.args['location']:
-        place = gn.search(request.args['location'].strip())[0]
+        try:
+            place = gn.search(request.args['location'].strip())[0]
+        except IndexError: # no search results
+            abort(404)
         weather = Weather(place['lat'], place['lng'])
     if weather is not None:
         return render_template('weather.html', **weather.elements)
