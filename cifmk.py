@@ -15,9 +15,9 @@ DEBUG = False if os.environ['CIFMK_DEBUG'].upper() == 'FALSE' else True
 @app.route('/')
 def index():
     '''Returns the page for the index/landing page.'''
-    featured_places = [{'name': 'San Francisco', 'lat': 37.77, 'lon': -122.419},
-                       {'name': 'Santa Monica', 'lat': 34.01, 'lon': -118.49},
-                       {'name': 'Seattle', 'lat': 47.606, 'lon': -122.33}]
+    featured_places = [{'name': 'San Francisco', 'lat': 37.7750, 'lon': -122.4183},
+                       {'name': 'Santa Monica', 'lat': 34.0194, 'lon': -118.4903},
+                       {'name': 'Seattle', 'lat': 47.6097, 'lon': -122.3331}]
     for place in featured_places:
         weather = Weather(place['lat'], place['lon'])
         place['wind_speed'] = weather['wind_speed']
