@@ -28,6 +28,12 @@ def index():
 
 @app.route('/weather', methods=['GET'])
 def weather():
+    '''Render the page for the passed http location parameters.
+    
+    Accepted parameters
+    lat: latitude (must be paired with lon)
+    lon: longitude (must be paired with lat)
+    location: query/search text for a location'''
     if not request.args:
         abort(404)
     if request.args.__contains__('lat') and request.args.__contains__('lon'):

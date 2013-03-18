@@ -172,19 +172,26 @@ form .form_location {
     height: 28px;
     margin: 0 auto;
     padding: 4px 6px 5px 6px;
-    border-radius: 3px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
     font-size: 1.5em;
 }
 
 form .submit {
     width: 98px;
-    height: 39px;
-    padding: 0 3px;
-    border-radius: 3px;
+    height: 40px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
     border: 0;
+    position: relative;
+    left: -6px;
     font-size: 1.5em;
     color: #FCFCFC;
-    background-color: #222;
+    background-color: #222222;
+}
+
+form .submit:hover {
+    background-color: #444499;
 }
 
 .tip_text {
@@ -285,17 +292,18 @@ form .submit {
 .kite_button {
     font-family: 'Montserrat', verdana, sans-serif;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.75em;
     width: 75%;
-    max-width: 139px;
+    max-width: 140px;
     min-width: 100px;
-    height: 139px;
+    height: 140px;
     line-height: 1.25em;
     margin: 20px auto;
-    padding: 10px 10px;
-    border: 1px solid #101010;
-    border-radius: 8px;
+    padding: 25px 10px 0 10px;
+    border: 1px solid #222;
+    border-radius: 6px;
     background: #E22C33;
+    /* background gradient */
     background: -moz-linear-gradient(top,  #E22C33 0%, #AF1D15 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E22C33), color-stop(100%,#AF1D15)); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top,  #E22C33 0%,#AF1D15 100%); /* Chrome10+,Safari5.1+ */
@@ -308,12 +316,14 @@ form .submit {
 
 .col_1_3rd {
     width: 30%;
+    height: 100%;
     margin: 0 1.6666666%;
     float: left;
 }
 
 .col_2_3rd {
     width: 60%;
+    height: 100%;
     margin: 0 3.3333333%;
     float: left;
 }

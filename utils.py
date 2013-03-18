@@ -32,9 +32,9 @@ def tomph(knots, precision=1):
     return round(float(knots) * 1.15078, precision)
 
 
-def ctof(temp):
+def ctof(temp, precision=1):
     '''Converts Celsius to Fahrenheit.'''
-    return float(temp) * 1.8 + 32
+    return round(float(temp) * 1.8 + 32, precision)
 
 
 def heading(deg):

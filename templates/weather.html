@@ -15,7 +15,7 @@
         </div>
         <div class="wind_box">
             <ul>
-                <li><img src="{{ url_for('static', filename='img/sock_2.jpg')}}" alt="Wind Speed"/>
+                <li><img src="{{ url_for('static', filename='img/sock.png')}}" alt="Wind Speed"/>
                     <h2 class="wind_speed">{{ wind_speed }} mph</h2></li>
                 <li><h3 class="wind_direction">{{ wind_dir }}</h3></li>
             </ul>
@@ -26,18 +26,18 @@
         <div class="col_2_3rd weather_box">
             <h2>Weather</h2>
             <ul class="weather_item">
-                <li><img src="{{ url_for('static', filename='img/rain.jpg')}}" alt="Rain Chance"/></li>
+                <li><img src="{{ url_for('static', filename='img/rain.png')}}" alt="Rain Chance"/></li>
                 <li><h3 class="weather_label">Rain Chance</h3></li>
                 <li><h3 class="weather_value">{{ rain_prob }}%</h3></li>
             </ul>
             <ul class="weather_item">
-                <li><img src="{{ url_for('static', filename='img/temp_r.jpg')}}" alt="Temperature"/></li>
+                <li><img src="{{ url_for('static', filename='img/temp.png')}}" alt="Temperature"/></li>
                 <li><h3 class="weather_label">Temperature</h3></li>
                 <li><h3 class="weather_value">{{ temperature }}&#176;F</h3></li>
             </ul>
         </div>
         <div class="col_1_3rd">
-            <a href="/kites" class="kite_button">Check out the kites we enjoy!</a>
+            <a href="/kites" class="kite_button">Kites</br>We</br>Like</a>
         </div>
     </div>
 {% endblock %}
