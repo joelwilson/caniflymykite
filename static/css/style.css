@@ -60,7 +60,7 @@ blockquote {
     font-size: 1.125em; /* 20 px / 16 px */
     border-left: 5px solid #333;
     margin-left: 0;
-    padding-left: 1em;
+    padding-left: 0.5em;
 }
 
 em {
@@ -192,6 +192,7 @@ form .submit {
 
 form .submit:hover {
     background-color: #444499;
+    cursor: pointer;
 }
 
 .tip_text {
@@ -348,6 +349,8 @@ form .submit:hover {
     color: #101010;
 }
 
+/* page footer layout */
+
 .footer {
     margin-top: 30px;
     background-color: #6E6E6E;
@@ -360,4 +363,57 @@ form .submit:hover {
     margin: 0.5em 0 0 1em;
     display: block;
     font-size: 1em;
+}
+
+/* Kites page layout */
+.kite {
+    border: solid 2px #333;
+    border-radius: 5px;
+}
+
+.kite blockquote, ul {
+    line-height: 1.25em;
+}
+
+.kite a {
+    color: #222222;
+}
+
+.kite_header {
+    padding: 5px 0;
+    background-image: url("../../static/img/wild_oliva.png");
+}
+
+.kite_header h3 {
+    height: 100%;
+    color: #FCFCFC;
+    margin: 0 10px;
+    clear: both;
+}
+
+.attributes_section {
+    border-bottom: solid 1px #333;
+}
+
+.attributes_section ul {
+    width: 90%;
+    margin: 5px auto;
+}
+
+.info_section ul {
+    margin-top: 0;
+    margin-left: 20px;
+    list-style-type: disc;
+}
+
+.info_section h4 {
+    margin-bottom: 0;
+}
+
+.info_section a {
+    text-decoration: underline;
+}
+
+.info a:hover a:visited {
+    color: #777777;
 }
