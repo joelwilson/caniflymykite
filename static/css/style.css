@@ -4,7 +4,6 @@ html, body {
 
 body {
     margin: auto;
-    line-height: 2em;
     font-size: 100%;
     color: #101010;
     width: 90%; 
@@ -12,6 +11,10 @@ body {
     min-width: 500px;
     max-width: 768px;
     background-image: url("../../static/img/debut_light.png");
+}
+
+p {
+    line-height: 2em;
 }
 
 a {
@@ -54,6 +57,10 @@ h5 {
 ul {
     list-style: none;
     padding: 0;
+}
+
+li {
+    line-height: 2em;
 }
 
 blockquote {
@@ -318,7 +325,7 @@ form .submit:hover {
 .col_1_3rd {
     width: 30%;
     height: 100%;
-    margin: 0 1.6666666%;
+    margin: 0 0 0 2.25%;
     float: left;
 }
 
@@ -365,55 +372,94 @@ form .submit:hover {
     font-size: 1em;
 }
 
-/* Kites page layout */
+/* ************* */
+/* Kites page layout  */
+/* ************* */
 .kite {
-    border: solid 2px #333;
-    border-radius: 5px;
+    color: #101010;
+    /*background: #FCFCFC;
+    border: solid 2px #101010;
+    border-bottom: solid 3px #101010;
+    border-radius: 5px; */
+    min-width: 230px;
 }
 
 .kite blockquote, ul {
     line-height: 1.25em;
 }
 
-.kite a {
-    color: #222222;
+.kite blockquote, ul, a {
+    font-size: 1em;
+}
+
+.kite h3 {
+    height: 100%;
+    margin: 0 10px;
+    /*color: #FCFCFC;*/
+    line-height: 1.75em;
+}
+
+.kite h4 {
+    margin: 10px 0 5px 10px;
 }
 
 .kite_header {
-    padding: 5px 0;
-    background-image: url("../../static/img/wild_oliva.png");
+    /*background: #444;*/
+    line-height: 0;
 }
 
-.kite_header h3 {
-    height: 100%;
-    color: #FCFCFC;
-    margin: 0 10px;
-    clear: both;
-}
-
-.attributes_section {
-    border-bottom: solid 1px #333;
+.kite_header img {
+    width: 100%;
+    border-top: solid 1px #101010;
+    border-bottom: solid 1px #101010;
 }
 
 .attributes_section ul {
-    width: 90%;
-    margin: 5px auto;
+    width: 80%;
+    margin: 0 auto;
+    /*border-radius: 5px;
+    border-right: solid 1px #101010;
+    border-left: solid 2px #101010;
+    border-top: solid 2px #101010 */
+}
+
+.attributes_section li {
+    border-bottom: solid 1px;
+    line-height: 2em;
+}
+
+.attribute {
+    position: relative;
+    left: 10px;
+}
+
+.rating {
+    letter-spacing: 0.25em;
+    float: right;
+    position: relative;
+    right: 10px;
 }
 
 .info_section ul {
-    margin-top: 0;
-    margin-left: 20px;
-    list-style-type: disc;
+    margin: 0;
 }
 
-.info_section h4 {
-    margin-bottom: 0;
+.info_section li {
+    border-top: solid 1px;
+    line-height: 1.75em;
 }
 
 .info_section a {
-    text-decoration: underline;
+    display: inline-block;
+    width: 100%;
+    color: #101010;
 }
 
-.info a:hover a:visited {
-    color: #777777;
+.info_section a:hover {
+    background: #ebebeb;
+}
+
+.info_section span {
+    position: relative;
+    left: 20px;
 }
