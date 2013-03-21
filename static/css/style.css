@@ -36,7 +36,7 @@ h1 {
 
 h2 {
     font-size: 2em; /* 28 px  / 16 px */
-    margin: 10px 0 15px 0px;
+    margin: 10px 0 0 0px;
 }
 
 h3 {
@@ -52,6 +52,11 @@ h4 {
 h5 {
     font-size: 1em; /* 16px / 16px */
     margin: 0;
+}
+
+.subtitle {
+    font-size: 1em;
+    font-style: italic;
 }
 
 ul {
@@ -377,10 +382,10 @@ form .submit:hover {
 /* ************* */
 .kite {
     color: #101010;
-    /*background: #FCFCFC;
-    border: solid 2px #101010;
-    border-bottom: solid 3px #101010;
-    border-radius: 5px; */
+    margin-top: 25px;
+    border-top: solid 5px #101010;
+    border-bottom: solid 5px #101010;
+    border-radius: 10px;
     min-width: 230px;
 }
 
@@ -395,7 +400,6 @@ form .submit:hover {
 .kite h3 {
     height: 100%;
     margin: 0 10px;
-    /*color: #FCFCFC;*/
     line-height: 1.75em;
 }
 
@@ -404,7 +408,6 @@ form .submit:hover {
 }
 
 .kite_header {
-    /*background: #444;*/
     line-height: 0;
 }
 
@@ -415,12 +418,8 @@ form .submit:hover {
 }
 
 .attributes_section ul {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
-    /*border-radius: 5px;
-    border-right: solid 1px #101010;
-    border-left: solid 2px #101010;
-    border-top: solid 2px #101010 */
 }
 
 .attributes_section li {
@@ -441,12 +440,16 @@ form .submit:hover {
 }
 
 .info_section ul {
-    margin: 0;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .info_section li {
-    border-top: solid 1px;
     line-height: 1.75em;
+}
+
+.info_section li:last-child {
+    margin-bottom: 5px;
 }
 
 .info_section a {
