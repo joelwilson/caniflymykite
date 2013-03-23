@@ -27,7 +27,7 @@ class TestGeonames():
         assert_list_equal(gn.search('Dushanbe'), [])
         assert_list_equal(gn.search('Yeruham'), [])
 
-    def test_weather(self):
+    def test_weather_accuracy_with_station_names(self):
         assert_equal(gn.weather(37.5, -120)['ICAO'], 'KMAE')
         assert_equal(gn.weather(34, -118.4)['ICAO'], 'KSMO')
         assert_equal(gn.weather(38.5567, -121.4978)['ICAO'], 'KSAC')

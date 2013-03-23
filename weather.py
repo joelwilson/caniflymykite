@@ -32,8 +32,8 @@ class Weather(object):
             try:
                 self.elements['wind_dir'] = heading(
                                             self.current['windDirection'])
-            except KeyError:
-                raise WeatherError(e)
+            except KeyError as e:
+                raise WeatherError('No key {0}'.format(e))
             self.elements['datetime'] = self.current['datetime']
             self.elements['stationlat'] = self.current['lat']
             self.elements['stationlon'] = self.current['lng']

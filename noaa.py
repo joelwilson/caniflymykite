@@ -9,7 +9,7 @@ import utils
 
 
 __all__ = ['query_noaa', 'ForecastError', 'parse_forecast_xml',
-           'isvalid', 'NOAA_ELEMS', 'iszip', 'canfly', 'forecast', 'Forecast']
+           'isvalid', 'NOAA_ELEMS', 'canfly', 'forecast', 'Forecast']
 URL = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
 NOAA_ELEMS = ('temp', 'qpf', 'snow', 'pop12', 'sky', 'wdir', 'wspd', 'wgust')
 XML_WEATHER_MAP = {
@@ -39,7 +39,7 @@ class Forecast(object):
     '''
     def __init__(self, noaa_xml):
         if not isvalid(noaa_xml):
-            raise WeatherError('Invalid XML data: \n{0}'.format(noaa_xml))
+            raise ForecastError('Invalid XML data: \n{0}'.format(noaa_xml))
         else:
             parsed = parse_forecast_xml(noaa_xml)
         self.latlon = (float(parsed['latitude']), 
@@ -120,7 +120,7 @@ def parse_forecast_xml(xml):
 
 def isvalid(xml):
     '''Returns True if the xml response is NOAA valid.'''
-    errors = ['<h2>ERROR</h2>', '<errorMessage>', '<error>']
+    errors = ['<h2>ERROR</h2>', '<errorMessage>', '<error>', '>ERROR<']
     for error in errors:
         if error in xml:
             return False
@@ -132,27 +132,34 @@ def isvalid(xml):
 def canfly(wind_speed, rain_prob, temperature):
     '''Given the passed elements, returns a 2-element tuple.
 
+    Arguments:
+        wind_speed - float or integer wind speed in MPH units
+        rain_prob - float or integer in range 1..100
+        temperature - float or integer outside temp in Fahrenheit
+    
+    Returns a tuple consisting of:
     The first element is a short and concise string answer (ex. yes or no).
     The second element is an optional longer, sometimes witty, string about
     the current state of the weather.'''
 
     messages = {
-        'freezing': ['This is parka weather.', 'It is freezing!'],
+        'freezing': ['It is really freakin\' cold!', 'This is parka weather.', 'It is below freezing!'],
         'nowind': ['Not much wind.', 'Hardly a whisper.'],
-        'precip': ['Rain today!', 'It might be wet!']
+        'precip': ['Rain today!', 'It might be wet!'],
+        'muchwind': ['Too much wind!', 'You\'ll get blown over!']
     }
 
     def pickmsg(key):
         '''Returns a random choice from the dict key provided.'''
         return rand.choice(messages[key])
 
-    if utils.tomph(wind_speed) < 5:
+    if wind_speed < 4:
         return ('No', pickmsg('nowind'))
+    elif wind_speed > 30:
+        return ('No', pickmsg('muchwind'))
+    elif rain_prob > 40:
+        return('No', pickmsg('precip'))
+    elif float(temperature) <= 20:
+        return('No', pickmsg('freezing'))
     else:
-        if int(rain_prob) > int(20):
-            return('No', pickmsg('precip'))
-        else:
-            if temperature <= 32:
-                return('No', pickmsg('freezing'))
-            else:
-                return('Yes', 'Why not?')
+        return('Yes', 'Why not?')
