@@ -60,3 +60,12 @@ def currentweather(lat, lon):
     '''Helper function for retrieving current weather data from a
     weather station nearest to the given lat, lon point.'''
     return gn.weather(lat, lon)
+
+def getbylocation(location):
+    '''Returns a Weather object for the given location name.'''
+    place = gn.search(location)[0]
+    return Weather(place['lat'], place['lng'])
+
+def getbylatlon(lat, lon):
+    '''Returns a Weather object for the given lat, lon.'''
+    return Weather(lat, lon)

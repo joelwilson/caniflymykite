@@ -153,11 +153,11 @@ def canfly(wind_speed, rain_prob, temperature):
         '''Returns a random choice from the dict key provided.'''
         return rand.choice(messages[key])
 
-    if wind_speed < 4:
+    if float(wind_speed) < 4:
         return ('No', pickmsg('nowind'))
-    elif wind_speed > 30:
+    elif float(wind_speed) > 30:
         return ('No', pickmsg('muchwind'))
-    elif rain_prob > 40:
+    elif float(rain_prob) > 40:
         return('No', pickmsg('precip'))
     elif float(temperature) <= 20:
         return('No', pickmsg('freezing'))

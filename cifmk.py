@@ -5,7 +5,7 @@ from flask import Flask, render_template, abort, request, url_for, redirect, \
 import noaa
 import utils
 import geonames as gn
-from weather import Weather
+import weather
 
 
 app = Flask(__name__)
@@ -19,15 +19,15 @@ def index():
                        {'name': 'Santa Monica', 'lat': 34.0194, 'lon': -118.4903},
                        {'name': 'Seattle', 'lat': 47.6097, 'lon': -122.3331}]
     for place in featured_places:
-        weather = Weather(place['lat'], place['lon'])
-        place['wind_speed'] = weather['wind_speed']
-        place['temperature'] = weather['temperature']
-        place['canfly'] = weather['canfly']
+        w = weather.Weather(place['lat'], place['lon'])
+        place['wind_speed'] = w['wind_speed']
+        place['temperature'] = w['temperature']
+        place['canfly'] = w['canfly']
     return render_template('index.html', featured_places=featured_places)
 
 
 @app.route('/weather', methods=['GET'])
-def weather():
+def get_weather():
     '''Render the page for the passed http location parameters.
     
     Accepted parameters
@@ -37,17 +37,16 @@ def weather():
     if not request.args:
         abort(404)
     if request.args.__contains__('lat') and request.args.__contains__('lon'):
-        weather = Weather(request.args['lat'], request.args['lon'])
+        w = weather.getbylatlon(request.args['lat'], request.args['lon'])
     elif request.args['location']:
         try:
-            place = gn.search(request.args['location'].strip())[0]
-        except IndexError: # no search results
+            w = weather.getbylocation(request.args['location'])
+        except WeatherError:
             abort(404)
-        weather = Weather(place['lat'], place['lng'])
     else:
-        weather = None
-    if weather is not None:
-        return render_template('weather.html', **weather.elements)
+        w = None
+    if w is not None:
+        return render_template('weather.html', **w.elements)
     else:
         abort(404)
 
