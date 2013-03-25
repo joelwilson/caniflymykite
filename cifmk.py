@@ -6,10 +6,12 @@ import noaa
 import utils
 import geonames as gn
 import weather
+import kites
 
 
 app = Flask(__name__)
 DEBUG = False if os.environ['CIFMK_DEBUG'].upper() == 'FALSE' else True
+KITES = kites.get_kites()
 
 
 @app.route('/')
@@ -60,7 +62,7 @@ def about():
 @app.route('/kites')
 def kites():
     '''Returns the rendered "Kites We Like" page.'''
-    return render_template('kites.html')
+    return render_template('kites.html', kites=KITES)
 
     
 @app.route('/blog')

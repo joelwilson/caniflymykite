@@ -7,75 +7,31 @@
 <!-- Casual Kites section -->
 <div class="section">
 <h2>Casual Kites</h2>
-<div class="subtitle">Great single-line kites for casual kite fliers.</div>
+<div class="subtitle">Great single-line no-frills kites for casual fliers.</div>
+    {% for kite in kites['casual'] %}
     <div class="col_1_3rd kite">
         <div class="kite_header">
-            <h3>ITW Kid's Delta</h3>
-            <img alt="Kid's Delta Kite" src="../../static/img/kites/ITW_kids_delta.png"">
+            <h3>{{ kite['name'] }}</h3>
+            <img alt={{ kite['name'] }} src="../../static/img/kites/{{ kite['image_name'] }}">
         </div>
         <h4>Attributes</h4>
         <div class="attributes_section">
             <ul>
-                <li><span class="attribute">Difficulty</span><span class="rating">&#10022;&#10023;&#10023;&#10023;&#10023;</span></li>
-                <li><span class="attribute">Power</span><span class="rating">&#10022;&#10023;&#10023;&#10023;&#10023;</span></li>
-                <li><span class="attribute">Speed</span><span class="rating">&#10022;&#10022;&#10023;&#10023;&#10023;</span></li>
-                <li><span class="attribute">Price</span><span class="rating">&#10022;&#10023;&#10023;&#10023;&#10023;</span></li>
+                <li><span class="attribute">Difficulty</span><span class="rating">{{ kite['difficulty'] }}</span></li>
+                <li><span class="attribute">Power</span><span class="rating">{{ kite['power'] }}</span></li>
+                <li><span class="attribute">Speed</span><span class="rating">{{ kite['speed'] }}</span></li>
+                <li><span class="attribute">Price</span><span class="rating">{{ kite['price'] }}</span></li>
             </ul>
         </div>
         <div class="info_section">
             <h4>More Info</h4>
             <ul>
-                <li><a href="http://www.amazon.com/gp/product/B002BB8TFE/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B002BB8TFE&linkCode=as2&tag=cifmk-20""><span>Amazon</span></a></li>
-                <li><a href="http://intothewind.com/shop/Traditional_Kites/Best_for_Beginner_Kites/ITW_Kid's_Delta_Kite"><span>Manufacturer</span></a></li>
-                <li><a href="http://youtube.com"><span>Video</span></a></li>
+                <li><a href="{{ kite['amazon url'] }}"><span>Amazon</span></a></li>
+                <li><a href="{{ kite['manufacturer_url'] }}"><span>Manufacturer</span></a></li>
+                <li><a href="{{ kite['video_url'] }}"><span>Video</span></a></li>
             </ul>
         </div>
     </div>
-    <div class="col_1_3rd kite">
-        <div class="kite_header">
-            <h3>ITW Pocket Sled</h3>
-            <img alt="Prism Nexus" src="../../static/img/kites/ITW_pocket_sled.png"">
-        </div>
-        <h4>Attributes</h4>
-        <div class="attributes_section">
-            <ul>
-                <li><span class="attribute">Difficulty</span><span class="rating">&#10022;&#10023;&#10023;&#10023;&#10023;</span></li>
-                <li><span class="attribute">Power</span><span class="rating">&#10022;&#10022;&#10023;&#10023;&#10023;</span></li>
-                <li><span class="attribute">Speed</span><span class="rating">&#10022;&#10022;&#10023;&#10023;&#10023;</span></li>
-                <li><span class="attribute">Price</span><span class="rating">&#10022;&#10023;&#10023;&#10023;&#10023;</span></li>
-            </ul>
-        </div>
-        <div class="info_section">
-            <h4>More Info</h4>
-            <ul>
-                <li><a href="http://www.amazon.com/gp/product/B002BBHZAE/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B002BBHZAE&linkCode=as2&tag=cifmk-20"><span>Amazon</span></a></li>
-                <li><a href="http://intothewind.com/shop/Traditional_Kites/Best_for_Beginner_Kites/ITW_Pocket_Sled_Kite"><span>Manufacturer</span></a></li>
-                <li><a href="http://youtube.com"><span>Video</span></a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="col_1_3rd kite">
-        <div class="kite_header">
-            <h3>Prism Delta</h3>
-            <img alt="Prism Stowaway Delta" src="../../static/img/kites/prism_stowaway_delta.png"">
-        </div>
-        <h4>Attributes</h4>
-        <div class="attributes_section">
-            <ul>
-                <li><span class="attribute">Difficulty</span><span class="rating">&#10022;&#10023;&#10023;&#10023;&#10023;</span></li>
-                <li><span class="attribute">Power</span><span class="rating">&#10022;&#10022;&#10023;&#10023;&#10023;</span></li>
-                <li><span class="attribute">Speed</span><span class="rating">&#10022;&#10022;&#10023;&#10023;&#10023;</span></li>
-                <li><span class="attribute">Price</span><span class="rating">&#10022;&#10022;&#10023;&#10023;&#10023;</span></li>
-            </ul>
-        </div>
-        <div class="info_section">
-            <h4>More Info</h4>
-            <ul>
-                <li><a href="http://www.amazon.com/gp/product/B0044TGS1I/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B0044TGS1I&linkCode=as2&tag=cifmk-20"><span>Amazon</span></a></li>
-                <li><a href="http://www.prismkites.com/products-sl-stowaway_delta.php"><span>Manufacturer</span></a></li>
-                <li><a href="http://youtube.com"><span>Video</span></a></li>
-            </ul>
-        </div>
-    </div>
+    {% endfor %}
 </div>
 {% endblock %}
