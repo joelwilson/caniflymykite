@@ -4,34 +4,67 @@
 <h1 class="page_title">Kites We Like</h1>
 {% endblock %}
 {% block content %}
-<!-- Casual Kites section -->
 <div class="section">
-<h2>Casual Kites</h2>
+<h2>Single-Line Kites</h2>
 <div class="subtitle">Great single-line no-frills kites for casual fliers.</div>
-    {% for kite in kites['casual'] %}
-    <div class="col_1_3rd kite">
-        <div class="kite_header">
-            <h3>{{ kite['name'] }}</h3>
-            <img alt={{ kite['name'] }} src="../../static/img/kites/{{ kite['image_name'] }}">
+    {% for kite in kites['single line'] %}
+    {% if kite['order'] != '9' %}
+        <div class="col_1_3rd kite">
+            <div class="kite_header">
+                <h3>{{ kite['name'] }}</h3>
+                <img alt={{ kite['name'] }} src="../../static/img/kites/{{ kite['image_name'] }}">
+            </div>
+            <h4>Attributes</h4>
+            <div class="attributes_section">
+                <ul>
+                    <li><span class="attribute">Skill</span><span class="rating">{{ kite['difficulty'] }}</span></li>
+                    <li><span class="attribute">Power</span><span class="rating">{{ kite['power'] }}</span></li>
+                    <li><span class="attribute">Speed</span><span class="rating">{{ kite['speed'] }}</span></li>
+                    <li><span class="attribute">Price</span><span class="rating">{{ kite['price'] }}</span></li>
+                </ul>
+            </div>
+            <div class="info_section">
+                <h4>More Info</h4>
+                <ul>
+                    <li><a href="{{ kite['amazon url'] }}"><span>Amazon</span></a></li>
+                    <li><a href="{{ kite['manufacturer_url'] }}"><span>Manufacturer</span></a></li>
+                    <li><a href="{{ kite['video_url'] }}"><span>Video</span></a></li>
+                </ul>
+            </div>
         </div>
-        <h4>Attributes</h4>
-        <div class="attributes_section">
-            <ul>
-                <li><span class="attribute">Difficulty</span><span class="rating">{{ kite['difficulty'] }}</span></li>
-                <li><span class="attribute">Power</span><span class="rating">{{ kite['power'] }}</span></li>
-                <li><span class="attribute">Speed</span><span class="rating">{{ kite['speed'] }}</span></li>
-                <li><span class="attribute">Price</span><span class="rating">{{ kite['price'] }}</span></li>
-            </ul>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<div class="section">
+<h2>Dual-Line Stunt Kites</h2>
+<div class="subtitle">Reliable and solid dual-line stunt kites for people who want to zig, zag, and tumble.</div>
+    {% for kite in kites['stunt'] %}
+    {% if kite['order'] != '9' %}
+        <div class="col_1_3rd kite">
+            <div class="kite_header">
+                <h3>{{ kite['name'] }}</h3>
+                <img alt={{ kite['name'] }} src="../../static/img/kites/{{ kite['image_name'] }}">
+            </div>
+            <h4>Attributes</h4>
+            <div class="attributes_section">
+                <ul>
+                    <li><span class="attribute">Skill</span><span class="rating">{{ kite['difficulty'] }}</span></li>
+                    <li><span class="attribute">Power</span><span class="rating">{{ kite['power'] }}</span></li>
+                    <li><span class="attribute">Speed</span><span class="rating">{{ kite['speed'] }}</span></li>
+                    <li><span class="attribute">Price</span><span class="rating">{{ kite['price'] }}</span></li>
+                </ul>
+            </div>
+            <div class="info_section">
+                <h4>More Info</h4>
+                <ul>
+                    <li><a href="{{ kite['amazon url'] }}"><span>Amazon</span></a></li>
+                    <li><a href="{{ kite['manufacturer_url'] }}"><span>Manufacturer</span></a></li>
+                    <li><a href="{{ kite['video_url'] }}"><span>Video</span></a></li>
+                </ul>
+            </div>
         </div>
-        <div class="info_section">
-            <h4>More Info</h4>
-            <ul>
-                <li><a href="{{ kite['amazon url'] }}"><span>Amazon</span></a></li>
-                <li><a href="{{ kite['manufacturer_url'] }}"><span>Manufacturer</span></a></li>
-                <li><a href="{{ kite['video_url'] }}"><span>Video</span></a></li>
-            </ul>
-        </div>
-    </div>
+    {% endif %}
     {% endfor %}
 </div>
 {% endblock %}
