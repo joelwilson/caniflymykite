@@ -390,14 +390,6 @@ form .submit:hover {
     min-width: 230px;
 }
 
-.kite blockquote, ul {
-    line-height: 1.25em;
-}
-
-.kite blockquote, ul, a {
-    font-size: 1em;
-}
-
 .kite h3 {
     height: 100%;
     margin: 0 10px;
