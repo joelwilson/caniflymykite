@@ -17,9 +17,19 @@ p {
     line-height: 2em;
 }
 
+.content p {
+    width: 90%;
+    margin: auto;
+}
+
 a {
     text-decoration: none;
-    color: #FCFCFC;
+    color: #101010;
+    background: #e3e3e3;
+}
+
+a:hover {
+    background: #ebebeb;
 }
 
 h1, h2, h3, h4, h5 {
@@ -36,7 +46,7 @@ h1 {
 
 h2 {
     font-size: 2em; /* 28 px  / 16 px */
-    margin: 10px 0 0 0px;
+    margin: 0;
 }
 
 h3 {
@@ -97,6 +107,8 @@ nav {
 
 nav a {
     display: block;
+    color: #FCFCFC;
+    background: none;
 }
 
 a.logo {
@@ -137,6 +149,7 @@ nav ul li a{
 
 nav .links a:hover{
     border-color: #DDDDDD;
+    background: #6E6E6E;
 }
 
 nav ul, img {
@@ -146,6 +159,7 @@ nav ul, img {
 
 .social_buttons {
     float: right;
+    margin-top: 3px;
 }
 
 .site_name_header {
@@ -328,18 +342,35 @@ form .submit:hover {
     display: block;
 }
 
+.kite_button:hover {
+    background: #E73138;
+    background: -moz-linear-gradient(top,  #E73138 0%, #AF1D15 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E73138), color-stop(100%,#AF1D15)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #E73138 0%,#AF1D15 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #E73138 0%,#AF1D15 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #E73138 0%,#AF1D15 100%); /* IE10+ */
+}
+
 .col_1_3rd {
     width: 30%;
     height: 100%;
-    margin: 0 0 0 2.25%;
+    margin: 0 0 0 2.5%;
     float: left;
 }
 
 .col_2_3rd {
-    width: 60%;
+    width: 62.5%;
     height: 100%;
-    margin: 0 3.3333333%;
+    margin: 0 0 0 2.5%;
     float: left;
+}
+
+.col_1_half {
+    width: 46.5%;
+    height: 100%;
+    margin: 0 0 0 2.5%;
+    float: left;
+    display: block;
 }
 
 .box_pad {
@@ -381,23 +412,30 @@ form .submit:hover {
 /* ************* */
 /* Kites page layout  */
 /* ************* */
-.kite {
-    color: #101010;
-    margin-top: 25px;
+.standout {
     border-top: solid 5px #101010;
     border-bottom: solid 5px #101010;
     border-radius: 10px;
+}
+
+.legend {
+
+}
+
+.kite {
+    color: #101010;
+    margin-top: 25px;
     min-width: 230px;
 }
 
 .kite h3 {
     height: 100%;
-    margin: 0 10px;
+    margin: 0 5px;
     line-height: 1.75em;
 }
 
 .kite h4 {
-    margin: 10px 0 5px 10px;
+    margin: 10px 0 5px 5px;
 }
 
 .kite_header {
@@ -411,7 +449,7 @@ form .submit:hover {
 }
 
 .attributes_section ul {
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
 }
 
@@ -421,19 +459,20 @@ form .submit:hover {
 }
 
 .attribute {
+    font-family: verdana, sans-serif;
+    font-style: italic;
     position: relative;
-    left: 10px;
+    left: 8px;
 }
 
 .rating {
-    letter-spacing: 0.25em;
+    letter-spacing: -0.1em;
     float: right;
     position: relative;
-    right: 10px;
+    right: 8px;
 }
 
 .info_section ul {
-    width: 100%;
     margin: 0 auto;
 }
 
@@ -449,6 +488,7 @@ form .submit:hover {
     display: inline-block;
     width: 100%;
     color: #101010;
+    background: none;
 }
 
 .info_section a:hover {
@@ -457,5 +497,5 @@ form .submit:hover {
 
 .info_section span {
     position: relative;
-    left: 20px;
+    left: 10px;
 }
