@@ -2,9 +2,36 @@
 {% block title %}Kites - {% endblock %}
 {% block top %}
 <h1 class="page_title">Kites We Like</h1>
-<p class='col_1_half'>We scoured the Internet and quizzed the invaluably helpful experts at the <a href="http://www.gwtwforum.com" target="_blank">GWTW Kite Forum</a> in order to assemble the groups of reliable kites listed on this page. Our hope is to help people find the right kite for them by presenting quality and reliable kites alongside actionable information.</p>
+<p class='col_1_half'>We scoured the Internet and quizzed the knowledgable experts at the <a href="http://www.gwtwforum.com" target="_blank">GWTW Kite Forum</a> in order to assemble the groups of reliable kites listed on this page. Our hope is to help people find the right kite for them by presenting quality and reliable kites alongside actionable information.</p>
+<!-- kite attribute legend -->
 <div class='col_1_half standout legend'>
-    <h3>Legend</h3>
+    <h3>Skills</h3>
+    <table>
+        <tr>
+            <th scope="col"><h4>Novice</h4></th>
+            <th scope="col"><h4>Advanced</h4></th>
+            <th scope="col"><h4>Expert</h4></th>
+        </tr>
+        <tr>
+            <td>New kid on the block.</td>
+            <td>Got a feel for it.</td>
+            <td>Been around the block.</td>
+        </tr>
+    </table>
+    <h3>Wind Speed (mph)</h3>
+    <table>
+        <tr>
+            <th scope="col"><h4>Low</h4></th>
+            <th scope="col"><h4>Med</h4></th>
+            <th scope="col"><h4>High</h4></th>
+        </tr>
+        <tr>
+            <td>2 - 5</td>
+            <td>6 - 15</td>
+            <td>16 - 25</td>
+        </tr>
+    </table>
+    
     
 </div>
 {% endblock %}
@@ -25,7 +52,7 @@
                     <li><span class="attribute">Skill</span><span class="rating">{{ kite['skill'] }}</span></li>
                     <li><span class="attribute">Pull</span><span class="rating">{{ kite['pull'] }}</span></li>
                     <li><span class="attribute">Speed</span><span class="rating">{{ kite['speed'] }}</span></li>
-                    <li><span class="attribute">Wind</span><span class="rating">{{ kite['wind_range'] }}</span></li>
+                    <li><span class="attribute">Wind</span><span class="rating">{{ kite['wind_text'] }}</span></li>
                     <li><span class="attribute">Price</span><span class="rating">{{ kite['price_range'] }}</span></li>
                 </ul>
             </div>

@@ -418,8 +418,24 @@ form .submit:hover {
     border-radius: 10px;
 }
 
-.legend {
+.legend h3 {
+    margin-left: 10px;
+}
 
+.legend table {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 0.9em;
+}
+
+.legend table:last-child {
+    margin-bottom: 10px;
+}
+
+.legend td, th {
+    text-align: left;
+    width: 33.333%;
+    padding-left: 2px;
 }
 
 .kite {
