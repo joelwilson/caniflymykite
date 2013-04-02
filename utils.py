@@ -16,15 +16,18 @@ def distance(start, end):
     '''Returns the distance (kilometers) between two points on the Earth.
     
     Uses the Spherical Law of Cosines to calculate distance.'''
-    R = 6371        # Earth's radius in KM
+    radius = 6371        # Earth's radius in KM
     start = (math.radians(start[0]), math.radians(start[1]))
     end = (math.radians(end[0]), math.radians(end[1]))
-    d = (math.acos(math.sin(start[0]) * math.sin(end[0]) +
-         math.cos(start[0]) * math.cos(end[0]) *
-         math.cos(end[1] - start[1])) * R)
-    return (round(d, 2) if len(str(d).split('.')[0]) <= 2 else
-            round(d, 1) if len(str(d).split('.')[0]) == 3 else
-            round(d))
+    dist = (math.acos(math.sin(start[0]) * math.sin(end[0]) +
+            math.cos(start[0]) * math.cos(end[0]) *
+            math.cos(end[1] - start[1])) * radius)
+
+            # Rounds the distance to more precision for smaller distances.
+            # This increases accuracy for very small distances.
+    return (round(dist, 2) if len(str(dist).split('.')[0]) <= 2 else
+            round(dist, 1) if len(str(dist).split('.')[0]) == 3 else
+            round(dist))
 
 
 def tomph(knots, precision=1):

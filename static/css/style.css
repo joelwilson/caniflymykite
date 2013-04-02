@@ -4,22 +4,24 @@ html, body {
 
 body {
     margin: auto;
-    font-size: 100%;
+    font-size: 18px;
     color: #101010;
-    width: 90%; 
+    width: 90%;
     font-family: 'Arbutus Slab', georgia, serif;
     min-width: 500px;
-    max-width: 768px;
+    max-width: 900px;
     background-image: url("../../static/img/debut_light.png");
 }
 
 p {
-    line-height: 2em;
+    line-height: 1.618em;
+    margin-top: 0;
+    margin-bottom: 1.618em;
 }
 
 .content p {
-    width: 90%;
-    margin: auto;
+    margin: inherit auto;
+    width: 60%;
 }
 
 a {
@@ -40,27 +42,26 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-    font-size: 3em; /* 48 px  / 16 px */
+    font-size: 4.236em; /* golden modular scale on 18px base */
     margin: 10px 0 15px 0px;
 }
 
 h2 {
-    font-size: 2em; /* 28 px  / 16 px */
-    margin: 0;
+    font-size: 2.618em; /* golden modular scale on 18px base */
 }
 
 h3 {
-    font-size: 1.375em; /* 22 px / 16 px */
+    font-size: 1.618em; /* golden modular scale on 18px base */
     margin: 10px 0 10px 0px;
 }
 
 h4 {
-    font-size: 1.125em; /* 18px / 16px */
+    font-size: 1.125em;
     margin: 0;
 }
 
 h5 {
-    font-size: 1em; /* 16px / 16px */
+    font-size: 1em; /* 18px / 18px */
     margin: 0;
 }
 
@@ -172,8 +173,8 @@ nav ul, img {
 .page_title {
     width: 100%;
     margin-top: 0;
-    margin-bottom: 10px;
-    line-height: 1.25em;
+    margin-bottom: 0;
+    line-height: 1.618em;
     font-size: 3.5em;
 }
 
@@ -354,27 +355,30 @@ form .submit:hover {
 .col_1_3rd {
     width: 30%;
     height: 100%;
-    margin: 0 0 0 2.5%;
+    margin-left: 2.5%;
     float: left;
 }
 
 .col_2_3rd {
     width: 62.5%;
     height: 100%;
-    margin: 0 0 0 2.5%;
+    margin-left: 2.5%;
     float: left;
 }
 
 .col_1_half {
     width: 46.5%;
     height: 100%;
-    margin: 0 0 0 2.5%;
+    margin-left: 2.5%;
     float: left;
     display: block;
 }
 
+/* Featured places */
+/**************/
+
 .box_pad {
-    padding: 0 10%;
+    padding: 0 8%;
 }
 
 .featured {
@@ -383,6 +387,10 @@ form .submit:hover {
     margin-top: 10px;
     border-top: 2px solid #DDDDDD;
     border-bottom: 2px solid #DDDDDD;
+}
+
+.featured:hover {
+    border-color: #AAA;
 }
 
 .featured span {
@@ -406,7 +414,17 @@ form .submit:hover {
 .footer_text {
     margin: 0.5em 0 0 1em;
     display: block;
-    font-size: 1em;
+    font-size: 0.875em;
+}
+
+.footer a {
+    background: none;
+    color: #FCFCFC;
+}
+
+.footer a:hover {
+    background: none;
+    color: #DADADA;
 }
 
 /* ************* */

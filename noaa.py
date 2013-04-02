@@ -5,8 +5,6 @@ from collections import defaultdict
 
 import requests
 
-import utils
-
 
 __all__ = ['query_noaa', 'ForecastError', 'parse_forecast_xml',
            'isvalid', 'NOAA_ELEMS', 'canfly', 'forecast', 'Forecast']
@@ -143,7 +141,9 @@ def canfly(wind_speed, rain_prob, temperature):
     the current state of the weather.'''
 
     messages = {
-        'freezing': ['It is really freakin\' cold!', 'This is parka weather.', 'It is below freezing!'],
+        'freezing': ['It is really freakin\' cold!', 
+                     'This is parka weather.', 
+                     'It is below freezing!'],
         'nowind': ['Not much wind.', 'Hardly a whisper.'],
         'precip': ['Rain today!', 'It might be wet!'],
         'muchwind': ['Too much wind!', 'You\'ll get blown over!']
