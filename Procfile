@@ -1,1 +1,1 @@
-web: gunicorn cifmk:app -w 3
+web: gunicorn cifmk:APP -w 3
