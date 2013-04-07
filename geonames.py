@@ -34,6 +34,7 @@ def weather(lat, lon, user=USERNAME):
             return None
     return None
 
+
 def nearestplace(lat, lon, user=USERNAME):
     ''''Returns a dict of attributes of the closest geographical place.'''
     r = requests.get(BASE_URL + '/findNearbyPlaceNameJSON',

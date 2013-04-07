@@ -127,6 +127,18 @@ def isvalid(xml):
     return True
 
 
+def ziplatlon(zipcode):
+    '''Returns a tuple of the lat and lon for the passed zip code.'''
+    noaa_url = 'http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php'
+    zip_param = {'listZipCodeList': zipcode}
+    # Get the http response from NOAA containing XML data (hopefully)
+    r = requests.get(noaa_url, params=zip_param)
+    if r.ok and isvalid(r.text):
+        root = ET.fromstring(r.text)
+        return root[0].text.split(',')
+    return False
+
+
 def canfly(wind_speed, rain_prob, temperature):
     '''Given the passed elements, returns a 2-element tuple.
 

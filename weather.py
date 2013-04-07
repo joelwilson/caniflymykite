@@ -1,6 +1,6 @@
 import noaa
 import geonames as gn
-from utils import heading, tomph, ctof
+from utils import heading, tomph, ctof, iszip
 
 
 class WeatherError(Exception):
@@ -65,15 +65,22 @@ def forecast(lat, lon):
     '''Helper function for retrieving forecast data from the NOAA.'''
     return noaa.forecast(lat, lon)
 
+
 def currentweather(lat, lon):
     '''Helper function for retrieving current weather data from a
     weather station nearest to the given lat, lon point.'''
     return gn.weather(lat, lon)
 
+
 def getbylocation(location):
     '''Returns a Weather object for the given location name.'''
-    place = gn.search(location)[0]
-    return Weather(place['lat'], place['lng'])
+    if iszip(location):
+        lat, lon = noaa.ziplatlon(int(location))
+        return Weather(lat, lon)
+    else:
+        place = gn.search(location)[0]
+        return Weather(place['lat'], place['lng'])
+
 
 def getbylatlon(lat, lon):
     '''Returns a Weather object for the given lat, lon.'''

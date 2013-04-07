@@ -43,7 +43,7 @@ def get_weather():
     elif request.args['location']:
         try:
             weather_info = weather.getbylocation(request.args['location'])
-        except WeatherError:
+        except weather.WeatherError, noaa.ForecastError:
             abort(404)
     else:
         weather_info = None

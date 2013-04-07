@@ -4,7 +4,7 @@ from utils import tomph, between, heading, closest_point, distance, ctof
 
 
 class TestUtils():
-    def testbetween(self):
+    def test_between(self):
         assert_true(between(23.4, 20, 40))
         assert_true(between(1, 1, 10))
         assert_true(between(10, 1, 10))
@@ -68,3 +68,9 @@ class TestUtils():
 
     def test_ctof(self):
         assert_equals(ctof(0), 32.0)
+    
+    def test_iszip(self):
+        assert_True('90210')
+        assert_True(12345)
+        assert_False('')
+        assert_False('654321')

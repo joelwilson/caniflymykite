@@ -1,4 +1,5 @@
 import math
+import re
 
 
 def between(num, low, high):
@@ -29,6 +30,17 @@ def distance(start, end):
             round(dist, 1) if len(str(dist).split('.')[0]) == 3 else
             round(dist))
 
+
+def iszip(suspect):
+    '''Based on the passed paramter, returns True if it looks like a
+    valid zip code. Otherwise, it returns False.'''
+    pattern = '^\d{5}$'
+    match = re.match(pattern, str(suspect))
+    return True if match is not None else False
+
+##############
+## Unit Conversion tools
+##############
 
 def tomph(knots, precision=1):
     '''Converts knots to MPH.'''
