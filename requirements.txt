@@ -8,3 +8,4 @@ nose==1.2.1
 pep8==1.4
 pylint==0.26.0
 requests==1.0.4
+gunicorn==0.17.2
