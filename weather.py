@@ -1,5 +1,6 @@
 import noaa
 import geonames as gn
+import wunderground
 from utils import heading, tomph, ctof, iszip
 
 
@@ -10,39 +11,62 @@ class WeatherError(Exception):
 
 class Weather(object):
     '''Object containing weather information for a lat, lon point.'''
-    def __init__(self, lat, lon):
-        self.forecast = forecast(lat, lon)
-        self.current = currentweather(lat, lon)
-        self.place = gn.nearestplace(lat, lon)
-        self.elements = {
-            'lat': float(lat),
-            'lon': float(lon),
-            'wind_speed': tomph(self.forecast.get('wind_speed')),
-            'wind_dir': heading(self.forecast.get('wind_dir')),
-            'rain_prob': self.forecast.get('rain_prob'),
-            'temperature': self.forecast.get('temperature'),
-            'city_name': self.place['name'],
-            'state': self.place['adminCode1']
-        }
-        if self.current is not None:
-            self.elements['wind_speed'] = tomph(
-                                          self.current['windSpeed'])
-            self.elements['temperature'] = ctof(
-                                           self.current['temperature'])
+    def __init__(self, query):
+        '''Given a query/search text, populates the weather info.'''
+        self.raw = wunderground.conditions_and_forecast(query)       
+        found = False
+        tries = 3
+        # Wunderground does something wierd if it has more than 1 match
+        # for a location. It returns an intermediate-like json response
+        # containing each location it has that are close matches. We will
+        # try the first match automatically until a match is found.
+        # Otherwise, give up after 'tries' are up.
+        while not found:
+            tries -= 1
+            # Let's assume it gave a match
             try:
-                self.elements['wind_dir'] = heading(
-                                            self.current['windDirection'])
-            except KeyError:
-                pass
-            self.elements['datetime'] = self.current['datetime']
-            self.elements['stationlat'] = self.current['lat']
-            self.elements['stationlon'] = self.current['lng']
-            self.elements['stationname'] = self.current['stationName']
-            self.elements['stationid'] = self.current['ICAO']
+                self.forecast = self.raw['forecast']['simpleforecast']['forecastday']
+                self.current = self.raw['current_observation']
+                found = True
+            # No match, let's try again
+            except KeyError, e:
+                self.raw = wunderground.conditions_and_forecast(
+                    '{city}, {state} {country}'.format(
+                        city=self.raw['response']['results'][0]['city'],
+                        state=self.raw['response']['results'][0]['state'],
+                        country=self.raw['response']['results'][0]['country_name']
+                    )
+                )
+            # did we find it?
+            if tries == 0 and not found:
+                break
+        self.elements = {
+            # Location info  
+            'city_name': self.current['display_location']['city'],
+            'state': self.current['display_location']['state'],
+            'lat': self.current['display_location']['latitude'],
+            'lon': self.current['display_location']['longitude'],
+            # Station info
+            'station_id': self.current['station_id'],
+            'station_name': self.current['observation_location']['full'],
+            'station_lat': self.current['observation_location']['latitude'],
+            'station_lon': self.current['observation_location']['longitude'],
+            # Current conditions info
+            'wind_mph': self.current['wind_mph'],
+            'wind_kph': self.current['wind_kph'],
+            'wind_dir': heading(self.current['wind_degrees']),
+            'wind_gust_kph': self.current['wind_gust_kph'],
+            'wind_gust_mph': self.current['wind_gust_mph'],
+            'temp_f': int(self.current['temp_f']),
+            'temp_c': int(self.current['temp_c']),
+            'weather': self.current['weather'],
+            # Forecast info
+            'rain_prob': self.forecast[0]['pop']
+        }
         self.elements['canfly'] = noaa.canfly(
-            self.elements['wind_speed'],
+            self.elements['wind_mph'],
             self.elements['rain_prob'],
-            self.elements['temperature']
+            self.elements['temp_f']
         )
 
     def __getitem__(self, key):

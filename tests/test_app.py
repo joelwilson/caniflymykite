@@ -5,8 +5,8 @@ import cifmk
 
 class TestWebApp():
     def setUp(self):
-        cifmk.app.config['TESTING'] = True
-        self.app = cifmk.app.test_client()
+        cifmk.APP.config['TESTING'] = True
+        self.app = cifmk.APP.test_client()
         
     def tearDown(self):
         pass

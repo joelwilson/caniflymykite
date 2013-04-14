@@ -23,6 +23,12 @@ def query_wunderground(api_key, features, query, file_format="json"):
     return json.loads(r.text)
 
 
+def conditions_and_forecast(query):
+    '''Returns a dict containing forecast and current conditions for
+    the location in query.'''
+    return query_wunderground(API_KEY, ['conditions', 'forecast'], query)
+    
+
 def current_conditions(query):
     '''Searches Wunderground for a location matching the given query. 
     Returns a dict of results as returned from Wunderground.'''
@@ -36,4 +42,4 @@ def forecast(query):
 
 if __name__ == '__main__':
     from pprint import pprint
-    pprint(current_conditions('springfield'))
+    pprint(conditions_and_forecast(97217))

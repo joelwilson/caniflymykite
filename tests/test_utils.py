@@ -1,6 +1,6 @@
 from nose.tools import *
 
-from utils import tomph, between, heading, closest_point, distance, ctof
+from utils import tomph, between, heading, closest_point, distance, ctof, iszip
 
 
 class TestUtils():
@@ -70,7 +70,7 @@ class TestUtils():
         assert_equals(ctof(0), 32.0)
     
     def test_iszip(self):
-        assert_True('90210')
-        assert_True(12345)
-        assert_False('')
-        assert_False('654321')
+        assert_true(iszip('90210'))
+        assert_true(iszip(12345))
+        assert_false(iszip(''))
+        assert_false(iszip('654321'))

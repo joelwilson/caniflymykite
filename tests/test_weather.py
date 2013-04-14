@@ -5,19 +5,17 @@ from weather import Weather
 
 class TestWeather():
     def test_weather_modesto(self):
-        weather = Weather(37.6392, -120.9958)
+        weather = Weather('Modesto, ca')
         assert_is_not_none(weather.current)
-        assert_equals(weather['stationid'], u'KMOD')
-        assert_is_not_none(weather['wind_speed'])
-        assert_is_not_none(weather['temperature'])
-        assert_is_not_none(weather['wind_speed'])  
+        assert_in('station_id', weather.elements.keys())
+        assert_is_not_none(weather['wind_mph'])
+        assert_is_not_none(weather['temp_f'])
         assert_is_not_none(weather['canfly'])
         
     def test_weather_san_francisco(self):
-        weather = Weather(37.7749295, -122.4194155)
+        weather = Weather('San Francisco, ca')
         assert_is_not_none(weather.current)
-        assert_equals(weather['stationid'], u'KSFO')
-        assert_is_not_none(weather['wind_speed'])
-        assert_is_not_none(weather['temperature'])
-        assert_is_not_none(weather['wind_speed'])  
+        assert_in('station_id', weather.elements.keys())
+        assert_is_not_none(weather['wind_mph'])
+        assert_is_not_none(weather['temp_f'])
         assert_is_not_none(weather['canfly'])  
