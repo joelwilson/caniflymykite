@@ -7,12 +7,12 @@ import kites
 import noaa
 
 
-APP = Flask(__name__)
+app = Flask(__name__)
 DEBUG = False if os.environ['CIFMK_DEBUG'].upper() == 'FALSE' else True
 KITES = kites.get_kites()
 
 
-@APP.route('/')
+@app.route('/')
 def index():
     '''Returns the page for the index/landing page.'''
     featured_places = [
@@ -28,7 +28,7 @@ def index():
     return render_template('index.html', featured_places=featured_places)
 
 
-@APP.route('/weather', methods=['GET'])
+@app.route('/weather', methods=['GET'])
 def get_weather():
     '''Render the page for the passed http location parameters.
     
@@ -44,43 +44,43 @@ def get_weather():
     return render_template('weather.html', **weather_info.elements)
 
 
-@APP.route('/about')
+@app.route('/about')
 def about():
     '''Returns the rendered about page.'''
     return render_template('about.html')
 
 
-@APP.route('/kites')
+@app.route('/kites')
 def kites_we_like():
     '''Returns the rendered "Kites We Like" page.'''
     return render_template('kites.html', kites=KITES)
 
     
-@APP.route('/blog')
+@app.route('/blog')
 def blog():
     '''Returns the URL for the blog.'''
     return redirect('', code=301)
 
 
-@APP.route('/newsletter')
+@app.route('/newsletter')
 def newsletter():
     '''Returns the newsletter page.'''
     return render_template('newsletter.html')
 
 
-@APP.errorhandler(404)
+@app.errorhandler(404)
 def page_not_found(error):
     '''Displays the custom 404 page.'''
     return render_template('404.html'), 404
 
 
-@APP.route('/sitemap.xml')
-@APP.route('/robots.txt')
+@app.route('/sitemap.xml')
+@app.route('/robots.txt')
 def static_from_root():
     '''Sends the file in the route from the static folder to the browser.'''
-    return send_from_directory(APP.static_folder, request.path[1:])
+    return send_from_directory(app.static_folder, request.path[1:])
 
 
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 5000))
-    APP.run(host='0.0.0.0', port=PORT, debug=DEBUG)
+    app.run(host='0.0.0.0', port=PORT, debug=DEBUG)
