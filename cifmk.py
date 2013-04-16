@@ -1,30 +1,44 @@
 import os
+
 from flask import Flask, render_template, abort, request, redirect, \
                   send_from_directory
 
 import weather
 import kites
 import noaa
+import utils
 
 
 app = Flask(__name__)
 DEBUG = False if os.environ['CIFMK_DEBUG'].upper() == 'FALSE' else True
+# these break Wunderground if in the query to the API
+BAD_CHARS = ['.']
 KITES = kites.get_kites()
+KITE_CACHE = {}
 
 
 @app.route('/')
 def index():
     '''Returns the page for the index/landing page.'''
+    global KITE_CACHE
     featured_places = [
         {'name': 'San Francisco', 'query': 'San Francisco, CA'},
         {'name': 'Santa Monica', 'query': 'Santa Monica, CA'},
         {'name': 'Seattle, WA', 'query': 'Seattle, WA'}
     ]
     for place in featured_places:
-        place_weather = weather.Weather(place['query'])
-        place['wind_speed'] = place_weather['wind_mph']
-        place['temperature'] = place_weather['temp_f']
-        place['canfly'] = place_weather['canfly']
+        # Do some wacky, messy cache thing for the front page so it doesn't
+        # call the Wunderground API EVERY time the front page is loaded.
+        query = place['query']
+        max = 300 # 5 mins
+        cache_keys = KITE_CACHE.keys()
+        if query not in cache_keys or (query in keys and KITE_CACHE[query].age() > max):
+            KITE_CACHE[query] = weather.Weather(
+                utils.rem_chars(place['query'], BAD_CHARS)
+            )
+        place['wind_speed'] = KITE_CACHE[query]['wind_mph']
+        place['temperature'] = KITE_CACHE[query]['temp_f']
+        place['canfly'] = KITE_CACHE[query]['canfly']
     return render_template('index.html', featured_places=featured_places)
 
 
@@ -38,7 +52,9 @@ def get_weather():
         abort(404)
     if request.args['location']:
         try:
-            weather_info = weather.Weather(request.args['location'])
+            weather_info = weather.Weather(
+                utils.rem_chars(request.args['location'], BAD_CHARS)
+            )
         except weather.WeatherError:
             abort(404)
     return render_template('weather.html', **weather_info.elements)

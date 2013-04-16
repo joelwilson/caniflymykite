@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import noaa
 import geonames as gn
 import wunderground
@@ -29,7 +31,7 @@ class Weather(object):
                 self.current = self.raw['current_observation']
                 found = True
             # No match, let's try again
-            except KeyError, e:
+            except KeyError:
                 self.raw = wunderground.conditions_and_forecast(
                     '{city}, {state} {country}'.format(
                         city=self.raw['response']['results'][0]['city'],
@@ -41,6 +43,13 @@ class Weather(object):
             if tries == 0 and not found:
                 break
         self.elements = {
+            # Date & Time
+            'creation_time': datetime.utcnow(),
+            'time_text': self.current['observation_time'],
+            'time_epoch': float(self.current['local_epoch']),
+            'time_offset': int(self.current['local_tz_offset']),
+            'time_local': datetime.fromtimestamp(float(self.current['local_epoch'])),
+            'time_utc': datetime.utcfromtimestamp(float(self.current['local_epoch'])),
             # Location info  
             'city_name': self.current['display_location']['city'],
             'state': self.current['display_location']['state'],
@@ -68,6 +77,14 @@ class Weather(object):
             self.elements['rain_prob'],
             self.elements['temp_f']
         )
+
+    def observation_age(self):
+        '''Return the number of seconds since the weather observation.'''
+        return (datetime.utcnow() - self.elements['time_utc']).seconds
+
+    def age(self):
+        '''Returns the number of seconds since object creation.'''
+        return (datetime.utcnow() - self.elements['creation_time']).seconds
 
     def __getitem__(self, key):
         return self.elements[key]

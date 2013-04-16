@@ -1,6 +1,6 @@
 from nose.tools import *
 
-from utils import tomph, between, heading, closest_point, distance, ctof, iszip
+from utils import tomph, between, heading, closest_point, distance, ctof, iszip, rem_chars
 
 
 class TestUtils():
@@ -74,3 +74,6 @@ class TestUtils():
         assert_true(iszip(12345))
         assert_false(iszip(''))
         assert_false(iszip('654321'))
+
+    def test_rem_chars(self):
+        assert_equal('blah', rem_chars('.blah!', ['.', '!']))

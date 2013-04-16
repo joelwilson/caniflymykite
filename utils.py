@@ -38,6 +38,16 @@ def iszip(suspect):
     match = re.match(pattern, str(suspect))
     return True if match is not None else False
 
+
+def rem_chars(text, charlist):
+    '''Returns text with all characters in charlist removed.'''
+    new_text = text
+    for char in charlist:
+        if char in new_text:
+            new_text = new_text.replace(char, '')
+    return new_text
+
+
 ##############
 ## Unit Conversion tools
 ##############
