@@ -32,7 +32,7 @@ def index():
         query = place['query']
         max = 300 # 5 mins
         cache_keys = KITE_CACHE.keys()
-        if query not in cache_keys or (query in keys and KITE_CACHE[query].age() > max):
+        if query not in cache_keys or (query in cache_keys and KITE_CACHE[query].age() > max):
             KITE_CACHE[query] = weather.Weather(
                 utils.rem_chars(place['query'], BAD_CHARS)
             )
