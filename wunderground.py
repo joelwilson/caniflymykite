@@ -42,4 +42,4 @@ def forecast(query):
 
 if __name__ == '__main__':
     from pprint import pprint
-    pprint(conditions_and_forecast(97217))
+    pprint(conditions_and_forecast('Aachen, germany'))

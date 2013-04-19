@@ -15,23 +15,27 @@ class Weather(object):
     '''Object containing weather information for a lat, lon point.'''
     def __init__(self, query):
         '''Given a query/search text, populates the weather info.'''
-        self.raw = wunderground.conditions_and_forecast(query)       
-        found = False
+        self.raw = wunderground.conditions_and_forecast(query)    
         tries = 3
         # Wunderground does something wierd if it has more than 1 match
         # for a location. It returns an intermediate-like json response
         # containing each location it has that are close matches. We will
-        # try the first match automatically until a match is found.
-        # Otherwise, give up after 'tries' are up.
-        while not found:
+        # try the first match automatically until a  true match is found.
+        # Otherwise, give up after 'tries' are depleted.
+        while tries > 0:
+            with open('tries.txt', 'a') as _file:
+                _file.write(str(self.raw))
             tries -= 1
-            # Let's assume it gave a match
+            # Let's assume we have a match
             try:
                 self.forecast = self.raw['forecast']['simpleforecast']['forecastday']
                 self.current = self.raw['current_observation']
-                found = True
+                self.load_elements()
+                break
             # No match, let's try again
-            except KeyError:
+            except KeyError, e:
+                if 'error' in self.raw['response'].keys():
+                    raise WeatherError(self.raw['response']['error']['type'])
                 self.raw = wunderground.conditions_and_forecast(
                     '{city}, {state} {country}'.format(
                         city=self.raw['response']['results'][0]['city'],
@@ -39,9 +43,8 @@ class Weather(object):
                         country=self.raw['response']['results'][0]['country_name']
                     )
                 )
-            # did we find it?
-            if tries == 0 and not found:
-                break
+
+    def load_elements(self):
         self.elements = {
             # Date & Time
             'creation_time': datetime.utcnow(),
@@ -51,8 +54,10 @@ class Weather(object):
             'time_local': datetime.fromtimestamp(float(self.current['local_epoch'])),
             'time_utc': datetime.utcfromtimestamp(float(self.current['local_epoch'])),
             # Location info  
-            'city_name': self.current['display_location']['city'],
+            'full_name': self.current['display_location']['full'],
+            'city': self.current['display_location']['city'],
             'state': self.current['display_location']['state'],
+            'country': self.current['display_location']['country'],
             'lat': self.current['display_location']['latitude'],
             'lon': self.current['display_location']['longitude'],
             # Station info

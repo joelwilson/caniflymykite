@@ -4,7 +4,7 @@
 {% block nav_location %}{% endblock %}
 {% block top %}
     <h1 class="page_title">Can I Fly My Kite?</h1>
-    <h2 class="sub_header">{{ city_name }}, {{ state }}</h2>
+    <h2 class="sub_header">{{ full_name }}</h2>
 {% endblock %}
 {% block content %}
     <!-- 1st section: Answer & Wind Speed -->
@@ -16,7 +16,8 @@
         <div class="wind_box">
             <ul>
                 <li><img src="{{ url_for('static', filename='img/sock.png')}}" alt="Wind Speed"/>
-                    <h2 class="wind_speed">{{ wind_mph }} mph</h2></li>
+                    <h2 class="wind_mph">{{ wind_mph }} mph</h2></li>
+                <li><h3 class="wind_kph">({{ wind_kph }} kph)</h3></li>
                 <li><h3 class="wind_direction">{{ wind_dir }}</h3></li>
             </ul>
         </div>
@@ -33,7 +34,7 @@
             <ul class="weather_item">
                 <li><img src="{{ url_for('static', filename='img/temp.png')}}" alt="Temperature"/></li>
                 <li><h3 class="weather_label">Temperature</h3></li>
-                <li><h3 class="weather_value">{{ temp_f }}&#176;F</h3></li>
+                <li><h3 class="weather_value">{{ temp_f }}&#176;F <span class="temp_c">({{ temp_c }}&#176;C)</span></h3></li>
             </ul>
         </div>
         <div class="col_1_3rd">
