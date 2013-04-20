@@ -23,7 +23,7 @@ def index():
     global KITE_CACHE
     featured_places = [
         {'name': 'San Francisco', 'query': 'San Francisco, CA'},
-        {'name': 'Santa Monica', 'query': 'Santa Monica, CA'},
+        {'name': 'London', 'query': 'London, England'},
         {'name': 'Seattle, WA', 'query': 'Seattle, WA'}
     ]
     for place in featured_places:
@@ -36,8 +36,10 @@ def index():
             KITE_CACHE[query] = weather.Weather(
                 utils.rem_chars(place['query'], BAD_CHARS)
             )
-        place['wind_speed'] = KITE_CACHE[query]['wind_mph']
-        place['temperature'] = KITE_CACHE[query]['temp_f']
+        place['wind_mph'] = int(round(KITE_CACHE[query]['wind_mph']))
+        place['wind_kph'] = int(round(KITE_CACHE[query]['wind_kph']))
+        place['temp_f'] = KITE_CACHE[query]['temp_f']
+        place['temp_c'] = KITE_CACHE[query]['temp_c']
         place['canfly'] = KITE_CACHE[query]['canfly']
     return render_template('index.html', featured_places=featured_places)
 

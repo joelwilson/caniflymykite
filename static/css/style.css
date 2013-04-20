@@ -5,7 +5,7 @@ html, body {
 body {
     margin: auto;
     font-size: 18px;
-    color: #363636;
+    color: #303030;
     width: 90%;
     font-family: 'Arbutus Slab', georgia, serif;
     min-width: 600px;
@@ -27,7 +27,7 @@ button {
     border: 0;
     font-size: 1.5em;
     color: #FCFCFC;
-    background-color: #363636;
+    background-color: #303030;
 }
 
 button:hover {
@@ -59,7 +59,7 @@ input {
 
 a {
     text-decoration: none;
-    color: #363636;
+    color: #303030;
     background: #e3e3e3;
 }
 
@@ -444,11 +444,11 @@ nav ul, img {
 }
 
 .featured span {
-    font-size: 1.25em;
+    font-size: 1.125em;
 }
 
 .featured a {
-    color: #363636;
+    color: #303030;
 }
 
 /* page footer layout */
@@ -471,8 +471,8 @@ nav ul, img {
 /* Kites page layout  */
 /* ************* */
 .standout {
-    border-top: solid 5px #101010;
-    border-bottom: solid 5px #101010;
+    border-top: solid 5px #303030;
+    border-bottom: solid 5px #303030;
     border-radius: 10px;
 }
 
@@ -497,7 +497,6 @@ nav ul, img {
 }
 
 .kite {
-    color: #101010;
     margin-top: 25px;
     min-width: 230px;
 }
@@ -516,10 +515,14 @@ nav ul, img {
     line-height: 0;
 }
 
+.kite_header a {
+    display: block;
+}
+
 .kite_header img {
     width: 100%;
-    border-top: solid 1px #101010;
-    border-bottom: solid 1px #101010;
+    border-top: solid 1px #303030;
+    border-bottom: solid 1px #303030;
 }
 
 .attributes_section ul {
@@ -561,7 +564,7 @@ nav ul, img {
 .info_section a {
     display: inline-block;
     width: 100%;
-    color: #101010;
+    color: #303030;
     background: none;
 }
 

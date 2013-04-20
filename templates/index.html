@@ -26,9 +26,9 @@
             <a href="/weather?location={{ place['query'] }}">
             <ul class="box_pad">
                 <li><h3>{{ place['name'] }}</h3></li>
-                <li><span>{{ place['canfly'][0] }}</span></li>
-                <li><span>{{ place['wind_speed'] }} mph</span></li>
-                <li><span>{{ place['temperature'] }}&#8457;</span></li>
+                <li><span><em>{{ place['canfly'][0] }}</em></span></li>
+                <li><span>{{ place['wind_mph'] }} mph | {{ place['wind_kph'] }} kph</span></li>
+                <li><span>{{ place['temp_f'] }}&#8457; | {{ place['temp_c'] }}&#8451;</span></li>
             </a>
             </ul>
         </div>

@@ -10,7 +10,6 @@ class Kite(dict):
             unicode_kwargs[key] = item.decode('utf-8')
         # call the dict objs init method, letting it do the dict setup magic
         super(Kite, self).__init__(**unicode_kwargs)
-        # u'\u2727'
 
 
 def get_kites(csvfile='./static/kites.csv'):
