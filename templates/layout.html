@@ -27,6 +27,7 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 
+    <!-- Navigation stuffs -->
     <nav>
         <a href="/" class="logo">CanIFlyMyKite?</a>
         <a href="#" class="location">{% block nav_location %}{% endblock %}</a>
@@ -37,6 +38,13 @@
             <li><a href="/">Home</a></li>
         </ul>
     </nav>
+    
+    <!-- top callout -->
+    <div class="top_callout">
+        <span>New features are in the works! <a class="simple_link" href="{{ url_for('newsletter') }}">Sign up</a> to receive updates and show your support!</span>
+    </div>
+    
+    <!-- Social media buttons -->
         <div class="social_buttons">
             <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
         </div>
@@ -54,9 +62,9 @@
     <div class="footer">
         {% block footer %}
         <span class="footer_text">
-            &copy; Copyright 2013 <a href="mailto:joel@caniflymykite.com">Joel Wilson</a> // <a href="http://twitter.com/joel_wilson">Twitter</a> // <a href="https://github.com/joelwilson">Github</a>
+            &copy; Copyright 2013 <a class="simple_link" href="mailto:joel@caniflymykite.com">Joel Wilson</a> // <a class="simple_link" href="http://twitter.com/joel_wilson">Twitter</a> // <a class="simple_link" href="https://github.com/joelwilson">Github</a>
             <br />Icons by Chirps
-            <br />Weather data from <a href="http://www.wunderground.com/?apiref=0fefffb446ca61ee">Wunderground</a>.
+            <br />Weather data from <a class="simple_link" href="http://www.wunderground.com/?apiref=0fefffb446ca61ee">Wunderground</a>.
         </span>
         {% endblock %}
     </div>

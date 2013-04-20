@@ -2,10 +2,26 @@
 {% block title %}Newsletter - {% endblock %}
 {% block head %}
     {{ super() }}
-    <meta http-equiv="REFRESH" content="5;url=http://eepurl.com/uRADT">
+    <!--<meta http-equiv="REFRESH" content="5;url=http://eepurl.com/uRADT">-->
 {% endblock %}
 {% block top %}
 {% endblock %}
 {% block content %}
-<p>Please wait while we redirect you to the newsletter signup page.</p>
+<h1 class="page_title">Newsletter Signup</h1>
+<p>Get updates and hear about new features! We promise to not share your email, and we strive to only send you relevant and interesting information.</p>
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup" class="col_1_half">
+<form action="http://caniflymykite.us6.list-manage1.com/subscribe/post?u=f77b24d342cd16dd6000eb2f5&amp;id=415c55d7e7" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate mailchimp_form" target="_blank" novalidate>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address  <span class="asterisk">*</span></label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>
+    <button type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">Subscribe</button>
+</form>
+</div>
+<!--End mc_embed_signup-->
 {% endblock %}
