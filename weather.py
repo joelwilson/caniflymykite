@@ -6,6 +6,17 @@ import wunderground
 from utils import heading, tomph, ctof, iszip
 
 
+def weather_memo(f):
+    '''Memoization decorator for caching the results of initiating
+    Weather objects.'''
+    cache = {}
+    def memoized(x):
+        if x not in cache or (x in cache and cache[x].age() <= 300):
+            cache[x] = f(x)
+        return cache[x]
+    return memoized
+
+
 class WeatherError(Exception):
     '''Basic exception class for exceptions in the Forecast class.'''
     pass
@@ -116,6 +127,11 @@ def currentweather(lat, lon):
     '''Helper function for retrieving current weather data from a
     weather station nearest to the given lat, lon point.'''
     return gn.weather(lat, lon)
+
+
+@weather_memo
+def getbyquery(query):
+    return Weather(query)
 
 
 def getbylocation(location):

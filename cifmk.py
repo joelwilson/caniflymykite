@@ -14,13 +14,11 @@ DEBUG = False if os.environ['CIFMK_DEBUG'].upper() == 'FALSE' else True
 # these break Wunderground if in the query to the API
 BAD_CHARS = ['.']
 KITES = kites.get_kites()
-KITE_CACHE = {}
 
 
 @app.route('/')
 def index():
     '''Returns the page for the index/landing page.'''
-    global KITE_CACHE
     featured_places = [
         {'name': 'San Francisco', 'query': 'San Francisco, CA'},
         {'name': 'London', 'query': 'London, England'},
@@ -30,17 +28,12 @@ def index():
         # Do some wacky, messy cache thing for the front page so it doesn't
         # call the Wunderground API EVERY time the front page is loaded.
         query = place['query']
-        max = 300 # 5 mins
-        cache_keys = KITE_CACHE.keys()
-        if query not in cache_keys or (query in cache_keys and KITE_CACHE[query].age() > max):
-            KITE_CACHE[query] = weather.Weather(
-                utils.rem_chars(place['query'], BAD_CHARS)
-            )
-        place['wind_mph'] = int(round(KITE_CACHE[query]['wind_mph']))
-        place['wind_kph'] = int(round(KITE_CACHE[query]['wind_kph']))
-        place['temp_f'] = KITE_CACHE[query]['temp_f']
-        place['temp_c'] = KITE_CACHE[query]['temp_c']
-        place['canfly'] = KITE_CACHE[query]['canfly']
+        w = weather.Weather(utils.rem_chars(place['query'], BAD_CHARS))
+        place['wind_mph'] = int(round(w['wind_mph']))
+        place['wind_kph'] = int(round(w['wind_kph']))
+        place['temp_f'] = w['temp_f']
+        place['temp_c'] = w['temp_c']
+        place['canfly'] = w['canfly']
     return render_template('index.html', featured_places=featured_places)
 
 
