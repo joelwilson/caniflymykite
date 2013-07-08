@@ -10,8 +10,8 @@ def weather_memo(f):
     '''Memoization decorator for caching the results of initiating
     Weather objects.'''
     cache = {}
-    def memoized(x):
-        if x not in cache or (x in cache and cache[x].age() <= 300):
+    def memoized(x, sec):
+        if x not in cache or (x in cache and cache[x].age() <= sec):
             cache[x] = f(x)
         return cache[x]
     return memoized
@@ -130,7 +130,7 @@ def currentweather(lat, lon):
 
 
 @weather_memo
-def getbyquery(query):
+def getbyquery(query, sec=300):
     return Weather(query)
 
 

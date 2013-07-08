@@ -28,7 +28,8 @@ def index():
         # Do some wacky, messy cache thing for the front page so it doesn't
         # call the Wunderground API EVERY time the front page is loaded.
         query = place['query']
-        w = weather.Weather(utils.rem_chars(place['query'], BAD_CHARS))
+        w = weather.getbyquery(utils.rem_chars(place['query'], BAD_CHARS),
+                               sec=600)
         place['wind_mph'] = int(round(w['wind_mph']))
         place['wind_kph'] = int(round(w['wind_kph']))
         place['temp_f'] = w['temp_f']
@@ -47,9 +48,10 @@ def get_weather():
         abort(404)
     if request.args['location']:
         try:
-            weather_info = weather.Weather(
-                utils.rem_chars(request.args['location'], BAD_CHARS)
-            )
+            weather_info = weather.getbyquery(
+                            utils.rem_chars(request.args['location'],
+                                            BAD_CHARS),
+                            sec=300)
         except weather.WeatherError:
             abort(404)
     return render_template('weather.html', **weather_info.elements)
