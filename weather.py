@@ -77,8 +77,8 @@ class Weather(object):
             'station_lat': self.current['observation_location']['latitude'],
             'station_lon': self.current['observation_location']['longitude'],
             # Current conditions info
-            'wind_mph': self.current['wind_mph'],
-            'wind_kph': self.current['wind_kph'],
+            'wind_mph': float(self.current['wind_mph']),
+            'wind_kph': float(self.current['wind_kph']),
             'wind_dir': heading(self.current['wind_degrees']),
             'wind_gust_kph': self.current['wind_gust_kph'],
             'wind_gust_mph': self.current['wind_gust_mph'],
