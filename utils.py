@@ -63,7 +63,7 @@ def ctof(temp, precision=1):
 
 
 def heading(deg):
-    '''Returns a string representation of an numerical direction in degrees.
+    '''Returns a string representation of a numerical direction in degrees.
 
     Examples:
         heading(360) => "N"
@@ -81,6 +81,7 @@ def heading(deg):
         'NW':  (292.6, 337.5),
         'N2':  (337.6, 360.0)
     }
+
     for key, val in head.iteritems():
         if between(deg, *val):
             return 'N' if key == 'N1' or key == 'N2' else key
